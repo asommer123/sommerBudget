@@ -12,9 +12,13 @@
 - [ ] Complete "Checkpoint 1" (don't forget to push to GitHub)
 
 ### Week 3
+- [ ] Start on database design
+- [ ] Start on shell classes for MonthBudget, Paycheck, Item, Envelope, User
+- [ ] Start on shell jsp's for monthly budget view, select monthly budget
 - [ ] Time log entries
 
 ### Week 4
+- [ ] Get monthly budget view to display basic info from database
 - [ ] Time log entries
 
 ### Week 5
