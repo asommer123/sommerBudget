@@ -25,7 +25,7 @@ create table income (
      pay_date          DATE,
      pay_amount        DECIMAL(7,2) NOT NULL,
      budget_month_id   int(11) NOT NULL,
-     PRIMARY KEY income_id,
+     PRIMARY KEY (income_id),
      FOREIGN KEY fk_budgetMonth(budget_month_id)
      REFERENCES budgetMonth(budget_month_id)
      ON DELETE CASCADE
@@ -36,7 +36,8 @@ create table income (
 create table category (
      category_id      int(11) NOT NULL AUTO_INCREMENT,
      category_name    varchar(60) NOT NULL,
-     account_id       int(11),
+     default_fl       BOOLEAN,
+     account_id       int(11) NOT NULL,
      PRIMARY KEY (category_id),
      FOREIGN KEY fk_account(account_id)
      REFERENCES users(account_id)
@@ -47,15 +48,27 @@ create table category (
 create table subCategory (
      subCategory_id   int(11) NOT NULL AUTO_INCREMENT,
      subCategory_name varchar(60) NOT NULL,
-     budget_amount    decimal(7,2),
+     default_fl       BOOLEAN,
+     day_of_month_due int(2),
+     category_id      int(11) NOT NULL,
+     PRIMARY KEY (subCategory_id),
+     FOREIGN KEY fk_category(category_id)
+     REFERENCES category(category_id)
+     ON DELETE CASCADE
+     ON UPDATE CASCADE
+);
+
+create table budgetedSubCategory (
+     budgeted_id      int(11) NOT NULL AUTO_INCREMENT,
+     budgeted_amount  DECIMAL(7,2),
      due_date         DATE,
      envelope_amount  DECIMAL(7,2),
      note             TEXT,
-     category_id      int(11),
-     budget_month_id  int(11),
-     PRIMARY KEY (subCategory_id),
-     FOREIGN KEY fk_category(category_id)
-     REFERENCES category(category_id),
+     subCategory_id   int(11) NOT NULL,
+     budget_month_id  int(11) NOT NULL,
+     PRIMARY KEY (budgeted_id),
+     FOREIGN KEY fk_subCategory(subCategory_id)
+     REFERENCES subCategory(subCategory_id),
      FOREIGN KEY fk_budetMonth(budget_month_id)
      REFERENCES budgetMonth(budget_month_id)
      ON DELETE CASCADE
@@ -67,10 +80,10 @@ create table transaction (
      transaction_amount DECIMAL(7,2),
      transaction_date   DATE,
      note               TEXT,
-     subCategory_id     int(11),
+     budgeted_id        int(11) NOT NULL,
      PRIMARY KEY (transaction_id),
-     FOREIGN KEY fk_subCategory(subCategory_id)
-     REFERENCES subCategory(subCategory_id)
+     FOREIGN KEY fk_budgetedSubCategory(budgeted_id)
+     REFERENCES budgetedSubCategory(budgeted_id)
      ON DELETE CASCADE
      ON UPDATE CASCADE
 );

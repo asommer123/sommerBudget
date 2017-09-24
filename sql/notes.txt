@@ -9,16 +9,17 @@ account_id
 
 income
 ------
-budget_month_id
 income_id
 pay_date
 pay_amount
+budget_month_id
 
 
 category
 --------
 category_id
 category_name
+default_fl
 account_id
 
 
@@ -27,20 +28,30 @@ subCategory
 -----------
 subCategory_id
 subCategory_name
-budget_amount
+default_fl
+day_of_month_due
+category_id
+
+
+budgetedSubCategory
+-------------------
+budgeted_id
+budgeted_amount
 due_date
 envelope_amount
 note
-category_id
+subCategory_id
 budget_month_id
 
 
 transaction
 -----------
-subCategory_id
 transaction_id
 transaction_amount
 transaction_date
 note
+budgeted_id
+
+
 
 
