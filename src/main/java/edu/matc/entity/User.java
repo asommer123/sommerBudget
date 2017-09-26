@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "account_id")
-    private int accountid;
+    private int accountId;
 
     @Column(name = "user_name")
     private String userName;
@@ -53,12 +53,12 @@ public class User {
     }
 
 
-    public int getAccountid() {
-        return accountid;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setAccountid(int accountid) {
-        this.accountid = accountid;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     public String getUserName() {
@@ -97,7 +97,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "accountid=" + accountid +
+                "accountId=" + accountId +
                 ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
