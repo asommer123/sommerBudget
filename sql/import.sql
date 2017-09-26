@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `budgetMonth`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `budgetMonth` (
   `budget_month_id` int(11) NOT NULL AUTO_INCREMENT,
-  `budet_date` date NOT NULL,
+  `budget_date` date NOT NULL,
   `account_id` int(11) NOT NULL,
   PRIMARY KEY (`budget_month_id`),
   KEY `fk_users` (`account_id`),

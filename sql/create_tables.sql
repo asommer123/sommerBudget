@@ -10,7 +10,7 @@ create table users (
 
 create table budgetMonth (
      budget_month_id    int(11) NOT NULL AUTO_INCREMENT,
-     budet_date         DATE NOT NULL,
+     budget_date        DATE NOT NULL,
      account_id         int(11) NOT NULL,
      PRIMARY KEY (budget_month_id),
      FOREIGN KEY fk_users(account_id)

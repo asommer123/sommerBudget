@@ -17,8 +17,19 @@ public class UserDao {
      */
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        users = session.createCriteria(User.class).list();
+        Session session = null;
+
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+            users = session.createCriteria(User.class).list();
+        } catch (HibernateException hibernateException) {
+            log.error("Error getting all users", hibernateException);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
         return users;
     }
 
