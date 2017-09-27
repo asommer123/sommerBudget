@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Month;
 
 @Entity
 @Table(name = "budgetMonth")
@@ -54,5 +55,13 @@ public class BudgetMonth {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getBudgetYear() {
+        return budgetDate.getYear();
+    }
+
+    public Month getBudgetMonth() {
+        return budgetDate.getMonth();
     }
 }
