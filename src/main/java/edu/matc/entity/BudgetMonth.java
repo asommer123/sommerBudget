@@ -1,38 +1,20 @@
 package edu.matc.entity;
 
-import edu.matc.util.LocalDateAttributeConverter;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.Month;
+import java.sql.Date;
+import java.util.Collection;
 
 @Entity
-@Table(name = "budgetMonth")
 public class BudgetMonth {
+    private int budgetMonthId;
+    private Date budgetDate;
+    private int accountId;
+    private Users usersByAccountId;
+    private Collection<BudgetedSubCategory> budgetedSubCategoriesByBudgetMonthId;
+    private Collection<Income> incomesByBudgetMonthId;
 
     @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name = "budget_month_id")
-    private int budgetMonthId;
-
-    @Column(name = "budget_date")
-    @Convert(converter = LocalDateAttributeConverter.class)
-    private LocalDate budgetDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
-    private User user;
-
-    public BudgetMonth() {
-    }
-
-    public BudgetMonth(User user, LocalDate budgetDate) {
-        this.user = user;
-        this.budgetDate = budgetDate;
-    }
-
+    @Column(name = "budget_month_id", nullable = false)
     public int getBudgetMonthId() {
         return budgetMonthId;
     }
@@ -41,27 +23,73 @@ public class BudgetMonth {
         this.budgetMonthId = budgetMonthId;
     }
 
-    public LocalDate getBudgetDate() {
+    @Basic
+    @Column(name = "budget_date", nullable = false)
+    public Date getBudgetDate() {
         return budgetDate;
     }
 
-    public void setBudgetDate(LocalDate budgetDate) {
+    public void setBudgetDate(Date budgetDate) {
         this.budgetDate = budgetDate;
     }
 
-    public User getUser() {
-        return user;
+    @Basic
+    @Column(name = "account_id", nullable = false)
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
-    public int getBudgetYear() {
-        return budgetDate.getYear();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BudgetMonth that = (BudgetMonth) o;
+
+        if (budgetMonthId != that.budgetMonthId) return false;
+        if (accountId != that.accountId) return false;
+        if (budgetDate != null ? !budgetDate.equals(that.budgetDate) : that.budgetDate != null) return false;
+
+        return true;
     }
 
-    public Month getBudgetMonth() {
-        return budgetDate.getMonth();
+    @Override
+    public int hashCode() {
+        int result = budgetMonthId;
+        result = 31 * result + (budgetDate != null ? budgetDate.hashCode() : 0);
+        result = 31 * result + accountId;
+        return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
+    public Users getUsersByAccountId() {
+        return usersByAccountId;
+    }
+
+    public void setUsersByAccountId(Users usersByAccountId) {
+        this.usersByAccountId = usersByAccountId;
+    }
+
+    @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
+    public Collection<BudgetedSubCategory> getBudgetedSubCategoriesByBudgetMonthId() {
+        return budgetedSubCategoriesByBudgetMonthId;
+    }
+
+    public void setBudgetedSubCategoriesByBudgetMonthId(Collection<BudgetedSubCategory> budgetedSubCategoriesByBudgetMonthId) {
+        this.budgetedSubCategoriesByBudgetMonthId = budgetedSubCategoriesByBudgetMonthId;
+    }
+
+    @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
+    public Collection<Income> getIncomesByBudgetMonthId() {
+        return incomesByBudgetMonthId;
+    }
+
+    public void setIncomesByBudgetMonthId(Collection<Income> incomesByBudgetMonthId) {
+        this.incomesByBudgetMonthId = incomesByBudgetMonthId;
     }
 }

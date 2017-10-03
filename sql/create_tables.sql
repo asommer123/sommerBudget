@@ -15,6 +15,8 @@ create table user_role (
      PRIMARY KEY (user_name, roll_name),
      FOREIGN KEY fk_users(user_name)
      REFERENCES users(user_name)
+          ON DELETE CASCADE
+          ON UPDATE CASCADE
 );
 
 
