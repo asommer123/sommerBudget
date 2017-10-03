@@ -190,6 +190,31 @@ INSERT INTO `transaction` VALUES (1,225.00,'2017-09-01','Taking money out of ban
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_role`
+--
+
+DROP TABLE IF EXISTS `user_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_role` (
+  `user_name` varchar(15) NOT NULL,
+  `roll_name` varchar(15) NOT NULL,
+  PRIMARY KEY (`user_name`,`roll_name`),
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_name`) REFERENCES `users` (`user_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_role`
+--
+
+LOCK TABLES `user_role` WRITE;
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` VALUES ('secondAccount','testerUsers'),('testAccount','adminUser');
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -198,12 +223,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `account_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(25) NOT NULL,
+  `user_name` varchar(15) NOT NULL,
+  `user_pass` varchar(15) NOT NULL,
   `first_name` varchar(25) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
   `email_address` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`account_id`),
+  UNIQUE KEY `users_user_name_uindex` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +239,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'testAccount','Test','Account','asommer@madisoncollege.edu');
+INSERT INTO `users` VALUES (1,'testAccount','1234','Test','Account','asommer@madisoncollege.edu'),(2,'secondAccount','1234','My','Name','test@test.com');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -225,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-24 11:51:52
+-- Dump completed on 2017-10-02 22:14:06
