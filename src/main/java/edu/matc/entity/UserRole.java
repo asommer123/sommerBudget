@@ -1,17 +1,33 @@
 package edu.matc.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user_role", schema = "sommerBudget", catalog = "")
-@IdClass(UserRolePK.class)
+@Table(name = "user_role")
 public class UserRole {
+    //implements Serializable
+    private int userRoleId;
     private String userName;
     private String rollName;
-    private Collection<Users> userRoleByUserName;
+    private Users usersByAccountId;
 
     @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    @Column(name = "user_role_id", nullable = false)
+    public int getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(int userRoleId) {
+        this.userRoleId = userRoleId;
+    }
+
+    /*@Basic
     @Column(name = "user_name", nullable = false, length = 15)
     public String getUserName() {
         return userName;
@@ -19,9 +35,9 @@ public class UserRole {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
+    }*/
 
-    @Id
+    @Basic
     @Column(name = "roll_name", nullable = false, length = 15)
     public String getRollName() {
         return rollName;
@@ -38,6 +54,7 @@ public class UserRole {
 
         UserRole userRole = (UserRole) o;
 
+        if (userRoleId != userRole.userRoleId) return false;
         if (userName != null ? !userName.equals(userRole.userName) : userRole.userName != null) return false;
         if (rollName != null ? !rollName.equals(userRole.rollName) : userRole.rollName != null) return false;
 
@@ -46,17 +63,19 @@ public class UserRole {
 
     @Override
     public int hashCode() {
-        int result = userName != null ? userName.hashCode() : 0;
+        int result = userRoleId;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (rollName != null ? rollName.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "userRoleByUserName")
-    public Collection<Users> getUserRoleByUserName() {
-        return userRoleByUserName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
+    public Users getUsersByAccountId() {
+        return usersByAccountId;
     }
 
-    public void setUserRoleByUserName(Collection<Users> userRoleByUserName) {
-        this.userRoleByUserName = userRoleByUserName;
+    public void setUsersByAccountId(Users usersByAccountId) {
+        this.usersByAccountId = usersByAccountId;
     }
 }

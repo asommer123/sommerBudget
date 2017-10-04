@@ -1,10 +1,14 @@
 package edu.matc.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-public class Users {
+@Table(name = "users")
+public class Users implements Serializable {
     private int accountId;
     private String userName;
     private String userPass;
@@ -13,9 +17,11 @@ public class Users {
     private String emailAddress;
     private Collection<BudgetMonth> budgetMonthsByAccountId;
     private Collection<Category> categoriesByAccountId;
-    private UserRole userRoleByUserName;
+    private Collection<UserRole> userRoleByUserName;
 
     @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "account_id", nullable = false)
     public int getAccountId() {
         return accountId;
@@ -121,13 +127,12 @@ public class Users {
         this.categoriesByAccountId = categoriesByAccountId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
-    public UserRole getUserRoleByUserName() {
+    @OneToMany(mappedBy = "usersByAccountId")
+    public Collection<UserRole> getUserRoleByUserName() {
         return userRoleByUserName;
     }
 
-    public void setUserRoleByUserName(UserRole userRoleByUserName) {
+    public void setUserRoleByUserName(Collection<UserRole> userRoleByUserName) {
         this.userRoleByUserName = userRoleByUserName;
     }
 }

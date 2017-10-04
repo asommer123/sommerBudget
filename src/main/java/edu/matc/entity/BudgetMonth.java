@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
+@Table(name = "budgetMonth")
 public class BudgetMonth {
     private int budgetMonthId;
     private Date budgetDate;
@@ -33,7 +34,7 @@ public class BudgetMonth {
         this.budgetDate = budgetDate;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "account_id", nullable = false)
     public int getAccountId() {
         return accountId;
@@ -41,7 +42,7 @@ public class BudgetMonth {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +66,7 @@ public class BudgetMonth {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
     public Users getUsersByAccountId() {
         return usersByAccountId;

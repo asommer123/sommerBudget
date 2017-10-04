@@ -10,9 +10,10 @@ create table users (
 CREATE UNIQUE INDEX users_user_name_uindex ON users (user_name);
 
 create table user_role (
+     user_role_id    int(11) NOT NULL auto_increment,
      user_name       varchar(15) NOT NULL,
      roll_name       varchar(15) NOT NULL,
-     PRIMARY KEY (user_name, roll_name),
+     PRIMARY KEY (user_role_id),
      FOREIGN KEY fk_users(user_name)
      REFERENCES users(user_name)
           ON DELETE CASCADE

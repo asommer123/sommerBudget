@@ -47,19 +47,25 @@ CREATE TABLE `users` (  `account_id` int(11) NOT NULL AUTO_INCREMENT,  `user_nam
 CREATE UNIQUE INDEX users_user_name_uindex ON users (user_name);
 
 create table user_role (
+  user_role_id    int(11) NOT NULL auto_increment,
   user_name       varchar(15) NOT NULL,
   roll_name       varchar(15) NOT NULL,
-  PRIMARY KEY (user_name, roll_name),
+  PRIMARY KEY (user_role_id),
   FOREIGN KEY fk_users(user_name)
   REFERENCES users(user_name)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
+
+
+
 --
 -- Dumping data for table `users`
 --
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'testAccount','1234','Test','Account','asommer@madisoncollege.edu'),(2,'secondAccount','1234','My','Name','test@test.com');
+INSERT INTO `users` VALUES (1,'testAccount','1234','Test','Account','asommer@madisoncollege.edu'),(2,'secondAccount','1234','My','Name','test@test.com'),(3,'myTest','1234','First','Last','email@email.edu');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -70,7 +76,7 @@ UNLOCK TABLES;
 --
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES ('testAccount','adminUser'),('secondAccount','testerUsers'),('testAccount','testerUsers');
+INSERT INTO `user_role` VALUES (1,'secondAccount','testers'),(2,'testAccount','admins'),(3,'testAccount','testers');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

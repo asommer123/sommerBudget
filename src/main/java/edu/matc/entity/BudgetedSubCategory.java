@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
+@Table(name = "budgetedSubCategory")
 public class BudgetedSubCategory {
     private int budgetedId;
     private BigDecimal budgetedAmount;
@@ -68,7 +69,7 @@ public class BudgetedSubCategory {
         this.note = note;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "subCategory_id", nullable = false)
     public int getSubCategoryId() {
         return subCategoryId;
@@ -76,9 +77,9 @@ public class BudgetedSubCategory {
 
     public void setSubCategoryId(int subCategoryId) {
         this.subCategoryId = subCategoryId;
-    }
+    }*/
 
-    @Basic
+    /*@Basic
     @Column(name = "budget_month_id", nullable = false)
     public int getBudgetMonthId() {
         return budgetMonthId;
@@ -86,7 +87,7 @@ public class BudgetedSubCategory {
 
     public void setBudgetMonthId(int budgetMonthId) {
         this.budgetMonthId = budgetMonthId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -120,7 +121,7 @@ public class BudgetedSubCategory {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subCategory_id", referencedColumnName = "subCategory_id", nullable = false)
     public SubCategory getSubCategoryBySubCategoryId() {
         return subCategoryBySubCategoryId;
@@ -130,7 +131,7 @@ public class BudgetedSubCategory {
         this.subCategoryBySubCategoryId = subCategoryBySubCategoryId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
     public BudgetMonth getBudgetMonthByBudgetMonthId() {
         return budgetMonthByBudgetMonthId;

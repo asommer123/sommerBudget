@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
+@Table(name = "income")
 public class Income {
     private int incomeId;
     private Date payDate;
@@ -42,7 +43,7 @@ public class Income {
         this.payAmount = payAmount;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "budget_month_id", nullable = false)
     public int getBudgetMonthId() {
         return budgetMonthId;
@@ -50,7 +51,7 @@ public class Income {
 
     public void setBudgetMonthId(int budgetMonthId) {
         this.budgetMonthId = budgetMonthId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -60,7 +61,7 @@ public class Income {
         Income income = (Income) o;
 
         if (incomeId != income.incomeId) return false;
-        if (budgetMonthId != income.budgetMonthId) return false;
+        //if (budgetMonthId != income.budgetMonthId) return false;
         if (payDate != null ? !payDate.equals(income.payDate) : income.payDate != null) return false;
         if (payAmount != null ? !payAmount.equals(income.payAmount) : income.payAmount != null) return false;
 
@@ -76,7 +77,7 @@ public class Income {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
     public BudgetMonth getBudgetMonthByBudgetMonthId() {
         return budgetMonthByBudgetMonthId;

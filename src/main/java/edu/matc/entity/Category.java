@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "category")
 public class Category {
     private int categoryId;
     private String categoryName;
@@ -42,7 +43,7 @@ public class Category {
         this.defaultFl = defaultFl;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "account_id", nullable = false)
     public int getAccountId() {
         return accountId;
@@ -50,7 +51,7 @@ public class Category {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -77,7 +78,7 @@ public class Category {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
     public Users getUsersByAccountId() {
         return usersByAccountId;

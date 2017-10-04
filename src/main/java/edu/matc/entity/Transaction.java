@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
+@Table(name = "transaction")
 public class Transaction {
     private int transactionId;
     private BigDecimal transactionAmount;
@@ -53,7 +54,7 @@ public class Transaction {
         this.note = note;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "budgeted_id", nullable = false)
     public int getBudgetedId() {
         return budgetedId;
@@ -61,7 +62,7 @@ public class Transaction {
 
     public void setBudgetedId(int budgetedId) {
         this.budgetedId = budgetedId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -91,7 +92,7 @@ public class Transaction {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budgeted_id", referencedColumnName = "budgeted_id", nullable = false)
     public BudgetedSubCategory getBudgetedSubCategoryByBudgetedId() {
         return budgetedSubCategoryByBudgetedId;

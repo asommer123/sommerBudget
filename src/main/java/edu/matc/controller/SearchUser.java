@@ -1,6 +1,6 @@
 package edu.matc.controller;
 
-import edu.matc.persistence.UserDao;
+import edu.matc.persistence.UsersDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,15 +23,15 @@ public class SearchUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UserDao userDao = new UserDao();
+        UsersDao usersDao = new UsersDao();
 
         String searchTerm = req.getParameter("searchTerm");
 
 
         if (req.getParameter("submit").equals("search")) {
-            req.setAttribute("users", userDao.getUser(Integer.valueOf(searchTerm)));
+            req.setAttribute("users", usersDao.getUser(Integer.valueOf(searchTerm)));
         } else {
-            req.setAttribute("users", userDao.getAllUsers());
+            req.setAttribute("users", usersDao.getAllUsers());
         }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/results.jsp");

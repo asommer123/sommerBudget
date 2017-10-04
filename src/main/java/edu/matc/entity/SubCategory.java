@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "subCategory")
 public class SubCategory {
     private int subCategoryId;
     private String subCategoryName;
@@ -53,7 +54,7 @@ public class SubCategory {
         this.dayOfMonthDue = dayOfMonthDue;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "category_id", nullable = false)
     public int getCategoryId() {
         return categoryId;
@@ -61,7 +62,7 @@ public class SubCategory {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -100,7 +101,7 @@ public class SubCategory {
         this.budgetedSubCategoriesBySubCategoryId = budgetedSubCategoriesBySubCategoryId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
     public Category getCategoryByCategoryId() {
         return categoryByCategoryId;
