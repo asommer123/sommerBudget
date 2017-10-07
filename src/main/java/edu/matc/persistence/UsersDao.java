@@ -1,5 +1,6 @@
 package edu.matc.persistence;
 
+import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -74,6 +75,15 @@ public class UsersDao {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             id = (int) session.save(user);
+
+            UserRole userRole = new UserRole();
+            userRole.setRollName("tester");
+            userRole.setUsersByAccountId(user);
+            user.getUserRoleByUserName().add(userRole);
+
+
+            session.save(userRole);
+
             transaction.commit();
         } catch (HibernateException hibernateException) {
             log.error("Error occurred attempting to add user: " + user, hibernateException);

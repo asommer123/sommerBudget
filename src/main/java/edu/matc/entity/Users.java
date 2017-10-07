@@ -5,6 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,9 +17,9 @@ public class Users implements Serializable {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private Collection<BudgetMonth> budgetMonthsByAccountId;
-    private Collection<Category> categoriesByAccountId;
-    private Collection<UserRole> userRoleByUserName;
+    private Set<BudgetMonth> budgetMonthsByAccountId = new HashSet<BudgetMonth>(0);
+    private Set<Category> categoriesByAccountId = new HashSet<Category>(0);
+    private Set<UserRole> userRoleByUserName = new HashSet<UserRole>(0);
 
     @Id
     @GeneratedValue(generator="increment")
@@ -110,29 +112,29 @@ public class Users implements Serializable {
     }
 
     @OneToMany(mappedBy = "usersByAccountId")
-    public Collection<BudgetMonth> getBudgetMonthsByAccountId() {
+    public Set<BudgetMonth> getBudgetMonthsByAccountId() {
         return budgetMonthsByAccountId;
     }
 
-    public void setBudgetMonthsByAccountId(Collection<BudgetMonth> budgetMonthsByAccountId) {
+    public void setBudgetMonthsByAccountId(Set<BudgetMonth> budgetMonthsByAccountId) {
         this.budgetMonthsByAccountId = budgetMonthsByAccountId;
     }
 
     @OneToMany(mappedBy = "usersByAccountId")
-    public Collection<Category> getCategoriesByAccountId() {
+    public Set<Category> getCategoriesByAccountId() {
         return categoriesByAccountId;
     }
 
-    public void setCategoriesByAccountId(Collection<Category> categoriesByAccountId) {
+    public void setCategoriesByAccountId(Set<Category> categoriesByAccountId) {
         this.categoriesByAccountId = categoriesByAccountId;
     }
 
     @OneToMany(mappedBy = "usersByAccountId")
-    public Collection<UserRole> getUserRoleByUserName() {
+    public Set<UserRole> getUserRoleByUserName() {
         return userRoleByUserName;
     }
 
-    public void setUserRoleByUserName(Collection<UserRole> userRoleByUserName) {
+    public void setUserRoleByUserName(Set<UserRole> userRoleByUserName) {
         this.userRoleByUserName = userRoleByUserName;
     }
 }
