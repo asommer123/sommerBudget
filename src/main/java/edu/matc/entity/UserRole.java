@@ -9,9 +9,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "user_role")
 public class UserRole {
-    //implements Serializable
+
     private int userRoleId;
-    //private String userName;
     private String rollName;
     private Users usersByAccountId;
 
@@ -26,16 +25,6 @@ public class UserRole {
     public void setUserRoleId(int userRoleId) {
         this.userRoleId = userRoleId;
     }
-
-    /*@Basic
-    @Column(name = "user_name", nullable = false, length = 15)
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }*/
 
     @Basic
     @Column(name = "roll_name", nullable = false, length = 15)
