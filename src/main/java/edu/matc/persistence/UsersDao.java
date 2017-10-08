@@ -74,15 +74,8 @@ public class UsersDao {
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             transaction = session.beginTransaction();
+
             id = (int) session.save(user);
-
-            UserRole userRole = new UserRole();
-            userRole.setRollName("tester");
-            userRole.setUsersByAccountId(user);
-            user.getUserRoleByUserName().add(userRole);
-
-
-            session.save(userRole);
 
             transaction.commit();
         } catch (HibernateException hibernateException) {

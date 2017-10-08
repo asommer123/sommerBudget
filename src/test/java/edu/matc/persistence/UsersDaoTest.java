@@ -34,11 +34,16 @@ public class UsersDaoTest {
     public void addUser() throws Exception {
         Users user = new Users();
 
-        user.setUserName("newAcct");
+        user.setUserName("newAcct5");
         user.setUserPass("test");
         user.setEmailAddress("newUser@test.com");
         user.setFirstName("TestName");
         user.setLastName("LastName");
+
+        UserRole userRole = new UserRole();
+        userRole.setRollName("tester");
+        userRole.setUsersByAccountId(user);
+        user.getUserRoleByUserName().add(userRole);
 
         int userId = dao.addUser(user);
 

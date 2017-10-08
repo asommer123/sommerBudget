@@ -11,7 +11,7 @@ import java.util.Collection;
 public class UserRole {
     //implements Serializable
     private int userRoleId;
-    private String userName;
+    //private String userName;
     private String rollName;
     private Users usersByAccountId;
 
@@ -55,7 +55,7 @@ public class UserRole {
         UserRole userRole = (UserRole) o;
 
         if (userRoleId != userRole.userRoleId) return false;
-        if (userName != null ? !userName.equals(userRole.userName) : userRole.userName != null) return false;
+        //if (userName != null ? !userName.equals(userRole.userName) : userRole.userName != null) return false;
         if (rollName != null ? !rollName.equals(userRole.rollName) : userRole.rollName != null) return false;
 
         return true;
@@ -64,7 +64,7 @@ public class UserRole {
     @Override
     public int hashCode() {
         int result = userRoleId;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        //result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (rollName != null ? rollName.hashCode() : 0);
         return result;
     }

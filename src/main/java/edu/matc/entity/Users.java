@@ -1,5 +1,7 @@
 package edu.matc.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -130,6 +132,7 @@ public class Users implements Serializable {
     }
 
     @OneToMany(mappedBy = "usersByAccountId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     public Set<UserRole> getUserRoleByUserName() {
         return userRoleByUserName;
     }
