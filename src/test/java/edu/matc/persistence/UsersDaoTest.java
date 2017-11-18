@@ -34,7 +34,7 @@ public class UsersDaoTest {
     public void addUser() throws Exception {
         Users user = new Users();
 
-        user.setUserName("newAcct5");
+        user.setUserName("newAcct6");
         user.setUserPass("test");
         user.setEmailAddress("newUser@test.com");
         user.setFirstName("TestName");
