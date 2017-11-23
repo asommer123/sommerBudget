@@ -114,6 +114,7 @@ public class Users implements Serializable {
     }
 
     @OneToMany(mappedBy = "usersByAccountId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     public Set<BudgetMonth> getBudgetMonthsByAccountId() {
         return budgetMonthsByAccountId;
     }
@@ -123,6 +124,7 @@ public class Users implements Serializable {
     }
 
     @OneToMany(mappedBy = "usersByAccountId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     public Set<Category> getCategoriesByAccountId() {
         return categoriesByAccountId;
     }
