@@ -1,5 +1,7 @@
 package edu.matc.entity;
 
+import edu.matc.util.LocalDateAttributeConverter;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -16,6 +18,7 @@ public class BudgetMonth {
 
     @Id
     @Column(name = "budget_month_id", nullable = false)
+    @Convert(converter = LocalDateAttributeConverter.class)
     public int getBudgetMonthId() {
         return budgetMonthId;
     }
