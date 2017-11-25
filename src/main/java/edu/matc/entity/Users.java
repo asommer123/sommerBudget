@@ -13,20 +13,44 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
-    private int accountId;
-    private String userName;
-    private String userPass;
-    private String firstName;
-    private String lastName;
-    private String emailAddress;
-    private Set<BudgetMonth> budgetMonthsByAccountId = new HashSet<BudgetMonth>(0);
-    private Set<Category> categoriesByAccountId = new HashSet<Category>(0);
-    private Set<UserRole> userRoleByUserName = new HashSet<UserRole>(0);
-
     @Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "account_id", nullable = false)
+    private int accountId;
+
+    @Basic
+    @Column(name = "user_name", nullable = false, length = 15)
+    private String userName;
+
+    @Basic
+    @Column(name = "user_pass", nullable = false, length = 15)
+    private String userPass;
+
+    @Basic
+    @Column(name = "first_name", nullable = true, length = 25)
+    private String firstName;
+
+    @Basic
+    @Column(name = "last_name", nullable = true, length = 30)
+    private String lastName;
+
+    @Basic
+    @Column(name = "email_address", nullable = true, length = 60)
+    private String emailAddress;
+
+    @OneToMany(mappedBy = "usersByAccountId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+    private Set<BudgetMonth> budgetMonthsByAccountId = new HashSet<BudgetMonth>(0);
+
+    @OneToMany(mappedBy = "usersByAccountId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+    private Set<Category> categoriesByAccountId = new HashSet<Category>(0);
+
+    @OneToMany(mappedBy = "usersByAccountId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+    private Set<UserRole> userRoleByUserName = new HashSet<UserRole>(0);
+
     public int getAccountId() {
         return accountId;
     }
@@ -35,8 +59,6 @@ public class Users implements Serializable {
         this.accountId = accountId;
     }
 
-    @Basic
-    @Column(name = "user_name", nullable = false, length = 15)
     public String getUserName() {
         return userName;
     }
@@ -45,8 +67,6 @@ public class Users implements Serializable {
         this.userName = userName;
     }
 
-    @Basic
-    @Column(name = "user_pass", nullable = false, length = 15)
     public String getUserPass() {
         return userPass;
     }
@@ -55,8 +75,6 @@ public class Users implements Serializable {
         this.userPass = userPass;
     }
 
-    @Basic
-    @Column(name = "first_name", nullable = true, length = 25)
     public String getFirstName() {
         return firstName;
     }
@@ -65,8 +83,6 @@ public class Users implements Serializable {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "last_name", nullable = true, length = 30)
     public String getLastName() {
         return lastName;
     }
@@ -75,14 +91,36 @@ public class Users implements Serializable {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "email_address", nullable = true, length = 60)
     public String getEmailAddress() {
         return emailAddress;
     }
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public Set<BudgetMonth> getBudgetMonthsByAccountId() {
+        return budgetMonthsByAccountId;
+    }
+
+    public void setBudgetMonthsByAccountId(Set<BudgetMonth> budgetMonthsByAccountId) {
+        this.budgetMonthsByAccountId = budgetMonthsByAccountId;
+    }
+
+    public Set<Category> getCategoriesByAccountId() {
+        return categoriesByAccountId;
+    }
+
+    public void setCategoriesByAccountId(Set<Category> categoriesByAccountId) {
+        this.categoriesByAccountId = categoriesByAccountId;
+    }
+
+    public Set<UserRole> getUserRoleByUserName() {
+        return userRoleByUserName;
+    }
+
+    public void setUserRoleByUserName(Set<UserRole> userRoleByUserName) {
+        this.userRoleByUserName = userRoleByUserName;
     }
 
     @Override
@@ -111,35 +149,5 @@ public class Users implements Serializable {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (emailAddress != null ? emailAddress.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "usersByAccountId")
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    public Set<BudgetMonth> getBudgetMonthsByAccountId() {
-        return budgetMonthsByAccountId;
-    }
-
-    public void setBudgetMonthsByAccountId(Set<BudgetMonth> budgetMonthsByAccountId) {
-        this.budgetMonthsByAccountId = budgetMonthsByAccountId;
-    }
-
-    @OneToMany(mappedBy = "usersByAccountId")
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    public Set<Category> getCategoriesByAccountId() {
-        return categoriesByAccountId;
-    }
-
-    public void setCategoriesByAccountId(Set<Category> categoriesByAccountId) {
-        this.categoriesByAccountId = categoriesByAccountId;
-    }
-
-    @OneToMany(mappedBy = "usersByAccountId")
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    public Set<UserRole> getUserRoleByUserName() {
-        return userRoleByUserName;
-    }
-
-    public void setUserRoleByUserName(Set<UserRole> userRoleByUserName) {
-        this.userRoleByUserName = userRoleByUserName;
     }
 }

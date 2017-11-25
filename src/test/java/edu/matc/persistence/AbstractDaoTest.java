@@ -32,7 +32,7 @@ public class AbstractDaoTest {
     public void createTest() throws Exception {
         Users user = new Users();
 
-        user.setUserName("newAcct10");
+        user.setUserName("newAcct11");
         user.setUserPass("test");
         user.setEmailAddress("newUser@test.com");
         user.setFirstName("TestName");
@@ -115,6 +115,27 @@ public class AbstractDaoTest {
 
     @Test
     public void updateTest() throws Exception {
+        Users user = usersAbstractDao.get(1);
+
+        LocalDate localDate = LocalDate.parse("2017-11-01", DATE_TIME_FORMATTER);
+        LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
+        Date date = converter.convertToDatabaseColumn(localDate);
+
+        BudgetMonth budgetMonth = new BudgetMonth(date, user);
+
+        user.getBudgetMonthsByAccountId().add(budgetMonth);
+
+        usersAbstractDao.update(user);
+
+
+        Users updatedUser = usersAbstractDao.get(1);
+
+        Set<BudgetMonth> budgetMonthes = updatedUser.getBudgetMonthsByAccountId();
+
+        for (BudgetMonth budgetMonthUpdated: budgetMonthes) {
+            log.info("BudgetMonth: " + budgetMonthUpdated);
+        }
+
     }
 
     @Test

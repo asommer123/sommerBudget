@@ -127,7 +127,8 @@ public class AbstractDao<T> {
             transaction = session.beginTransaction();
             // merge resolved this issue:
             // https://blog.tallan.com/2008/09/18/hibernate-merge-vs-saveorupdate/
-            session.merge(object);
+            //session.merge(object);
+            session.saveOrUpdate(object);
             transaction.commit();
             log.debug("Updated " + object.getClass().getName() + ": " + object);
         } catch (HibernateException e) {
