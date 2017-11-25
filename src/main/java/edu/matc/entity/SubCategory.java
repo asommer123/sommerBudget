@@ -6,16 +6,29 @@ import java.util.Collection;
 @Entity
 @Table(name = "subCategory")
 public class SubCategory {
-    private int subCategoryId;
-    private String subCategoryName;
-    private Byte defaultFl;
-    private Integer dayOfMonthDue;
-    private int categoryId;
-    private Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId;
-    private Category categoryByCategoryId;
-
     @Id
     @Column(name = "subCategory_id", nullable = false)
+    private int subCategoryId;
+
+    @Basic
+    @Column(name = "subCategory_name", nullable = false, length = 60)
+    private String subCategoryName;
+
+    @Basic
+    @Column(name = "default_fl", nullable = true)
+    private Byte defaultFl;
+
+    @Basic
+    @Column(name = "day_of_month_due", nullable = true)
+    private Integer dayOfMonthDue;
+
+    @OneToMany(mappedBy = "subCategoryBySubCategoryId")
+    private Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
+    private Category categoryByCategoryId;
+
     public int getSubCategoryId() {
         return subCategoryId;
     }
@@ -24,8 +37,6 @@ public class SubCategory {
         this.subCategoryId = subCategoryId;
     }
 
-    @Basic
-    @Column(name = "subCategory_name", nullable = false, length = 60)
     public String getSubCategoryName() {
         return subCategoryName;
     }
@@ -34,8 +45,6 @@ public class SubCategory {
         this.subCategoryName = subCategoryName;
     }
 
-    @Basic
-    @Column(name = "default_fl", nullable = true)
     public Byte getDefaultFl() {
         return defaultFl;
     }
@@ -44,8 +53,6 @@ public class SubCategory {
         this.defaultFl = defaultFl;
     }
 
-    @Basic
-    @Column(name = "day_of_month_due", nullable = true)
     public Integer getDayOfMonthDue() {
         return dayOfMonthDue;
     }
@@ -54,15 +61,31 @@ public class SubCategory {
         this.dayOfMonthDue = dayOfMonthDue;
     }
 
-    /*@Basic
-    @Column(name = "category_id", nullable = false)
-    public int getCategoryId() {
-        return categoryId;
+    public Collection<BudgetedSubCategory> getBudgetedSubCategoriesBySubCategoryId() {
+        return budgetedSubCategoriesBySubCategoryId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }*/
+    public void setBudgetedSubCategoriesBySubCategoryId(Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId) {
+        this.budgetedSubCategoriesBySubCategoryId = budgetedSubCategoriesBySubCategoryId;
+    }
+
+    public Category getCategoryByCategoryId() {
+        return categoryByCategoryId;
+    }
+
+    public void setCategoryByCategoryId(Category categoryByCategoryId) {
+        this.categoryByCategoryId = categoryByCategoryId;
+    }
+
+    @Override
+    public String toString() {
+        return "SubCategory{" +
+                "subCategoryId=" + subCategoryId +
+                ", subCategoryName='" + subCategoryName + '\'' +
+                ", defaultFl=" + defaultFl +
+                ", dayOfMonthDue=" + dayOfMonthDue +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -72,7 +95,6 @@ public class SubCategory {
         SubCategory that = (SubCategory) o;
 
         if (subCategoryId != that.subCategoryId) return false;
-        if (categoryId != that.categoryId) return false;
         if (subCategoryName != null ? !subCategoryName.equals(that.subCategoryName) : that.subCategoryName != null)
             return false;
         if (defaultFl != null ? !defaultFl.equals(that.defaultFl) : that.defaultFl != null) return false;
@@ -88,26 +110,6 @@ public class SubCategory {
         result = 31 * result + (subCategoryName != null ? subCategoryName.hashCode() : 0);
         result = 31 * result + (defaultFl != null ? defaultFl.hashCode() : 0);
         result = 31 * result + (dayOfMonthDue != null ? dayOfMonthDue.hashCode() : 0);
-        result = 31 * result + categoryId;
         return result;
-    }
-
-    @OneToMany(mappedBy = "subCategoryBySubCategoryId")
-    public Collection<BudgetedSubCategory> getBudgetedSubCategoriesBySubCategoryId() {
-        return budgetedSubCategoriesBySubCategoryId;
-    }
-
-    public void setBudgetedSubCategoriesBySubCategoryId(Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId) {
-        this.budgetedSubCategoriesBySubCategoryId = budgetedSubCategoriesBySubCategoryId;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
-    public Category getCategoryByCategoryId() {
-        return categoryByCategoryId;
-    }
-
-    public void setCategoryByCategoryId(Category categoryByCategoryId) {
-        this.categoryByCategoryId = categoryByCategoryId;
     }
 }
