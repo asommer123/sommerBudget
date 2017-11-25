@@ -1,5 +1,7 @@
 package edu.matc.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -37,6 +39,7 @@ public class BudgetedSubCategory {
     private BudgetMonth budgetMonthByBudgetMonthId;
 
     @OneToMany(mappedBy = "budgetedSubCategoryByBudgetedId")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<Transaction> transactionsByBudgetedId;
 
     public int getBudgetedId() {

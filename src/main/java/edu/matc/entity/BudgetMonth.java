@@ -1,6 +1,7 @@
 package edu.matc.entity;
 
 import edu.matc.util.LocalDateAttributeConverter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -23,9 +24,11 @@ public class BudgetMonth {
     private Users usersByAccountId;
 
     @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<BudgetedSubCategory> budgetedSubCategoriesByBudgetMonthId;
 
     @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<Income> incomesByBudgetMonthId;
 
     public BudgetMonth() {

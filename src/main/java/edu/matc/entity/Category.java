@@ -1,5 +1,7 @@
 package edu.matc.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -23,6 +25,7 @@ public class Category {
     private Users usersByAccountId;
 
     @OneToMany(mappedBy = "categoryByCategoryId")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<SubCategory> subCategoriesByCategoryId;
 
 

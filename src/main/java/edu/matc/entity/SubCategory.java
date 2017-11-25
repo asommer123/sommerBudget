@@ -1,5 +1,7 @@
 package edu.matc.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -23,6 +25,7 @@ public class SubCategory {
     private Integer dayOfMonthDue;
 
     @OneToMany(mappedBy = "subCategoryBySubCategoryId")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId;
 
     @ManyToOne(fetch = FetchType.EAGER)

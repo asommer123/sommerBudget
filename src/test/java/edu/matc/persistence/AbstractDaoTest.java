@@ -39,7 +39,7 @@ public class AbstractDaoTest {
         user.setLastName("LastName");
 
         UserRole userRole = new UserRole();
-        userRole.setRollName("tester");
+        userRole.setRoleName("tester");
         userRole.setUsersByAccountId(user);
         user.getUserRoleByUserName().add(userRole);
 

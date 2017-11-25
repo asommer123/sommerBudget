@@ -1,18 +1,19 @@
-<%@include file="head.jsp"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: paulawaite
+  Date: 9/18/15
+  Time: 5:41 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<head>
+    <title>Form-Based Authentication Example</title>
+</head>
 <body>
-<h2>User Display Exercise - Week 1</h2>
-
-<form action="searchUser" method="GET">
-    <br>
-    Search User by Last Name:<br>
-    <input type="text" name="searchTerm" />
-    <br>
-
-    <button type="submit" name="submit" value="search">Search</button>
-    <button type="submit" name="submit" value="getAll">Get All Users</button>
-
-</form>
-
+<ul>
+    <li><a href="searchUsers.jsp">Take me to the Admin Page</a></li>
+    <li><a href="showBudgetMonths.jsp">Take me to the Display Page</a></li>
+</ul>
 </body>
 </html>
