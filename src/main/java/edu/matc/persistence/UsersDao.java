@@ -4,6 +4,7 @@ import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -50,6 +51,34 @@ public class UsersDao {
             user = (Users) session.get(Users.class, id);
         } catch (HibernateException hibernateException) {
             log.error("Error getting user: " + id, hibernateException);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return user;
+    }
+
+
+    /**
+     * retrieve a user given their id
+     *
+     * @param userName the user's userName
+     * @return user for userName
+     */
+    public List<Users> getUserByUserName(String userName) {
+        List<Users> user = null;
+        Session session = null;
+
+        try {
+            session = SessionFactoryProvider.getSessionFactory().openSession();
+
+            Query query = session.createQuery("from Users where user_name = :userName ");
+            query.setParameter("userName", userName);
+            user = query.list();
+        } catch (HibernateException hibernateException) {
+            log.error("Error getting user: " + userName, hibernateException);
         } finally {
             if (session != null) {
                 session.close();

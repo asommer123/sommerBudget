@@ -30,7 +30,6 @@ public class SearchUser extends HttpServlet {
 
         String searchTerm = req.getParameter("searchTerm");
 
-
         if (req.getParameter("submit").equals("search")) {
             List<Users> usersList = new ArrayList<Users>();
             usersList.add(usersDao.getUser(Integer.valueOf(searchTerm)));
@@ -39,7 +38,7 @@ public class SearchUser extends HttpServlet {
             req.setAttribute("users", usersDao.getAllUsers());
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/results.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/userResults.jsp");
         dispatcher.forward(req, resp);
     }
 }

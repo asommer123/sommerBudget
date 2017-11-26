@@ -13,7 +13,7 @@
 <body>
 <ul>
     <li><a href="searchUsers.jsp">Take me to the Admin Page</a></li>
-    <li><a href="showBudgetMonths.jsp">Take me to the Display Page</a></li>
+    <li><a href="searchBudgetMonths">Login to view Budgets</a></li>
 </ul>
 </body>
 </html>

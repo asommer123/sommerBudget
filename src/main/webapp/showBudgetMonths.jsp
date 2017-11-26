@@ -20,26 +20,20 @@
 <html><body>
 
 <div class="container-fluid">
-    <h2>Search Results: </h2>
+    <h2>Budget Months: </h2>
 
 
 
     <table style="width:100%">
         <tr>
-            <th>Account ID</th>
-            <th>User Name</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email Address</th>
+            <th>Budget Month Id</th>
+            <th>Budget Date</th>
         </tr>
 
-        <c:forEach var="user" items="${users}">
+        <c:forEach var="budgetMonth" items="${budgetMonths}">
             <tr>
-                <td>${user.accountId}</td>
-                <td>${user.userName}</td>
-                <td>${user.firstName}</td>
-                <td>${user.lastName}</td>
-                <td>${user.emailAddress}</td>
+                <td>${budgetMonth.budgetMonthId}</td>
+                <td>${budgetMonth.budgetDate}</td>
             </tr>
         </c:forEach>
     </table>
