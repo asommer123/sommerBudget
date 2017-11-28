@@ -67,7 +67,7 @@ UNLOCK TABLES;
 --
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,'secondAccount','testers'),(2,'testAccount','admins'),(3,'testAccount','testers');
+INSERT INTO `user_role` VALUES (1,'secondAccount','registeredUser'),(2,'testAccount','administrator'),(3,'testAccount','registeredUser');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
