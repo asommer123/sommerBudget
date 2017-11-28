@@ -18,6 +18,9 @@
 
 
 <html><body>
+<div id="wrap">
+    <c:import url="navbar.jsp" />
+</div>
 
 <div class="container-fluid">
     <h2>Budget Months: </h2>
@@ -38,6 +41,10 @@
         </c:forEach>
     </table>
 </div>
+
+
+
+
 
 </body>
 </html>

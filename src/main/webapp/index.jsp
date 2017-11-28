@@ -1,3 +1,5 @@
+<%@include file="head.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: paulawaite
@@ -11,6 +13,7 @@
     <title>Form-Based Authentication Example</title>
 </head>
 <body>
+<c:import url="navbar.jsp" />
 <ul>
     <li><a href="searchUsers.jsp">Take me to the Admin Page</a></li>
     <li><a href="searchBudgetMonths">Login to view Budgets</a></li>
