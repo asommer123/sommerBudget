@@ -2,8 +2,8 @@ package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.Users;
-import edu.matc.persistence.AbstractDao;
 import edu.matc.persistence.UsersDao;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @WebServlet(
@@ -23,8 +22,12 @@ import java.util.Set;
         urlPatterns = {"/searchBudgetMonths"}
 )
 public class SearchBudgetMonths extends HttpServlet {
+
+    private final Logger log = Logger.getLogger(this.getClass());
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         UsersDao usersDao = new UsersDao();
 
@@ -37,7 +40,7 @@ public class SearchBudgetMonths extends HttpServlet {
         session.setAttribute("loggedIn", true);
 
 
-        Users user = usersDao.getUserByUserName(request.getRemoteUser()).get(0);
+        Users user = usersDao.getUserByUserName(request.getRemoteUser());
         request.setAttribute("user", user);
 
         Set<BudgetMonth> budgetMonths = user.getBudgetMonthsByAccountId();
@@ -47,6 +50,8 @@ public class SearchBudgetMonths extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
+
+
 }
 
 

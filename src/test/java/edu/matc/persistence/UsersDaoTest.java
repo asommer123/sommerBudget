@@ -34,9 +34,9 @@ public class UsersDaoTest {
 
     @Test
     public void getUserByUserNameTest() throws Exception {
-        List<Users> users = dao.getUserByUserName("testAccount");
-        log.info(users.get(0).toString());
-        assertTrue(users.size() == 1);
+        Users users = dao.getUserByUserName("testAccount");
+        log.info(users.toString());
+        assertTrue(users.getUserName().equals("testAccount"));
     }
 
     @Test

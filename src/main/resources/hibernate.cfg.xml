@@ -12,7 +12,13 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/sommerBudget</property>
         <property name="connection.username">root</property>
+
+        <!-- AWS -->
+        <!--<property name="connection.password">uBUs4XoxU9UsEw</property> -->
+
+        <!-- Local -->
         <property name="connection.password">student</property>
+
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
         <!-- SQL dialect -->

@@ -67,8 +67,8 @@ public class UsersDao {
      * @param userName the user's userName
      * @return user for userName
      */
-    public List<Users> getUserByUserName(String userName) {
-        List<Users> user = null;
+    public Users getUserByUserName(String userName) {
+        Users user = null;
         Session session = null;
 
         try {
@@ -76,7 +76,7 @@ public class UsersDao {
 
             Query query = session.createQuery("from Users where user_name = :userName ");
             query.setParameter("userName", userName);
-            user = query.list();
+            user = (Users) query.list().get(0);
         } catch (HibernateException hibernateException) {
             log.error("Error getting user: " + userName, hibernateException);
         } finally {
