@@ -44,6 +44,7 @@
 
 <br>
 <br>
+
 <div class="container">
     <form action="addBudgetMonth" method="GET">
         Budget Month:
@@ -51,6 +52,51 @@
         <input type="submit" value="Start New Budget">
     </form>
 </div>
+
+<br>
+<br>
+
+<div class="selectBudget">
+    <form action="getBudgetDetails" method="get">
+        <c:forEach var="budgetMonth" items="${budgetMonths}">
+            <div class="radio">
+                <label><input type="radio" name="budgetId" value="${budgetMonth.budgetMonthId}">${budgetMonth.budgetDate}</label>
+            </div>
+        </c:forEach>
+        <input type="submit" value="Edit/View Budget">
+    </form>
+</div>
+
+
+<br>
+<br>
+<br>
+
+<div class="container-fluid">
+    <h2>Budget Months: </h2>
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <tr>
+            <th>Budget Month Id</th>
+            <th>Budget Date</th>
+        </tr>
+
+        <c:forEach var="budgetMonth" items="${budgetMonths}">
+            <tr>
+                <td>${budgetMonth.budgetMonthId}</td>
+                <td>${budgetMonth.budgetDate}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 
 
 
