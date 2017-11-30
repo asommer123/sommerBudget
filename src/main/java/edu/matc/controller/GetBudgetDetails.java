@@ -29,6 +29,7 @@ public class GetBudgetDetails extends HttpServlet {
             throws ServletException, IOException {
 
 
+
         String budgetId = request.getParameter("budgetId");
         log.info("budgetId = " + budgetId);
 

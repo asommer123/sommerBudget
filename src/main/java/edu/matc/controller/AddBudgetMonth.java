@@ -49,7 +49,7 @@ public class AddBudgetMonth extends HttpServlet {
         usersDao.updateUser(users);
 
 
-        request.getSession().setAttribute("createMessage", "successfully added " + budgetDate);
+        request.setAttribute("createMessage", "successfully added " + budgetDate);
 
         request.setAttribute("user", users);
 

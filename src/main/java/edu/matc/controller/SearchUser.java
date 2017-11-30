@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 @WebServlet(
+        name = "searchUser",
         urlPatterns = {"/searchUser"}
 )
 
