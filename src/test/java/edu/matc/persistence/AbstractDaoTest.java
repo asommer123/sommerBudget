@@ -39,23 +39,14 @@ public class AbstractDaoTest {
         user.setLastName("LastName");
 
         UserRole userRole = new UserRole();
-        userRole.setRoleName("tester");
+        userRole.setRoleName("registeredUser");
         userRole.setUsersByAccountId(user);
         user.getUserRoleByUserName().add(userRole);
 
-
-        //LocalDate localDate = LocalDate.parse(dateString, DATE_TIME_FORMATTER);
-        LocalDate localDate = LocalDate.now();
-        LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
-        Date date = converter.convertToDatabaseColumn(localDate);
-        log.info("Date: " + date);
-        log.info("LocalDate: " + localDate);
-
-
-
         BudgetMonth budgetMonth = new BudgetMonth();
 
-        budgetMonth.setBudgetDate(date);
+        budgetMonth.setBudgetMonth("January");
+        budgetMonth.setBudgetYear("2018");
         budgetMonth.setUsersByAccountId(user);
         user.getBudgetMonthsByAccountId().add(budgetMonth);
 
@@ -66,22 +57,9 @@ public class AbstractDaoTest {
 
     @Test
     public void createTestBudgetMonth() throws Exception {
-        Users user = usersAbstractDao.get(8);
+        Users user = usersAbstractDao.get(2);
 
-        LocalDate localDate = LocalDate.parse("2017-10-01", DATE_TIME_FORMATTER);
-        //LocalDate localDate = LocalDate.now();
-        LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
-        Date date = converter.convertToDatabaseColumn(localDate);
-        log.info("Date: " + date);
-        log.info("LocalDate: " + localDate);
-
-
-
-        BudgetMonth budgetMonth = new BudgetMonth();
-
-        budgetMonth.setBudgetDate(date);
-        budgetMonth.setUsersByAccountId(user);
-
+        BudgetMonth budgetMonth = new BudgetMonth("August", "2017", user);
 
         int budgetId = budgetMonthAbstractDao.create(budgetMonth);
 
@@ -117,11 +95,7 @@ public class AbstractDaoTest {
     public void updateTest() throws Exception {
         Users user = usersAbstractDao.get(1);
 
-        LocalDate localDate = LocalDate.parse("2017-11-01", DATE_TIME_FORMATTER);
-        LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
-        Date date = converter.convertToDatabaseColumn(localDate);
-
-        BudgetMonth budgetMonth = new BudgetMonth(date, user);
+        BudgetMonth budgetMonth = new BudgetMonth("November", "2017", user);
 
         user.getBudgetMonthsByAccountId().add(budgetMonth);
 

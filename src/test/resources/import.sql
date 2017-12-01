@@ -82,7 +82,7 @@ UNLOCK TABLES;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `budgetMonth` (  `budget_month_id` int(11) NOT NULL AUTO_INCREMENT,  `budget_date` date NOT NULL,  `account_id` int(11) NOT NULL,  PRIMARY KEY (`budget_month_id`),  KEY `fk_users` (`account_id`),  CONSTRAINT `budgetMonth_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `users` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+CREATE TABLE `budgetMonth` (  `budget_month_id` int(11) NOT NULL AUTO_INCREMENT,  `budget_month` varchar(10) NOT NULL, `budget_year` varchar(4) NOT NULL,  `account_id` int(11) NOT NULL,  PRIMARY KEY (`budget_month_id`),  KEY `fk_users` (`account_id`),  CONSTRAINT `budgetMonth_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `users` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `budgetMonth` (  `budget_month_id` int(11) NOT NULL AUTO_INCREMENT,
 
 LOCK TABLES `budgetMonth` WRITE;
 /*!40000 ALTER TABLE `budgetMonth` DISABLE KEYS */;
-INSERT INTO `budgetMonth` VALUES (1,'2017-09-01',1),(2,'2017-10-01',1);
+INSERT INTO `budgetMonth` VALUES (1,'September','2017',1),(2,'November','2017',1);
 /*!40000 ALTER TABLE `budgetMonth` ENABLE KEYS */;
 UNLOCK TABLES;
 

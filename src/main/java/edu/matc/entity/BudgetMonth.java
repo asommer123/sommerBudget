@@ -16,8 +16,12 @@ public class BudgetMonth {
     private int budgetMonthId;
 
     @Basic
-    @Column(name = "budget_date", nullable = false)
-    private Date budgetDate;
+    @Column(name = "budget_month", nullable = false)
+    private String budgetMonth;
+
+    @Basic
+    @Column(name = "budget_year", nullable = false)
+    private String budgetYear;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
@@ -34,8 +38,9 @@ public class BudgetMonth {
     public BudgetMonth() {
     }
 
-    public BudgetMonth(Date budgetDate, Users usersByAccountId) {
-        this.budgetDate = budgetDate;
+    public BudgetMonth(String budgetMonth, String budgetYear, Users usersByAccountId) {
+        this.budgetMonth = budgetMonth;
+        this.budgetYear = budgetYear;
         this.usersByAccountId = usersByAccountId;
     }
 
@@ -47,12 +52,20 @@ public class BudgetMonth {
         this.budgetMonthId = budgetMonthId;
     }
 
-    public Date getBudgetDate() {
-        return budgetDate;
+    public String getBudgetMonth() {
+        return budgetMonth;
     }
 
-    public void setBudgetDate(Date budgetDate) {
-        this.budgetDate = budgetDate;
+    public void setBudgetMonth(String budgetMonth) {
+        this.budgetMonth = budgetMonth;
+    }
+
+    public String getBudgetYear() {
+        return budgetYear;
+    }
+
+    public void setBudgetYear(String budgetYear) {
+        this.budgetYear = budgetYear;
     }
 
     public Users getUsersByAccountId() {
@@ -83,7 +96,8 @@ public class BudgetMonth {
     public String toString() {
         return "BudgetMonth{"
                 + "budget_month_id='" + budgetMonthId + '\''
-                + "budget_date='" + budgetDate + '\''
+                + "budget_month='" + budgetMonth + '\''
+                + "budget_year='" + budgetYear + '\''
                 + '}';
     }
 
@@ -95,7 +109,8 @@ public class BudgetMonth {
         BudgetMonth that = (BudgetMonth) o;
 
         if (budgetMonthId != that.budgetMonthId) return false;
-        if (budgetDate != null ? !budgetDate.equals(that.budgetDate) : that.budgetDate != null) return false;
+        if (budgetMonth.equals(that.budgetMonth)) return false;
+        if (budgetYear.equals(that.budgetYear)) return false;
 
         return true;
     }
@@ -103,7 +118,8 @@ public class BudgetMonth {
     @Override
     public int hashCode() {
         int result = budgetMonthId;
-        result = 31 * result + (budgetDate != null ? budgetDate.hashCode() : 0);
+        result = 31 * result + (budgetMonth != null ? budgetMonth.hashCode() : 0);
+        result = 31 * result + (budgetYear != null ? budgetYear.hashCode() : 0);
         return result;
     }
 }

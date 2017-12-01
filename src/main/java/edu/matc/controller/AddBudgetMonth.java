@@ -2,6 +2,7 @@ package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.Users;
+import edu.matc.persistence.AbstractDao;
 import edu.matc.persistence.UsersDao;
 import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
@@ -32,30 +33,29 @@ public class AddBudgetMonth extends HttpServlet {
             throws ServletException, IOException {
 
 
-        String budgetDate = request.getParameter("budgetDate");
-        log.info("budgetDate = " + budgetDate);
-
-        LocalDate localDate = LocalDate.parse(budgetDate, DATE_TIME_FORMATTER);
-        LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
-        Date date = converter.convertToDatabaseColumn(localDate);
+        String monthSelected = request.getParameter("monthSelected");
+        log.info("monthSelected = " + monthSelected);
+        String yearSelected = request.getParameter("yearSelected");
+        log.info("yearSelected = " + yearSelected);
 
 
 
         UsersDao usersDao = new UsersDao();
         Users users = usersDao.getUserByUserName(request.getRemoteUser());
 
-        users.getBudgetMonthsByAccountId().add(new BudgetMonth(date, users));
+        users.getBudgetMonthsByAccountId().add(new BudgetMonth(monthSelected, yearSelected, users));
 
         usersDao.updateUser(users);
 
 
-        request.setAttribute("createMessage", "successfully added " + budgetDate);
 
-        request.setAttribute("user", users);
+        AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
+        BudgetMonth budgetMonth = dao.get(users.getBudgetMonthsByAccountId().size());
 
-        Set<BudgetMonth> budgetMonths = users.getBudgetMonthsByAccountId();
+        log.info("Budget Month: " + budgetMonth);
 
-        request.setAttribute("budgetMonths", budgetMonths);
+
+        request.setAttribute("budgetMonth", budgetMonth);
 
         // Create the url
         String url = "/showBudgetDetails.jsp";
