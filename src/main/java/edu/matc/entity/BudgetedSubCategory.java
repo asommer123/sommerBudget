@@ -38,7 +38,7 @@ public class BudgetedSubCategory {
     @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
     private BudgetMonth budgetMonthByBudgetMonthId;
 
-    @OneToMany(mappedBy = "budgetedSubCategoryByBudgetedId")
+    @OneToMany(mappedBy = "budgetedSubCategories")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<Transaction> transactionsByBudgetedId;
 

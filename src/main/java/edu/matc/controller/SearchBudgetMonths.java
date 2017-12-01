@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @WebServlet(
@@ -43,7 +42,7 @@ public class SearchBudgetMonths extends HttpServlet {
         Users user = usersDao.getUserByUserName(request.getRemoteUser());
         request.setAttribute("user", user);
 
-        Set<BudgetMonth> budgetMonths = user.getBudgetMonthsByAccountId();
+        Set<BudgetMonth> budgetMonths = user.getBudgetMonths();
 
         request.setAttribute("budgetMonths", budgetMonths);
 

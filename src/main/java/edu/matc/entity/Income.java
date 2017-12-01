@@ -21,7 +21,7 @@ public class Income {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
-    private BudgetMonth budgetMonthByBudgetMonthId;
+    private BudgetMonth budgetMonth;
 
     public int getIncomeId() {
         return incomeId;
@@ -47,12 +47,12 @@ public class Income {
         this.payAmount = payAmount;
     }
 
-    public BudgetMonth getBudgetMonthByBudgetMonthId() {
-        return budgetMonthByBudgetMonthId;
+    public BudgetMonth getBudgetMonth() {
+        return budgetMonth;
     }
 
-    public void setBudgetMonthByBudgetMonthId(BudgetMonth budgetMonthByBudgetMonthId) {
-        this.budgetMonthByBudgetMonthId = budgetMonthByBudgetMonthId;
+    public void setBudgetMonth(BudgetMonth budgetMonth) {
+        this.budgetMonth = budgetMonth;
     }
 
     @Override

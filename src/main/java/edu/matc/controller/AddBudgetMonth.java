@@ -4,7 +4,6 @@ import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.Users;
 import edu.matc.persistence.AbstractDao;
 import edu.matc.persistence.UsersDao;
-import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -14,10 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
 @WebServlet(
         name = "addBudgetMonth",
@@ -43,19 +39,19 @@ public class AddBudgetMonth extends HttpServlet {
         UsersDao usersDao = new UsersDao();
         Users users = usersDao.getUserByUserName(request.getRemoteUser());
 
-        users.getBudgetMonthsByAccountId().add(new BudgetMonth(monthSelected, yearSelected, users));
+        users.getBudgetMonths().add(new BudgetMonth(monthSelected, yearSelected, users));
 
         usersDao.updateUser(users);
 
 
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
-        BudgetMonth budgetMonth = dao.get(users.getBudgetMonthsByAccountId().size());
+        BudgetMonth budget = dao.get(users.getBudgetMonths().size());
 
-        log.info("Budget Month: " + budgetMonth);
+        log.info("Budget Month: " + budget);
 
 
-        request.setAttribute("budgetMonth", budgetMonth);
+        request.setAttribute("budget", budget);
 
         // Create the url
         String url = "/showBudgetDetails.jsp";

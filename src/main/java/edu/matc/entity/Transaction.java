@@ -25,7 +25,7 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "budgeted_id", referencedColumnName = "budgeted_id", nullable = false)
-    private BudgetedSubCategory budgetedSubCategoryByBudgetedId;
+    private BudgetedSubCategory budgetedSubCategories;
 
     public int getTransactionId() {
         return transactionId;
@@ -59,12 +59,12 @@ public class Transaction {
         this.note = note;
     }
 
-    public BudgetedSubCategory getBudgetedSubCategoryByBudgetedId() {
-        return budgetedSubCategoryByBudgetedId;
+    public BudgetedSubCategory getBudgetedSubCategories() {
+        return budgetedSubCategories;
     }
 
-    public void setBudgetedSubCategoryByBudgetedId(BudgetedSubCategory budgetedSubCategoryByBudgetedId) {
-        this.budgetedSubCategoryByBudgetedId = budgetedSubCategoryByBudgetedId;
+    public void setBudgetedSubCategories(BudgetedSubCategory budgetedSubCategories) {
+        this.budgetedSubCategories = budgetedSubCategories;
     }
 
     @Override

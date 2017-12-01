@@ -26,11 +26,11 @@ public class SubCategory {
 
     @OneToMany(mappedBy = "subCategoryBySubCategoryId")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId;
+    private Collection<BudgetedSubCategory> budgetedSubCategories;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
-    private Category categoryByCategoryId;
+    private Category category;
 
     public int getSubCategoryId() {
         return subCategoryId;
@@ -64,20 +64,20 @@ public class SubCategory {
         this.dayOfMonthDue = dayOfMonthDue;
     }
 
-    public Collection<BudgetedSubCategory> getBudgetedSubCategoriesBySubCategoryId() {
-        return budgetedSubCategoriesBySubCategoryId;
+    public Collection<BudgetedSubCategory> getBudgetedSubCategories() {
+        return budgetedSubCategories;
     }
 
-    public void setBudgetedSubCategoriesBySubCategoryId(Collection<BudgetedSubCategory> budgetedSubCategoriesBySubCategoryId) {
-        this.budgetedSubCategoriesBySubCategoryId = budgetedSubCategoriesBySubCategoryId;
+    public void setBudgetedSubCategories(Collection<BudgetedSubCategory> budgetedSubCategories) {
+        this.budgetedSubCategories = budgetedSubCategories;
     }
 
-    public Category getCategoryByCategoryId() {
-        return categoryByCategoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryByCategoryId(Category categoryByCategoryId) {
-        this.categoryByCategoryId = categoryByCategoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

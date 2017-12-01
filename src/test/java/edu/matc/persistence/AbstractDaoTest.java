@@ -3,13 +3,10 @@ package edu.matc.persistence;
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
-import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
@@ -40,15 +37,15 @@ public class AbstractDaoTest {
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("registeredUser");
-        userRole.setUsersByAccountId(user);
-        user.getUserRoleByUserName().add(userRole);
+        userRole.setUsers(user);
+        user.getUserRole().add(userRole);
 
         BudgetMonth budgetMonth = new BudgetMonth();
 
         budgetMonth.setBudgetMonth("January");
         budgetMonth.setBudgetYear("2018");
-        budgetMonth.setUsersByAccountId(user);
-        user.getBudgetMonthsByAccountId().add(budgetMonth);
+        budgetMonth.setUsers(user);
+        user.getBudgetMonths().add(budgetMonth);
 
         int userId = usersAbstractDao.create(user);
 
@@ -75,7 +72,7 @@ public class AbstractDaoTest {
     public void getTest() throws Exception {
         Users user = usersAbstractDao.get(1);
 
-        Set<BudgetMonth> budgetMonthes = user.getBudgetMonthsByAccountId();
+        Set<BudgetMonth> budgetMonthes = user.getBudgetMonths();
 
         for (BudgetMonth budgetMonth: budgetMonthes) {
             log.info("BudgetMonth: " + budgetMonth);
@@ -97,14 +94,14 @@ public class AbstractDaoTest {
 
         BudgetMonth budgetMonth = new BudgetMonth("November", "2017", user);
 
-        user.getBudgetMonthsByAccountId().add(budgetMonth);
+        user.getBudgetMonths().add(budgetMonth);
 
         usersAbstractDao.update(user);
 
 
         Users updatedUser = usersAbstractDao.get(1);
 
-        Set<BudgetMonth> budgetMonthes = updatedUser.getBudgetMonthsByAccountId();
+        Set<BudgetMonth> budgetMonthes = updatedUser.getBudgetMonths();
 
         for (BudgetMonth budgetMonthUpdated: budgetMonthes) {
             log.info("BudgetMonth: " + budgetMonthUpdated);

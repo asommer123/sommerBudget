@@ -4,7 +4,6 @@ import edu.matc.util.LocalDateAttributeConverter;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -25,23 +24,23 @@ public class BudgetMonth {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
-    private Users usersByAccountId;
+    private Users users;
 
     @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<BudgetedSubCategory> budgetedSubCategoriesByBudgetMonthId;
+    private Collection<BudgetedSubCategory> budgetedSubCategories;
 
-    @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
+    @OneToMany(mappedBy = "budgetMonth")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<Income> incomesByBudgetMonthId;
+    private Collection<Income> incomes;
 
     public BudgetMonth() {
     }
 
-    public BudgetMonth(String budgetMonth, String budgetYear, Users usersByAccountId) {
+    public BudgetMonth(String budgetMonth, String budgetYear, Users users) {
         this.budgetMonth = budgetMonth;
         this.budgetYear = budgetYear;
-        this.usersByAccountId = usersByAccountId;
+        this.users = users;
     }
 
     public int getBudgetMonthId() {
@@ -68,28 +67,28 @@ public class BudgetMonth {
         this.budgetYear = budgetYear;
     }
 
-    public Users getUsersByAccountId() {
-        return usersByAccountId;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setUsersByAccountId(Users usersByAccountId) {
-        this.usersByAccountId = usersByAccountId;
+    public void setUsers(Users usersByAccountId) {
+        this.users = usersByAccountId;
     }
 
-    public Collection<BudgetedSubCategory> getBudgetedSubCategoriesByBudgetMonthId() {
-        return budgetedSubCategoriesByBudgetMonthId;
+    public Collection<BudgetedSubCategory> getBudgetedSubCategories() {
+        return budgetedSubCategories;
     }
 
-    public void setBudgetedSubCategoriesByBudgetMonthId(Collection<BudgetedSubCategory> budgetedSubCategoriesByBudgetMonthId) {
-        this.budgetedSubCategoriesByBudgetMonthId = budgetedSubCategoriesByBudgetMonthId;
+    public void setBudgetedSubCategories(Collection<BudgetedSubCategory> budgetedSubCategories) {
+        this.budgetedSubCategories = budgetedSubCategories;
     }
 
-    public Collection<Income> getIncomesByBudgetMonthId() {
-        return incomesByBudgetMonthId;
+    public Collection<Income> getIncomes() {
+        return incomes;
     }
 
-    public void setIncomesByBudgetMonthId(Collection<Income> incomesByBudgetMonthId) {
-        this.incomesByBudgetMonthId = incomesByBudgetMonthId;
+    public void setIncomes(Collection<Income> incomes) {
+        this.incomes = incomes;
     }
 
     @Override

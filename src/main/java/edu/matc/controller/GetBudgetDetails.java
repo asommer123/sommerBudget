@@ -34,12 +34,12 @@ public class GetBudgetDetails extends HttpServlet {
         log.info("budgetId = " + budgetId);
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
-        BudgetMonth budgetMonth = dao.get(Integer.valueOf(budgetId));
+        BudgetMonth budget = dao.get(Integer.valueOf(budgetId));
 
-        log.info("Budget Month: " + budgetMonth);
+        log.info("Budget Month: " + budget);
 
 
-        request.setAttribute("budgetMonth", budgetMonth);
+        request.setAttribute("budget", budget);
 
 
         // Create the url

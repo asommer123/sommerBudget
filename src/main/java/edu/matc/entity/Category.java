@@ -22,11 +22,11 @@ public class Category {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
-    private Users usersByAccountId;
+    private Users user;
 
-    @OneToMany(mappedBy = "categoryByCategoryId")
+    @OneToMany(mappedBy = "category")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<SubCategory> subCategoriesByCategoryId;
+    private Collection<SubCategory> subCategories;
 
 
     public int getCategoryId() {
@@ -53,20 +53,20 @@ public class Category {
         this.defaultFl = defaultFl;
     }
 
-    public Users getUsersByAccountId() {
-        return usersByAccountId;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUsersByAccountId(Users usersByAccountId) {
-        this.usersByAccountId = usersByAccountId;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
-    public Collection<SubCategory> getSubCategoriesByCategoryId() {
-        return subCategoriesByCategoryId;
+    public Collection<SubCategory> getSubCategories() {
+        return subCategories;
     }
 
-    public void setSubCategoriesByCategoryId(Collection<SubCategory> subCategoriesByCategoryId) {
-        this.subCategoriesByCategoryId = subCategoriesByCategoryId;
+    public void setSubCategories(Collection<SubCategory> subCategories) {
+        this.subCategories = subCategories;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Category {
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
                 ", defaultFl=" + defaultFl +
-                ", usersByAccountId=" + usersByAccountId +
+                ", user=" + user +
                 '}';
     }
 

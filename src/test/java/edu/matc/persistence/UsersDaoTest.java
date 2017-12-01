@@ -51,8 +51,8 @@ public class UsersDaoTest {
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("tester");
-        userRole.setUsersByAccountId(user);
-        user.getUserRoleByUserName().add(userRole);
+        userRole.setUsers(user);
+        user.getUserRole().add(userRole);
 
         int userId = dao.addUser(user);
 

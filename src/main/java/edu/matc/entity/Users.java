@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,17 +38,17 @@ public class Users implements Serializable {
     @Column(name = "email_address", nullable = true, length = 60)
     private String emailAddress;
 
-    @OneToMany(mappedBy = "usersByAccountId")
+    @OneToMany(mappedBy = "users")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    private Set<BudgetMonth> budgetMonthsByAccountId = new HashSet<BudgetMonth>(0);
+    private Set<BudgetMonth> budgetMonths = new HashSet<BudgetMonth>(0);
 
-    @OneToMany(mappedBy = "usersByAccountId")
+    @OneToMany(mappedBy = "user")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    private Set<Category> categoriesByAccountId = new HashSet<Category>(0);
+    private Set<Category> categories = new HashSet<Category>(0);
 
-    @OneToMany(mappedBy = "usersByAccountId")
+    @OneToMany(mappedBy = "users")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    private Set<UserRole> userRoleByUserName = new HashSet<UserRole>(0);
+    private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 
     public int getAccountId() {
         return accountId;
@@ -99,28 +98,28 @@ public class Users implements Serializable {
         this.emailAddress = emailAddress;
     }
 
-    public Set<BudgetMonth> getBudgetMonthsByAccountId() {
-        return budgetMonthsByAccountId;
+    public Set<BudgetMonth> getBudgetMonths() {
+        return budgetMonths;
     }
 
-    public void setBudgetMonthsByAccountId(Set<BudgetMonth> budgetMonthsByAccountId) {
-        this.budgetMonthsByAccountId = budgetMonthsByAccountId;
+    public void setBudgetMonths(Set<BudgetMonth> budgetMonths) {
+        this.budgetMonths = budgetMonths;
     }
 
-    public Set<Category> getCategoriesByAccountId() {
-        return categoriesByAccountId;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategoriesByAccountId(Set<Category> categoriesByAccountId) {
-        this.categoriesByAccountId = categoriesByAccountId;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
-    public Set<UserRole> getUserRoleByUserName() {
-        return userRoleByUserName;
+    public Set<UserRole> getUserRole() {
+        return userRoles;
     }
 
-    public void setUserRoleByUserName(Set<UserRole> userRoleByUserName) {
-        this.userRoleByUserName = userRoleByUserName;
+    public void setUserRole(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     @Override

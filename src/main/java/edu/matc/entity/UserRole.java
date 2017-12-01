@@ -20,7 +20,7 @@ public class UserRole {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
-    private Users usersByAccountId;
+    private Users users;
 
 
     public int getUserRoleId() {
@@ -39,12 +39,12 @@ public class UserRole {
         this.roleName = roleName;
     }
 
-    public Users getUsersByAccountId() {
-        return usersByAccountId;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setUsersByAccountId(Users usersByAccountId) {
-        this.usersByAccountId = usersByAccountId;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     @Override
