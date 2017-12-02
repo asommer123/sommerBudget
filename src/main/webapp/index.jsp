@@ -1,5 +1,6 @@
-<%@include file="head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="title" value="Welcome to sommerBudget" />
+<%@include file="head.jsp"%>
 <%--
   Created by IntelliJ IDEA.
   User: paulawaite
@@ -9,9 +10,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Form-Based Authentication Example</title>
-</head>
 <body>
 <c:import url="navbar.jsp" />
 <ul>
