@@ -90,20 +90,38 @@
 
                     <div class="container-fluid">
 
-                        <form class="form-inline" action="updateBudgetedItem" method="GET">
+                        <form class="form-inline" action="updateBudgetedItem" method="POST">
                             <input type="hidden" id="budgetId" name="budgetId" value="${budget.budgetMonthId}">
                             <c:forEach var="budgetItem" items="${budget.budgetedSubCategories}">
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="category" name="category" value="${budgetItem.subCategoryBySubCategoryId.category.categoryName}">
-                                    <input type="text" class="form-control" id="subCategory" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
-                                    <input type="text" class="form-control" id="budgetedId" name="budgetedId" value="${budgetItem.budgetedId}">
-                                    <input type="text" class="form-control" id="budgetedAmount" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
-                                    <input type="text" class="form-control" id="dueDate" name="dueDate" value="${budgetItem.dueDate}">
-                                    <input type="text" class="form-control" id="envelopeAmount" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
-                                    <input type="text" class="form-control" id="note" name="note" value="${budgetItem.note}">
-                                    <input type="text" class="form-control" id="dayOfMonthDue" name="dayOfMonthDue" value="${budgetItem.subCategoryBySubCategoryId.dayOfMonthDue}">
-                                    <input type="submit" value="Update">
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="category" name="category" value="${budgetItem.subCategoryBySubCategoryId.category.categoryName}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="subCategory" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="budgetedId" name="budgetedId" value="${budgetItem.budgetedId}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="budgetedAmount" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="dueDate" name="dueDate" value="${budgetItem.dueDate}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                            <input type="text" class="form-control" id="envelopeAmount" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="note" name="note" value="${budgetItem.note}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" class="form-control" id="dayOfMonthDue" name="dayOfMonthDue" value="${budgetItem.subCategoryBySubCategoryId.dayOfMonthDue}">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="submit" value="Update">
+                                    </div>
                                 </div>
                             </c:forEach>
                         </form>
@@ -114,6 +132,43 @@
     </div>
 
 
+
+
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse3">Attempt with forms second one</a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">Each budgetedSubCategories form attempt
+
+
+
+                    <div class="container-fluid">
+
+
+                        <c:forEach var="budgetItem" items="${budget.budgetedSubCategories}">
+
+                            <form class="form-inline" action="updateBudgetedItem" method="POST">
+                                <input type="hidden" id="budgetId2" name="budgetId" value="${budget.budgetMonthId}">
+
+                                <div class="form-group">
+                                        <input type="text" class="form-control" id="subCategory2" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
+                                        <input type="text" class="form-control" id="budgetedAmount2" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
+                                        <input type="text" class="form-control" id="dueDate2" name="dueDate" value="${budgetItem.dueDate}">
+                                        <input type="text" class="form-control" id="envelopeAmount2" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
+                                        <input type="submit" value="Update">
+                                </div>
+                            </form>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

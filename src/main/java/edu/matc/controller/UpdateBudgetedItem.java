@@ -22,7 +22,7 @@ public class UpdateBudgetedItem extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
 
