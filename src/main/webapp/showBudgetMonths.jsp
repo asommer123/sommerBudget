@@ -60,18 +60,18 @@
 
 <br>
 <br>
-
-<div class="selectBudget">
-    <form action="getBudgetDetails" method="GET">
-        <c:forEach var="budget" items="${budgetMonths}">
-            <div class="radio">
-                <label><input type="radio" name="budgetId" value="${budget.budgetMonthId}">${budget.budgetMonth}-${budget.budgetYear}</label>
-            </div>
-        </c:forEach>
-        <input type="submit" value="Edit/View Budget">
-    </form>
+<div class="container">
+    <div class="selectBudget">
+        <form action="getBudgetDetails" method="GET">
+            <c:forEach var="budget" items="${budgetMonths}">
+                <div class="radio">
+                    <label><input type="radio" name="budgetId" value="${budget.budgetMonthId}">${budget.budgetMonth}-${budget.budgetYear}</label>
+                </div>
+            </c:forEach>
+            <input type="submit" value="Edit/View Budget">
+        </form>
+    </div>
 </div>
-
 
 <br>
 <br>

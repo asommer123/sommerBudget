@@ -16,7 +16,7 @@ public class BudgetedItem {
 
     @Basic
     @Column(name = "subCategory_name", nullable = false, length = 60)
-    private String subCategory_name;
+    private String subCategoryName;
 
     @Basic
     @Column(name = "budgeted_amount", nullable = true, precision = 2)
@@ -50,12 +50,12 @@ public class BudgetedItem {
         this.budgetedId = budgetedId;
     }
 
-    public String getSubCategory_name() {
-        return subCategory_name;
+    public String getSubCategoryName() {
+        return subCategoryName;
     }
 
-    public void setSubCategory_name(String subCategory_name) {
-        this.subCategory_name = subCategory_name;
+    public void setSubCategoryName(String subCategory_name) {
+        this.subCategoryName = subCategory_name;
     }
 
     public BigDecimal getBudgetedAmount() {
@@ -110,7 +110,7 @@ public class BudgetedItem {
     public String toString() {
         return "BudgetedItem{" +
                 "budgetedId=" + budgetedId +
-                ", subCategory_name='" + subCategory_name + '\'' +
+                ", subCategory_name='" + subCategoryName + '\'' +
                 ", budgetedAmount=" + budgetedAmount +
                 ", dueDate=" + dueDate +
                 ", envelopeAmount=" + envelopeAmount +
