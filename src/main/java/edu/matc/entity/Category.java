@@ -16,18 +16,13 @@ public class Category {
     @Column(name = "category_name", nullable = false, length = 60)
     private String categoryName;
 
-    @Basic
-    @Column(name = "default_fl", nullable = true)
-    private Byte defaultFl;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
-    private Users user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
+    private BudgetMonth budgetMonth;
 
     @OneToMany(mappedBy = "category")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<SubCategory> subCategories;
-
+    private Collection<BudgetedItem> budgetedItems;
 
     public int getCategoryId() {
         return categoryId;
@@ -45,28 +40,20 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Byte getDefaultFl() {
-        return defaultFl;
+    public BudgetMonth getBudgetMonth() {
+        return budgetMonth;
     }
 
-    public void setDefaultFl(Byte defaultFl) {
-        this.defaultFl = defaultFl;
+    public void setBudgetMonth(BudgetMonth budgetMonth) {
+        this.budgetMonth = budgetMonth;
     }
 
-    public Users getUser() {
-        return user;
+    public Collection<BudgetedItem> getBudgetedItems() {
+        return budgetedItems;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
-
-    public Collection<SubCategory> getSubCategories() {
-        return subCategories;
-    }
-
-    public void setSubCategories(Collection<SubCategory> subCategories) {
-        this.subCategories = subCategories;
+    public void setBudgetedItems(Collection<BudgetedItem> budgetedItems) {
+        this.budgetedItems = budgetedItems;
     }
 
     @Override
@@ -74,8 +61,6 @@ public class Category {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
-                ", defaultFl=" + defaultFl +
-                ", user=" + user +
                 '}';
     }
 
@@ -89,7 +74,6 @@ public class Category {
         if (categoryId != category.categoryId) return false;
         if (categoryName != null ? !categoryName.equals(category.categoryName) : category.categoryName != null)
             return false;
-        if (defaultFl != null ? !defaultFl.equals(category.defaultFl) : category.defaultFl != null) return false;
 
         return true;
     }
@@ -98,7 +82,6 @@ public class Category {
     public int hashCode() {
         int result = categoryId;
         result = 31 * result + (categoryName != null ? categoryName.hashCode() : 0);
-        result = 31 * result + (defaultFl != null ? defaultFl.hashCode() : 0);
         return result;
     }
 }

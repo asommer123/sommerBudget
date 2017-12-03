@@ -1,10 +1,8 @@
 package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
-import edu.matc.entity.BudgetedSubCategory;
-import edu.matc.entity.Users;
+import edu.matc.entity.BudgetedItem;
 import edu.matc.persistence.AbstractDao;
-import edu.matc.persistence.UsersDao;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -52,15 +50,15 @@ public class UpdateBudgetedItem extends HttpServlet {
 
 
 
-        AbstractDao<BudgetedSubCategory> budgetedSubCategoryAbstractDao = new AbstractDao<>(BudgetedSubCategory.class);
-        BudgetedSubCategory budgetedSubCategory = budgetedSubCategoryAbstractDao.get(Integer.valueOf(budgetedId));
+        AbstractDao<BudgetedItem> budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
+        BudgetedItem budgetedItem = budgetedItemAbstractDao.get(Integer.valueOf(budgetedId));
 
         BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
         log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
-        budgetedSubCategory.setBudgetedAmount(new BigDecimal(budgetedAmount));
-        budgetedSubCategory.setNote(note);
+        budgetedItem.setBudgetedAmount(new BigDecimal(budgetedAmount));
+        budgetedItem.setNote(note);
 
-        budgetedSubCategoryAbstractDao.update(budgetedSubCategory);
+        budgetedItemAbstractDao.update(budgetedItem);
 
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);

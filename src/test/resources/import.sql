@@ -21,6 +21,7 @@
 --
 
 DROP TABLE IF EXISTS `transaction`;
+DROP TABLE IF EXISTS `budgetedItem`;
 DROP TABLE IF EXISTS `budgetedSubCategory`;
 DROP TABLE IF EXISTS `subCategory`;
 DROP TABLE IF EXISTS `category`;
@@ -119,10 +120,11 @@ UNLOCK TABLES;
 -- Table structure for table `category`
 --
 
-
+DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category` (  `category_id` int(11) NOT NULL AUTO_INCREMENT,  `category_name` varchar(60) NOT NULL,  `default_fl` tinyint(1) DEFAULT NULL,  `account_id` int(11) NOT NULL,  PRIMARY KEY (`category_id`),  KEY `fk_account` (`account_id`),  CONSTRAINT `category_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `users` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+CREATE TABLE `category` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,  `category_name` varchar(60) NOT NULL,  `budget_month_id` int(11) NOT NULL,  PRIMARY KEY (`category_id`),  KEY `fk_budgetMonth` (`budget_month_id`),  CONSTRAINT `category_ibfk_1` FOREIGN KEY (`budget_month_id`) REFERENCES `budgetMonth` (`budget_month_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,50 +133,28 @@ CREATE TABLE `category` (  `category_id` int(11) NOT NULL AUTO_INCREMENT,  `cate
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Housing',NULL,1),(2,'Utilities',NULL,1),(3,'Food',NULL,1);
+INSERT INTO `category` VALUES (1,'Housing',1),(2,'Utilities',1),(3,'Food',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
-
 --
--- Table structure for table `subCategory`
+-- Table structure for table `budgetedItem`
 --
 
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subCategory` (  `subCategory_id` int(11) NOT NULL AUTO_INCREMENT,  `subCategory_name` varchar(60) NOT NULL,  `default_fl` tinyint(1) DEFAULT NULL,  `day_of_month_due` int(2) DEFAULT NULL,  `category_id` int(11) NOT NULL,  PRIMARY KEY (`subCategory_id`),  KEY `fk_category` (`category_id`),  CONSTRAINT `subCategory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+CREATE TABLE `budgetedItem` (  `budgeted_id` int(11) NOT NULL AUTO_INCREMENT,  `subCategory_name` varchar(60) NOT NULL,  `budgeted_amount` decimal(7,2) DEFAULT NULL,  `due_date` date DEFAULT NULL,  `envelope_amount` decimal(7,2) DEFAULT NULL,  `note` text,  `category_id` int(11) NOT NULL,  PRIMARY KEY (`budgeted_id`),  KEY `fk_category` (`category_id`),  CONSTRAINT `budgetedSubCategory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `subCategory`
+-- Dumping data for table `budgetedItem`
 --
 
-LOCK TABLES `subCategory` WRITE;
-/*!40000 ALTER TABLE `subCategory` DISABLE KEYS */;
-INSERT INTO `subCategory` VALUES (1,'Mortgage',NULL,1,1),(2,'Electricity',NULL,8,2),(3,'Water',NULL,25,2),(4,'Phone',NULL,5,2),(5,'Internet',NULL,15,2),(6,'Groceries',NULL,NULL,3),(7,'Restaurants',NULL,NULL,3);
-/*!40000 ALTER TABLE `subCategory` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `budgetedSubCategory`
---
-
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `budgetedSubCategory` (  `budgeted_id` int(11) NOT NULL AUTO_INCREMENT,  `budgeted_amount` decimal(7,2) DEFAULT NULL,  `due_date` date DEFAULT NULL,  `envelope_amount` decimal(7,2) DEFAULT NULL,  `note` text,  `subCategory_id` int(11) NOT NULL,  `budget_month_id` int(11) NOT NULL,  PRIMARY KEY (`budgeted_id`),  KEY `fk_subCategory` (`subCategory_id`),  KEY `fk_budetMonth` (`budget_month_id`),  CONSTRAINT `budgetedSubCategory_ibfk_1` FOREIGN KEY (`subCategory_id`) REFERENCES `subCategory` (`subCategory_id`),  CONSTRAINT `budgetedSubCategory_ibfk_2` FOREIGN KEY (`budget_month_id`) REFERENCES `budgetMonth` (`budget_month_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `budgetedSubCategory`
---
-
-LOCK TABLES `budgetedSubCategory` WRITE;
-/*!40000 ALTER TABLE `budgetedSubCategory` DISABLE KEYS */;
-INSERT INTO `budgetedSubCategory` VALUES (1,650.00,'2017-10-01',NULL,'test note here',1,1),(2,60.00,'2017-09-08',NULL,NULL,2,1),(3,30.00,'2017-09-25',NULL,NULL,3,1),(4,80.00,'2017-09-05',NULL,NULL,4,1),(5,45.00,'2017-09-15',NULL,NULL,5,1),(6,253.94,NULL,225.00,'Keeping some in bank just in case need something and don\'t have the food envelope.',6,1),(7,40.00,NULL,40.00,NULL,7,1);
-/*!40000 ALTER TABLE `budgetedSubCategory` ENABLE KEYS */;
+LOCK TABLES `budgetedItem` WRITE;
+/*!40000 ALTER TABLE `budgetedItem` DISABLE KEYS */;
+INSERT INTO `budgetedItem` VALUES (1,'Mortgage',650.00,'2017-10-01',NULL,'test note here',1),(2,'Electricity',60.00,'2017-09-08',NULL,NULL,2),(3,'Water',30.00,'2017-09-25',NULL,NULL,2),(4,'Phone',80.00,'2017-09-05',NULL,NULL,2),(5,'Internet',45.00,'2017-09-15',NULL,NULL,2),(6,'Groceries',253.94,NULL,225.00,'Keeping some in bank just in case need something and don\'t have the food envelope.',3),(7,'Restaurants',40.00,NULL,40.00,NULL,3);
+/*!40000 ALTER TABLE `budgetedItem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -184,7 +164,7 @@ UNLOCK TABLES;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `transaction` (  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,  `transaction_amount` decimal(7,2) DEFAULT NULL,  `transaction_date` date DEFAULT NULL,  `note` text,  `budgeted_id` int(11) NOT NULL,  PRIMARY KEY (`transaction_id`),  KEY `fk_budgetedSubCategory` (`budgeted_id`),  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`budgeted_id`) REFERENCES `budgetedSubCategory` (`budgeted_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+CREATE TABLE `transaction` (  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,  `transaction_amount` decimal(7,2) DEFAULT NULL,  `transaction_date` date DEFAULT NULL,  `note` text,  `budgeted_id` int(11) NOT NULL,  PRIMARY KEY (`transaction_id`),  KEY `fk_budgetedSubCategory` (`budgeted_id`),  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`budgeted_id`) REFERENCES `budgetedItem` (`budgeted_id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

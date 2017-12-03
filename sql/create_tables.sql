@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS `transaction`;
+DROP TABLE IF EXISTS `budgetedItem`;
+DROP TABLE IF EXISTS `subCategory`;
+DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `income`;
+DROP TABLE IF EXISTS `budgetMonth`;
+DROP TABLE IF EXISTS `user_role`;
+DROP TABLE IF EXISTS `users`;
+
 create table users (
      account_id      int(11) NOT NULL auto_increment,
      user_name       varchar(15) NOT NULL,
@@ -49,41 +58,26 @@ create table income (
 create table category (
      category_id      int(11) NOT NULL AUTO_INCREMENT,
      category_name    varchar(60) NOT NULL,
-     default_fl       BOOLEAN,
-     account_id       int(11) NOT NULL,
+     budget_month_id  int(11) NOT NULL,
      PRIMARY KEY (category_id),
-     FOREIGN KEY fk_account(account_id)
-     REFERENCES users(account_id)
+     FOREIGN KEY fk_budgetMonth(budget_month_id)
+     REFERENCES budgetMonth(budget_month_id)
           ON DELETE CASCADE
           ON UPDATE CASCADE
 );
 
-create table subCategory (
-     subCategory_id   int(11) NOT NULL AUTO_INCREMENT,
-     subCategory_name varchar(60) NOT NULL,
-     default_fl       BOOLEAN,
-     day_of_month_due int(2),
-     category_id      int(11) NOT NULL,
-     PRIMARY KEY (subCategory_id),
-     FOREIGN KEY fk_category(category_id)
-     REFERENCES category(category_id)
-          ON DELETE CASCADE
-          ON UPDATE CASCADE
-);
 
-create table budgetedSubCategory (
+create table budgetedItem (
      budgeted_id      int(11) NOT NULL AUTO_INCREMENT,
+     subCategory_name varchar(60) NOT NULL,
      budgeted_amount  DECIMAL(7,2),
      due_date         DATE,
      envelope_amount  DECIMAL(7,2),
      note             TEXT,
-     subCategory_id   int(11) NOT NULL,
-     budget_month_id  int(11) NOT NULL,
+     category_id      int(11) NOT NULL,
      PRIMARY KEY (budgeted_id),
-     FOREIGN KEY fk_subCategory(subCategory_id)
-     REFERENCES subCategory(subCategory_id),
-     FOREIGN KEY fk_budetMonth(budget_month_id)
-     REFERENCES budgetMonth(budget_month_id)
+     FOREIGN KEY fk_category(category_id)
+     REFERENCES category(category_id)
           ON DELETE CASCADE
           ON UPDATE CASCADE
 );
@@ -96,7 +90,7 @@ create table transaction (
      budgeted_id        int(11) NOT NULL,
      PRIMARY KEY (transaction_id),
      FOREIGN KEY fk_budgetedSubCategory(budgeted_id)
-     REFERENCES budgetedSubCategory(budgeted_id)
+     REFERENCES budgetedItem(budgeted_id)
           ON DELETE CASCADE
           ON UPDATE CASCADE
 );

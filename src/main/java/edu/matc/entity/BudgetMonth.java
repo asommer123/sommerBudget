@@ -26,9 +26,9 @@ public class BudgetMonth {
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
     private Users users;
 
-    @OneToMany(mappedBy = "budgetMonthByBudgetMonthId")
+    @OneToMany(mappedBy = "budgetMonth")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<BudgetedSubCategory> budgetedSubCategories;
+    private Collection<Category> categories;
 
     @OneToMany(mappedBy = "budgetMonth")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
@@ -75,12 +75,12 @@ public class BudgetMonth {
         this.users = usersByAccountId;
     }
 
-    public Collection<BudgetedSubCategory> getBudgetedSubCategories() {
-        return budgetedSubCategories;
+    public Collection<Category> getCategories() {
+        return categories;
     }
 
-    public void setBudgetedSubCategories(Collection<BudgetedSubCategory> budgetedSubCategories) {
-        this.budgetedSubCategories = budgetedSubCategories;
+    public void setCategories(Collection<Category> categories) {
+        this.categories = categories;
     }
 
     public Collection<Income> getIncomes() {

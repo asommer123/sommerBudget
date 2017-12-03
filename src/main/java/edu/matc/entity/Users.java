@@ -42,10 +42,6 @@ public class Users implements Serializable {
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     private Set<BudgetMonth> budgetMonths = new HashSet<BudgetMonth>(0);
 
-    @OneToMany(mappedBy = "user")
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    private Set<Category> categories = new HashSet<Category>(0);
-
     @OneToMany(mappedBy = "users")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
@@ -104,14 +100,6 @@ public class Users implements Serializable {
 
     public void setBudgetMonths(Set<BudgetMonth> budgetMonths) {
         this.budgetMonths = budgetMonths;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
     }
 
     public Set<UserRole> getUserRole() {

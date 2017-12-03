@@ -43,13 +43,13 @@ INSERT INTO `budgetMonth` VALUES (1,'2017-09-01',1),(2,'2017-10-01',1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `budgetedSubCategory`
+-- Table structure for table `budgetedItem`
 --
 
-DROP TABLE IF EXISTS `budgetedSubCategory`;
+DROP TABLE IF EXISTS `budgetedItem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `budgetedSubCategory` (
+CREATE TABLE `budgetedItem` (
   `budgeted_id` int(11) NOT NULL AUTO_INCREMENT,
   `budgeted_amount` decimal(7,2) DEFAULT NULL,
   `due_date` date DEFAULT NULL,
@@ -66,13 +66,13 @@ CREATE TABLE `budgetedSubCategory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `budgetedSubCategory`
+-- Dumping data for table `budgetedItem`
 --
 
-LOCK TABLES `budgetedSubCategory` WRITE;
-/*!40000 ALTER TABLE `budgetedSubCategory` DISABLE KEYS */;
-INSERT INTO `budgetedSubCategory` VALUES (1,650.00,'2017-10-01',NULL,'test note here',1,1),(2,60.00,'2017-09-08',NULL,NULL,2,1),(3,30.00,'2017-09-25',NULL,NULL,3,1),(4,80.00,'2017-09-05',NULL,NULL,4,1),(5,45.00,'2017-09-15',NULL,NULL,5,1),(6,253.94,NULL,225.00,'Keeping some in bank just in case need something and don\'t have the food envelope.',6,1),(7,40.00,NULL,40.00,NULL,7,1);
-/*!40000 ALTER TABLE `budgetedSubCategory` ENABLE KEYS */;
+LOCK TABLES `budgetedItem` WRITE;
+/*!40000 ALTER TABLE `budgetedItem` DISABLE KEYS */;
+INSERT INTO `budgetedItem` VALUES (1,650.00,'2017-10-01',NULL,'test note here',1,1),(2,60.00,'2017-09-08',NULL,NULL,2,1),(3,30.00,'2017-09-25',NULL,NULL,3,1),(4,80.00,'2017-09-05',NULL,NULL,4,1),(5,45.00,'2017-09-15',NULL,NULL,5,1),(6,253.94,NULL,225.00,'Keeping some in bank just in case need something and don\'t have the food envelope.',6,1),(7,40.00,NULL,40.00,NULL,7,1);
+/*!40000 ALTER TABLE `budgetedItem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -175,7 +175,7 @@ CREATE TABLE `transaction` (
   `budgeted_id` int(11) NOT NULL,
   PRIMARY KEY (`transaction_id`),
   KEY `fk_budgetedSubCategory` (`budgeted_id`),
-  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`budgeted_id`) REFERENCES `budgetedSubCategory` (`budgeted_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`budgeted_id`) REFERENCES `budgetedItem` (`budgeted_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -29,10 +29,9 @@
 
         <!-- List the annotated entity class/es -->
         <mapping class="edu.matc.entity.BudgetMonth"/>
-        <mapping class="edu.matc.entity.BudgetedSubCategory"/>
+        <mapping class="edu.matc.entity.BudgetedItem"/>
         <mapping class="edu.matc.entity.Category"/>
         <mapping class="edu.matc.entity.Income"/>
-        <mapping class="edu.matc.entity.SubCategory"/>
         <mapping class="edu.matc.entity.Transaction"/>
         <mapping class="edu.matc.entity.UserRole"/>
         <mapping class="edu.matc.entity.Users"/>

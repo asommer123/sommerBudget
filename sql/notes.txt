@@ -33,7 +33,7 @@ day_of_month_due
 category_id
 
 
-budgetedSubCategory
+budgetedItem
 -------------------
 budgeted_id
 budgeted_amount

@@ -8,11 +8,15 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "budgetedSubCategory")
-public class BudgetedSubCategory {
+@Table(name = "budgetedItem")
+public class BudgetedItem {
     @Id
     @Column(name = "budgeted_id", nullable = false)
     private int budgetedId;
+
+    @Basic
+    @Column(name = "subCategory_name", nullable = false, length = 60)
+    private String subCategory_name;
 
     @Basic
     @Column(name = "budgeted_amount", nullable = true, precision = 2)
@@ -31,16 +35,12 @@ public class BudgetedSubCategory {
     private String note;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subCategory_id", referencedColumnName = "subCategory_id", nullable = false)
-    private SubCategory subCategoryBySubCategoryId;
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
+    private Category category;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
-    private BudgetMonth budgetMonthByBudgetMonthId;
-
-    @OneToMany(mappedBy = "budgetedSubCategories")
+    @OneToMany(mappedBy = "budgetedItem")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Collection<Transaction> transactionsByBudgetedId;
+    private Collection<Transaction> transactions;
 
     public int getBudgetedId() {
         return budgetedId;
@@ -48,6 +48,14 @@ public class BudgetedSubCategory {
 
     public void setBudgetedId(int budgetedId) {
         this.budgetedId = budgetedId;
+    }
+
+    public String getSubCategory_name() {
+        return subCategory_name;
+    }
+
+    public void setSubCategory_name(String subCategory_name) {
+        this.subCategory_name = subCategory_name;
     }
 
     public BigDecimal getBudgetedAmount() {
@@ -82,40 +90,31 @@ public class BudgetedSubCategory {
         this.note = note;
     }
 
-    public SubCategory getSubCategoryBySubCategoryId() {
-        return subCategoryBySubCategoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setSubCategoryBySubCategoryId(SubCategory subCategoryBySubCategoryId) {
-        this.subCategoryBySubCategoryId = subCategoryBySubCategoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public BudgetMonth getBudgetMonthByBudgetMonthId() {
-        return budgetMonthByBudgetMonthId;
+    public Collection<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setBudgetMonthByBudgetMonthId(BudgetMonth budgetMonthByBudgetMonthId) {
-        this.budgetMonthByBudgetMonthId = budgetMonthByBudgetMonthId;
-    }
-
-    public Collection<Transaction> getTransactionsByBudgetedId() {
-        return transactionsByBudgetedId;
-    }
-
-    public void setTransactionsByBudgetedId(Collection<Transaction> transactionsByBudgetedId) {
-        this.transactionsByBudgetedId = transactionsByBudgetedId;
+    public void setTransactions(Collection<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
     public String toString() {
-        return "BudgetedSubCategory{" +
+        return "BudgetedItem{" +
                 "budgetedId=" + budgetedId +
+                ", subCategory_name='" + subCategory_name + '\'' +
                 ", budgetedAmount=" + budgetedAmount +
                 ", dueDate=" + dueDate +
                 ", envelopeAmount=" + envelopeAmount +
                 ", note='" + note + '\'' +
-                ", subCategoryBySubCategoryId=" + subCategoryBySubCategoryId +
-                ", budgetMonthByBudgetMonthId=" + budgetMonthByBudgetMonthId +
                 '}';
     }
 
@@ -124,7 +123,7 @@ public class BudgetedSubCategory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BudgetedSubCategory that = (BudgetedSubCategory) o;
+        BudgetedItem that = (BudgetedItem) o;
 
         if (budgetedId != that.budgetedId) return false;
         if (budgetedAmount != null ? !budgetedAmount.equals(that.budgetedAmount) : that.budgetedAmount != null)
