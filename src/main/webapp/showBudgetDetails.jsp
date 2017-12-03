@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="title" value="${budget.budgetMonth} ${budget.budgetYear} Budget" />
 <%@include file="head.jsp"%>
-<c:set var="title" value="${budget.budgetMonth} ${budget.budgetYear}" />
-
 
 
 
@@ -89,42 +88,22 @@
 
 
                     <div class="container-fluid">
+                        <c:forEach var="budgetItem" items="${budget.budgetedSubCategories}">
 
-                        <form class="form-inline" action="updateBudgetedItem" method="POST">
-                            <input type="hidden" id="budgetId" name="budgetId" value="${budget.budgetMonthId}">
-                            <c:forEach var="budgetItem" items="${budget.budgetedSubCategories}">
-
+                            <form class="form-inline" action="updateBudgetedItem" method="POST">
+                                <input type="hidden" id="budgetId" name="budgetId" value="${budget.budgetMonthId}">
                                 <div class="form-group">
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="category" name="category" value="${budgetItem.subCategoryBySubCategoryId.category.categoryName}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="subCategory" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="budgetedId" name="budgetedId" value="${budgetItem.budgetedId}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="budgetedAmount" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="dueDate" name="dueDate" value="${budgetItem.dueDate}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                            <input type="text" class="form-control" id="envelopeAmount" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="note" name="note" value="${budgetItem.note}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" class="form-control" id="dayOfMonthDue" name="dayOfMonthDue" value="${budgetItem.subCategoryBySubCategoryId.dayOfMonthDue}">
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="submit" value="Update">
-                                    </div>
+                                    <input type="text" class="form-control" id="category" name="category" value="${budgetItem.subCategoryBySubCategoryId.category.categoryName}">
+                                    <input type="text" class="form-control" id="subCategory" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
+                                    <input type="hidden" class="form-control" id="budgetedId" name="budgetedId" value="${budgetItem.budgetedId}">
+                                    <input type="text" class="form-control" id="budgetedAmount" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
+                                    <input type="date" class="form-control" id="dueDate" name="dueDate" value="${budgetItem.dueDate}">
+                                    <input type="text" class="form-control" id="envelopeAmount" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
+                                    <a href="#" title="Note" data-toggle="popover" data-trigger="hover" data-content="${budgetItem.note}">Note</a>
+                                    <input type="submit" value="Update">
                                 </div>
-                            </c:forEach>
-                        </form>
+                            </form>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -156,11 +135,12 @@
                                 <input type="hidden" id="budgetId2" name="budgetId" value="${budget.budgetMonthId}">
 
                                 <div class="form-group">
-                                        <input type="text" class="form-control" id="subCategory2" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
-                                        <input type="text" class="form-control" id="budgetedAmount2" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
-                                        <input type="text" class="form-control" id="dueDate2" name="dueDate" value="${budgetItem.dueDate}">
-                                        <input type="text" class="form-control" id="envelopeAmount2" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
-                                        <input type="submit" value="Update">
+                                    <input type="hidden" class="form-control" id="budgetedId2" name="budgetedId" value="${budgetItem.budgetedId}">
+                                    <input type="text" class="form-control" id="subCategory2" name="subCategory" value="${budgetItem.subCategoryBySubCategoryId.subCategoryName}">
+                                    <input type="text" class="form-control" id="budgetedAmount2" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
+                                    <input type="date" class="form-control" id="dueDate2" name="dueDate" value="${budgetItem.dueDate}">
+                                    <input type="text" class="form-control" id="envelopeAmount2" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
+                                    <input type="submit" value="Update">
                                 </div>
                             </form>
                         </c:forEach>
@@ -185,46 +165,15 @@
 
 <script type="text/javascript" class="init">
     $(document).ready(function() {
-        $('#budgetedItemsTable2').DataTable();
+        $('#budgetedItemsTable').DataTable();
     } );
 </script>
-
 
 <script type="text/javascript" class="init">
-    var editor; // use a global for the submit and return data rendering in the examples
-
-    $(document).ready(function() {
-        editor = new $.fn.dataTable.Editor( {
-            table: "#budgetedItemsTable"
-        } );
-
-        // Activate an inline edit on click of a table cell
-        $('#budgetedItemsTable').on( 'click', 'tbody td:not(:first-child)', function (e) {
-            editor.inline( this );
-        } );
-
-        $('#budgetedItemsTable').DataTable( {
-            dom: "Bfrtip",
-
-            order: [[ 1, 'asc' ]],
-
-            select: {
-                style:    'os',
-                selector: 'td:first-child'
-            },
-            buttons: [
-                { extend: "create", editor: editor },
-                { extend: "edit",   editor: editor },
-                { extend: "remove", editor: editor }
-            ]
-        } );
-    } );
-
-
-
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
 </script>
-
-
 
 </body>
 </html>

@@ -42,6 +42,12 @@ public class GetBudgetDetails extends HttpServlet {
         request.setAttribute("budget", budget);
 
 
+
+
+
+
+
+
         // Create the url
         String url = "/showBudgetDetails.jsp";
 

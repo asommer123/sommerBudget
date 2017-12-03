@@ -1,5 +1,7 @@
-<%@include file="head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="title" value="My Budgets" />
+<%@include file="head.jsp"%>
+
 
 
 <html><body>
@@ -19,7 +21,7 @@
 <div class="container">
     <h2>Create a New Budget</h2>
     <p>Select the Month and Year</p>
-    <form action="addBudgetMonth" method="GET">
+    <form class="form-inline" action="addBudgetMonth" method="GET">
         <div class="form-group">
             <label for="selectMonth">Select Month</label>
             <select class="form-control" id="selectMonth" name="monthSelected">
@@ -36,8 +38,7 @@
                 <option>November</option>
                 <option>December</option>
             </select>
-            <br>
-            <label for="selectYear">Select Month</label>
+            <label for="selectYear">Select Year</label>
             <select class="form-control" id="selectYear" name="yearSelected">
                 <option>2017</option>
                 <option>2018</option>

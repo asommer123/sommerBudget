@@ -1,6 +1,7 @@
 package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
+import edu.matc.entity.BudgetedSubCategory;
 import edu.matc.entity.Users;
 import edu.matc.persistence.AbstractDao;
 import edu.matc.persistence.UsersDao;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @WebServlet(
         name = "updateBudgetedItem",
@@ -47,6 +49,19 @@ public class UpdateBudgetedItem extends HttpServlet {
 
         String budgetId = request.getParameter("budgetId");
         log.info("budgetId = " + budgetId);
+
+
+
+        AbstractDao<BudgetedSubCategory> budgetedSubCategoryAbstractDao = new AbstractDao<>(BudgetedSubCategory.class);
+        BudgetedSubCategory budgetedSubCategory = budgetedSubCategoryAbstractDao.get(Integer.valueOf(budgetedId));
+
+        BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
+        log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
+        budgetedSubCategory.setBudgetedAmount(new BigDecimal(budgetedAmount));
+        budgetedSubCategory.setNote(note);
+
+        budgetedSubCategoryAbstractDao.update(budgetedSubCategory);
+
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
         BudgetMonth budget = dao.get(Integer.valueOf(budgetId));
