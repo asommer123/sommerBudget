@@ -1,6 +1,8 @@
 package edu.matc.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ocbc.api.Response;
+import com.ocbc.api.Results;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
@@ -9,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -100,7 +101,6 @@ public class UsersDaoTest {
         String encoding = Base64.encode ("c3c34e2d512dfded5c252469d4fdc747".getBytes());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        //connection.setDoOutput(true);
         connection.setRequestProperty  ("Accept", "application/json");
         connection.setRequestProperty  ("Authorization", "Bearer c3c34e2d512dfded5c252469d4fdc747");
         int responseCode = connection.getResponseCode();
@@ -118,8 +118,13 @@ public class UsersDaoTest {
         while ((line = in.readLine()) != null) {
             jsonResponse = jsonResponse + line;
         }
-        //ObjectMapper mapper = new ObjectMapper();
         log.info("Response: " + jsonResponse);
+        ObjectMapper mapper = new ObjectMapper();
+        Response response = mapper.readValue(jsonResponse, Response.class);
+
+        log.info(response.toString());
+        Results results = response.getResults();
+        log.info(results.toString());
 
 
 
