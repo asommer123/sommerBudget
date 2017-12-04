@@ -81,7 +81,7 @@
                     <a data-toggle="collapse" href="#${category.categoryId}">${category.categoryId} - ${category.categoryName}</a>
                 </h4>
             </div>
-            <div id="${category.categoryId}" class="panel-collapse collapse">
+            <div id="${category.categoryId}" class="panel-collapse collapse in">
                 <div class="panel-body">Each budgetedSubCategories form attempt
 
                     <div class="container-fluid">

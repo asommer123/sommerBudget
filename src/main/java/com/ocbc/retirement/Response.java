@@ -1,10 +1,10 @@
-package com.ocbc.api;
+package com.ocbc.retirement;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Response {
+public class Response{
 
 	@JsonProperty("results")
 	private Results results;
@@ -31,8 +31,8 @@ public class Response {
 	@Override
  	public String toString(){
 		return 
-			"Response{" +
-			"results = '" + results + '\'' +
+			"Response{" + 
+			"results = '" + results + '\'' + 
 			",disclaimer = '" + disclaimer + '\'' + 
 			"}";
 		}

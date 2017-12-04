@@ -10,7 +10,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/sommerBudget">Home</a></li>
-            <li><a href="#">Loan Calculator</a></li>
+            <li><a href="/sommerBudget/retirementCalculator.jsp">Retirement Calculator</a></li>
         </ul>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">

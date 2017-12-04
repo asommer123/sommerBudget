@@ -1,8 +1,8 @@
 package edu.matc.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ocbc.api.Response;
-import com.ocbc.api.Results;
+import com.ocbc.retirement.Response;
+import com.ocbc.retirement.Results;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
@@ -97,8 +97,12 @@ public class UsersDaoTest {
         // --header "Authorization: Bearer c3c34e2d512dfded5c252469d4fdc747"
         // "https://api.ocbc.com:8243/Home_Loan/1.0?currentAge1=30&totalMonthlyIncome1=5000&totalMonthlyDebt1=200&outstandingLoans1=0&repaymentPeriod=30"
 
-        URL url = new URL("https://api.ocbc.com:8243/Home_Loan/1.0?currentAge1=30&totalMonthlyIncome1=5000&totalMonthlyDebt1=200&outstandingLoans1=0&repaymentPeriod=30");
-        String encoding = Base64.encode ("c3c34e2d512dfded5c252469d4fdc747".getBytes());
+        // curl -X GET --header "Accept: application/json"
+        // --header "Authorization: Bearer c3c34e2d512dfded5c252469d4fdc747"
+        // "https://api.ocbc.com:8243/Lifegoals_Retirement/1.0?currentAge=30&retirementAge=65&yearsAfterRetirement=15&supplementaryAllowance=10&monthlySpending=10&srsValue=10&propertySaleValue=10®ularInvestments=10&lumpSumInvestments=10&cashAndDeposits=10&growthOpt=5"
+
+        //URL url = new URL("https://api.ocbc.com:8243/Home_Loan/1.0?currentAge1=30&totalMonthlyIncome1=5000&totalMonthlyDebt1=200&outstandingLoans1=0&repaymentPeriod=30");
+        URL url = new URL("https://api.ocbc.com:8243/Lifegoals_Retirement/1.0?currentAge=30&retirementAge=65&yearsAfterRetirement=15&supplementaryAllowance=10&monthlySpending=10&srsValue=10&propertySaleValue=10&regularInvestments=10&lumpSumInvestments=10&cashAndDeposits=10&growthOpt=5");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty  ("Accept", "application/json");
