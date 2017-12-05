@@ -34,35 +34,53 @@ public class UpdateBudgetedItem extends HttpServlet {
         String envelopeAmount = request.getParameter("envelopeAmount");
         String note = request.getParameter("note");
         String dayOfMonthDue = request.getParameter("dayOfMonthDue");
+
+
+        String b_note = request.getParameter("b_note");
+        String b_budgetedId = request.getParameter("b_budgetedId");
+
         log.info("categoryId = " + categoryId);
         log.info("subCategory = " + subCategory);
         log.info("budgetedId = " + budgetedId);
+        log.info("b_budgetedId = " + b_budgetedId);
         log.info("budgetedAmount = " + budgetedAmount);
         log.info("dueDate = " + dueDate);
         log.info("envelopeAmount = " + envelopeAmount);
         log.info("note = " + note);
+        log.info("b_note = " + b_note);
         log.info("dayOfMonthDue = " + dayOfMonthDue);
 
 
 
-        String budgetId = request.getParameter("budgetId");
-        log.info("budgetId = " + budgetId);
+
+        //String budgetId = request.getParameter("b_budgetId");
+        //log.info("b_budgetId = " + budgetId);
 
 
+        int budgetId = 0;
 
-        AbstractDao<BudgetedItem> budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
-        BudgetedItem budgetedItem = budgetedItemAbstractDao.get(Integer.valueOf(budgetedId));
 
-        BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
-        log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
-        budgetedItem.setBudgetedAmount(new BigDecimal(budgetedAmount));
-        budgetedItem.setNote(note);
+        try {
+            AbstractDao<BudgetedItem> budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
+            BudgetedItem budgetedItem = budgetedItemAbstractDao.get(Integer.valueOf(b_budgetedId));
 
-        budgetedItemAbstractDao.update(budgetedItem);
+            //BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
+            //log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
+            //budgetedItem.setBudgetedAmount(new BigDecimal(budgetedAmount));
+            budgetedItem.setNote(b_note);
+
+            budgetedItemAbstractDao.update(budgetedItem);
+            budgetId = budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId();
+            log.info("Budget Month Id" + budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId());
+        } catch (Exception e) {
+            log.error("Error occurred updating budgeted item", e);
+        }
+
+
 
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
-        BudgetMonth budget = dao.get(Integer.valueOf(budgetId));
+        BudgetMonth budget = dao.get(budgetId);
 
         log.info("Budget Month: " + budget);
 
