@@ -29,10 +29,6 @@ public class Response{
 		return disclaimer;
 	}
 
-	public String formatToCurrency(Double amount) {
-		return NumberFormat.getCurrencyInstance().format(amount);
-	}
-
 	@Override
  	public String toString(){
 		return 

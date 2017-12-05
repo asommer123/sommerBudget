@@ -1,13 +1,16 @@
 package edu.matc.entity;
 
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
 @Table(name = "category")
 public class Category {
+
     @Id
     @Column(name = "category_id", nullable = false)
     private int categoryId;
@@ -54,6 +57,16 @@ public class Category {
 
     public void setBudgetedItems(Collection<BudgetedItem> budgetedItems) {
         this.budgetedItems = budgetedItems;
+    }
+
+    public BigDecimal calculateTotal() {
+        BigDecimal total = new BigDecimal(0);
+
+        for (BudgetedItem budgetedItem : budgetedItems) {
+            total = total.add(budgetedItem.getBudgetedAmount());
+        }
+
+        return total;
     }
 
     @Override

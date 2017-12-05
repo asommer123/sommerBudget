@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocbc.retirement.Response;
 import com.ocbc.retirement.Results;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import edu.matc.entity.BudgetedItem;
+import edu.matc.entity.Category;
 import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
 import org.apache.log4j.Logger;
@@ -13,6 +15,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -90,7 +93,6 @@ public class UsersDaoTest {
         assertTrue(users.equals(users1));
     }
 
-
     @Test
     public void apiTest() throws Exception {
 
@@ -143,34 +145,6 @@ public class UsersDaoTest {
     }
 
 
-/*
-    public GameResponse gameApiCall () throws IOException {
 
-        URL url = new URL("https://api.mysportsfeeds.com/v1.1/pull/" + sport
-                + "/current/full_game_schedule.json");
-        String encoding = Base64.encode ("madentjava2017:greatlakes".getBytes());
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setDoOutput(true);
-        connection.setRequestProperty  ("Authorization", "Basic " + encoding);
-        responseCode = connection.getResponseCode();
-
-        if (responseCode != 200) {
-            log.error("Error encounted while calling My Sports Feed API. Response code = " + responseCode
-                    + ". Response message = " + connection.getResponseMessage());
-            return null;
-        }
-
-        InputStream content = (InputStream)connection.getInputStream();
-
-        BufferedReader in = new BufferedReader (new InputStreamReader(content));
-        String jsonResponse="";
-        String line;
-        while ((line = in.readLine()) != null) {
-            jsonResponse = jsonResponse + line;
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(jsonResponse,GameResponse.class);
-    }*/
 
 }

@@ -1,12 +1,11 @@
 package edu.matc.persistence;
 
-import edu.matc.entity.BudgetMonth;
-import edu.matc.entity.UserRole;
-import edu.matc.entity.Users;
+import edu.matc.entity.*;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
@@ -18,11 +17,13 @@ public class AbstractDaoTest {
     private final Logger log = Logger.getLogger(this.getClass());
     AbstractDao<Users> usersAbstractDao;
     AbstractDao<BudgetMonth> budgetMonthAbstractDao;
+    AbstractDao<Category> categoryAbstractDao;
 
     @Before
     public void setup() {
         usersAbstractDao = new AbstractDao(Users.class);
         budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
+        categoryAbstractDao = new AbstractDao<>(Category.class);
     }
 
     @Test
@@ -107,6 +108,17 @@ public class AbstractDaoTest {
             log.info("BudgetMonth: " + budgetMonthUpdated);
         }
 
+    }
+
+    @Test
+    public void testCalcTotal() throws Exception {
+        Category category = categoryAbstractDao.get(2);
+        BigDecimal total = new BigDecimal(0);
+        for (BudgetedItem budgetedItem : category.getBudgetedItems()) {
+            total = total.add(budgetedItem.getBudgetedAmount());
+            log.info("       Total: " + total);
+            log.info("Budgeted Amt: " + budgetedItem.getBudgetedAmount());
+        }
     }
 
     @Test

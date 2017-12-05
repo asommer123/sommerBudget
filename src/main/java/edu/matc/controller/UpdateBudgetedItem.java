@@ -26,7 +26,7 @@ public class UpdateBudgetedItem extends HttpServlet {
             throws ServletException, IOException {
 
 
-        String category = request.getParameter("category");
+        String categoryId = request.getParameter("categoryId");
         String subCategory = request.getParameter("subCategory");
         String budgetedId = request.getParameter("budgetedId");
         String budgetedAmount = request.getParameter("budgetedAmount");
@@ -34,7 +34,7 @@ public class UpdateBudgetedItem extends HttpServlet {
         String envelopeAmount = request.getParameter("envelopeAmount");
         String note = request.getParameter("note");
         String dayOfMonthDue = request.getParameter("dayOfMonthDue");
-        log.info("category = " + category);
+        log.info("categoryId = " + categoryId);
         log.info("subCategory = " + subCategory);
         log.info("budgetedId = " + budgetedId);
         log.info("budgetedAmount = " + budgetedAmount);

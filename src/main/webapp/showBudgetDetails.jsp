@@ -51,7 +51,7 @@
                                     <tr>
                                         <td>${budgetedItem.subCategoryName}</td>
                                         <td>${budgetedItem.budgetedId}</td>
-                                        <td>${budgetedItem.budgetedAmount}</td>
+                                        <td>${currencyFormat.formatToCurrency(budgetedItem.budgetedAmount)}</td>
                                         <td>${budgetedItem.dueDate}</td>
                                         <td>${budgetedItem.envelopeAmount}</td>
                                         <td>${budgetedItem.note}</td>
@@ -78,7 +78,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#${category.categoryId}">${category.categoryId} - ${category.categoryName}</a>
+                    <a data-toggle="collapse" href="#${category.categoryId}"><p style="text-align:left;">${category.categoryId} - ${category.categoryName} <span style="float:right;color:red;"><b>Total:</b> ${currencyFormat.formatToCurrency(category.calculateTotal())}</span></p></a>
                 </h4>
             </div>
             <div id="${category.categoryId}" class="panel-collapse collapse in">
@@ -90,9 +90,10 @@
                             <form class="form-inline" action="updateBudgetedItem" method="POST">
                                 <input type="hidden" id="budgetId" name="budgetId" value="${budget.budgetMonthId}">
                                 <div class="form-group">
+                                    <input type="hidden" class="form-control" id="categoryId" name="categoryId" value="${category.categoryId}">
                                     <input type="hidden" class="form-control" id="budgetedId" name="budgetedId" value="${budgetItem.budgetedId}">
                                     <input type="text" class="form-control" id="subCategory" name="subCategory" value="${budgetItem.subCategoryName}">
-                                    <input type="text" class="form-control" id="budgetedAmount" name="budgetedAmount" value="${budgetItem.budgetedAmount}">
+                                    <input type="text" class="form-control" id="budgetedAmount" name="budgetedAmount" value="${currencyFormat.formatToCurrency(budgetItem.budgetedAmount)}">
                                     <input type="date" class="form-control" id="dueDate" name="dueDate" value="${budgetItem.dueDate}">
                                     <input type="text" class="form-control" id="envelopeAmount" name="envelopeAmount" value="${budgetItem.envelopeAmount}">
                                     <a href="#" title="Note" data-toggle="popover" data-trigger="hover" data-content="${budgetItem.note}">Note</a>

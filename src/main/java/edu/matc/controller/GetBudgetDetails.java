@@ -4,6 +4,7 @@ import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.Users;
 import edu.matc.persistence.AbstractDao;
 import edu.matc.persistence.UsersDao;
+import edu.matc.util.ConvertToCurrencyString;
 import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
 
@@ -28,8 +29,6 @@ public class GetBudgetDetails extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-
         String budgetId = request.getParameter("budgetId");
         log.info("budgetId = " + budgetId);
 
@@ -40,13 +39,7 @@ public class GetBudgetDetails extends HttpServlet {
 
 
         request.setAttribute("budget", budget);
-
-
-
-
-
-
-
+        request.setAttribute("currencyFormat", new ConvertToCurrencyString());
 
         // Create the url
         String url = "/showBudgetDetails.jsp";
