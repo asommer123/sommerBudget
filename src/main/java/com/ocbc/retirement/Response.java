@@ -2,6 +2,7 @@ package com.ocbc.retirement;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
+import java.text.NumberFormat;
 
 @Generated("com.robohorse.robopojogenerator")
 public class Response{
@@ -26,6 +27,10 @@ public class Response{
 
 	public String getDisclaimer(){
 		return disclaimer;
+	}
+
+	public String formatToCurrency(Double amount) {
+		return NumberFormat.getCurrencyInstance().format(amount);
 	}
 
 	@Override

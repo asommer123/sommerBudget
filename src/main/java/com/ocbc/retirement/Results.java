@@ -2,6 +2,7 @@ package com.ocbc.retirement;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
+import java.util.Currency;
 
 @Generated("com.robohorse.robopojogenerator")
 public class Results{

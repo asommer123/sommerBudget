@@ -11,12 +11,13 @@
 
 <div class="container">
     <h2>Calculate How Much You Need to Secure Your Retirement</h2>
+    <br>
     <form class="form-horizontal" action="getRetirementNumbers" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="currentAge">Current Age:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="currentAge" placeholder="Enter current age" name="currentAge">
-            </div>
+            <label for="good">Current Age:</label>
+
+                <input type="text" class="form-control" style="width:50%" id="good" placeholder="Enter current age" name="currentAge">
+
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="retirementAge">Retirement Age:</label>
@@ -92,5 +93,18 @@
     </form>
 </div>
 
+
+<script type="text/javascript">
+    $('.good').inputmask("numeric", {
+        radixPoint: ".",
+        groupSeparator: ",",
+        digits: 2,
+        autoGroup: true,
+        prefix: '$ ', //Space after $, this will not truncate the first character.
+        rightAlign: false,
+        oncleared: function () { self.Value(''); }
+    });
+
+</script>
 </body>
 </html>

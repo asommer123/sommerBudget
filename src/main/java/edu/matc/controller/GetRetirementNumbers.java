@@ -2,6 +2,7 @@ package edu.matc.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocbc.retirement.Response;
+import edu.matc.util.ConvertToCurrencyString;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -47,6 +48,7 @@ public class GetRetirementNumbers extends HttpServlet {
         }
 
         request.setAttribute("retirement", retirement);
+        request.setAttribute("currencyFormat", new ConvertToCurrencyString());
 
         // Create the url
         String url = "/showRetirementNumbers.jsp";
@@ -81,7 +83,7 @@ public class GetRetirementNumbers extends HttpServlet {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty  ("Accept", "application/json");
-        connection.setRequestProperty  ("Authorization", "Bearer c3c34e2d512dfded5c252469d4fdc747");
+        connection.setRequestProperty  ("Authorization", "Bearer 5ab5e72042372bee67301ffa57930646");
         int responseCode = connection.getResponseCode();
 
         if (responseCode != 200) {

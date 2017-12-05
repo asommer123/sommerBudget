@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -106,7 +107,7 @@ public class UsersDaoTest {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty  ("Accept", "application/json");
-        connection.setRequestProperty  ("Authorization", "Bearer c3c34e2d512dfded5c252469d4fdc747");
+        connection.setRequestProperty  ("Authorization", "Bearer 5ab5e72042372bee67301ffa57930646");
         int responseCode = connection.getResponseCode();
 
         if (responseCode != 200) {
@@ -125,6 +126,12 @@ public class UsersDaoTest {
         log.info("Response: " + jsonResponse);
         ObjectMapper mapper = new ObjectMapper();
         Response response = mapper.readValue(jsonResponse, Response.class);
+
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        Double finalCostDb = response.getResults().getFinalCost();
+        String finalCost = numberFormat.format(finalCostDb);
+        log.info("   Final Cost Double: " + finalCostDb);
+        log.info("Final Cost Formatted: " + finalCost);
 
         log.info(response.toString());
         Results results = response.getResults();
