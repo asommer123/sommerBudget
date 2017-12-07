@@ -52,10 +52,12 @@ public class UpdateBudgetedItem extends HttpServlet {
         log.info("dayOfMonthDue = " + dayOfMonthDue);
 
 
+        if (b_note.isEmpty()) {
+            b_note = null;
+        }
 
 
-        //String budgetId = request.getParameter("b_budgetId");
-        //log.info("b_budgetId = " + budgetId);
+
 
 
         int budgetId = 0;

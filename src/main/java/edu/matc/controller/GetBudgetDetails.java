@@ -35,6 +35,7 @@ public class GetBudgetDetails extends HttpServlet {
         if (budgetId == null) {
             HttpSession session = request.getSession();
             budgetId = session.getAttribute("budgetId").toString();
+            session.removeAttribute("budgetId");
         }
 
         log.info("budgetId = " + budgetId);
