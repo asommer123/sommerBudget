@@ -42,6 +42,18 @@ public class BudgetedItem {
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<Transaction> transactions;
 
+    public BudgetedItem() {
+    }
+
+    public BudgetedItem(String subCategoryName, BigDecimal budgetedAmount, Date dueDate, BigDecimal envelopeAmount, String note, Category category) {
+        this.subCategoryName = subCategoryName;
+        this.budgetedAmount = budgetedAmount;
+        this.dueDate = dueDate;
+        this.envelopeAmount = envelopeAmount;
+        this.note = note;
+        this.category = category;
+    }
+
     public int getBudgetedId() {
         return budgetedId;
     }

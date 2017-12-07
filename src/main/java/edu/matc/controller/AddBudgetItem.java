@@ -2,6 +2,7 @@ package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.BudgetedItem;
+import edu.matc.entity.Category;
 import edu.matc.persistence.AbstractDao;
 import org.apache.log4j.Logger;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @WebServlet(
         name = "addBudgetedItem",
@@ -25,76 +27,50 @@ public class AddBudgetItem extends HttpServlet {
             throws ServletException, IOException {
 
 
-        String categoryId = request.getParameter("categoryId");
-        String subCategory = request.getParameter("subCategory");
-        String budgetedId = request.getParameter("budgetedId");
-        String budgetedAmount = request.getParameter("budgetedAmount");
-        String dueDate = request.getParameter("dueDate");
-        String envelopeAmount = request.getParameter("envelopeAmount");
-        String note = request.getParameter("note");
-        String dayOfMonthDue = request.getParameter("dayOfMonthDue");
-
-
-        String b_note = request.getParameter("b_note");
-        String b_budgetedId = request.getParameter("b_budgetedId");
+        String categoryId = request.getParameter("b_categoryId");
+        String subCategory = request.getParameter("b_subCategoryName");
+        String note = request.getParameter("b_note");
+        String budgetedAmount = request.getParameter("b_budgetedAmount");
+        String dueDate = request.getParameter("b_dueDate");
+        String envelopeAmount = request.getParameter("b_envelopeAmount");
 
         log.info("categoryId = " + categoryId);
         log.info("subCategory = " + subCategory);
-        log.info("budgetedId = " + budgetedId);
-        log.info("b_budgetedId = " + b_budgetedId);
+        log.info("budgetedId = " + note);
         log.info("budgetedAmount = " + budgetedAmount);
         log.info("dueDate = " + dueDate);
         log.info("envelopeAmount = " + envelopeAmount);
-        log.info("note = " + note);
-        log.info("b_note = " + b_note);
-        log.info("dayOfMonthDue = " + dayOfMonthDue);
 
-
-        if (b_note.isEmpty()) {
-            b_note = null;
+        if (note.isEmpty()) {
+            note = null;
         }
-
-
-
-
 
         int budgetId = 0;
 
-
         try {
-            AbstractDao<BudgetedItem> budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
-            BudgetedItem budgetedItem = budgetedItemAbstractDao.get(Integer.valueOf(b_budgetedId));
+            AbstractDao<Category> categoryAbstractDao = new AbstractDao<>(Category.class);
+            Category category = categoryAbstractDao.get(Integer.valueOf(categoryId));
 
-            //BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
-            //log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
-            //budgetedItem.setBudgetedAmount(new BigDecimal(budgetedAmount));
-            budgetedItem.setNote(b_note);
+            BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
+            log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
 
-            budgetedItemAbstractDao.update(budgetedItem);
-            budgetId = budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId();
-            log.info("Budget Month Id" + budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId());
+            BudgetedItem budgetedItem = new BudgetedItem();
+            //BudgetedItem budgetedItem = new BudgetedItem(subCategory, budgetedAmountBigDecimal, dueDate, note, categoryId);
+
+            budgetedItem.setCategory(category);
+            budgetedItem.setSubCategoryName(subCategory);
+            budgetedItem.setBudgetedAmount(budgetedAmountBigDecimal);
+            budgetedItem.setNote(note);
+
+            category.getBudgetedItems().add(budgetedItem);
+
+            categoryAbstractDao.update(category);
         } catch (Exception e) {
-            log.error("Error occurred updating budgeted item", e);
+            log.error("Error occurred adding new budgeted item", e);
         }
 
-
-
-
-        AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
-        BudgetMonth budget = dao.get(budgetId);
-
-        log.info("Budget Month: " + budget);
-        log.info("budgetId: " + budgetId);
-
-
-        request.setAttribute("budget", budget);
-        //request.setAttribute("budgetId", budgetId);
-
         HttpSession session = request.getSession();
-
         session.setAttribute("budgetId", budgetId);
-
-
 
         // Create the url
         String url = "getBudgetDetails";

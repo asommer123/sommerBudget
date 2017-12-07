@@ -27,6 +27,14 @@ public class Category {
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<BudgetedItem> budgetedItems;
 
+    public Category() {
+    }
+
+    public Category(String categoryName, BudgetMonth budgetMonth) {
+        this.categoryName = categoryName;
+        this.budgetMonth = budgetMonth;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }

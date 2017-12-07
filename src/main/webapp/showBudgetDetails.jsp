@@ -17,6 +17,7 @@
         $('#updateBudgetedItemModal').modal('hide');
         $('#deleteBudgetedItemModal').modal('hide');
         $('#addBudgetedItemModal').modal('hide');
+        $('#addCategoryModal').modal('hide');
         $.post($form.attr("action"), $form.serialize(), function(response) {
             var btnadd = $('#' + id);
             btnadd.removeClass("btn-success").addClass("btn-default");
@@ -30,6 +31,9 @@
             location.reload();
         });
         $('#addBudgetedItemModal').on('hidden.bs.modal', function () {
+            location.reload();
+        });
+        $('#addCategoryModal').on('hidden.bs.modal', function () {
             location.reload();
         });
         event.preventDefault();
@@ -72,7 +76,7 @@
 
                         <div class="container-fluid">
                             <h4>
-                                <button type="button" id="addBudgetedItem" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>   Add new item to budget to category
+                                <button type="button" id="addBudgetItem${category.categoryId}" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>   Add new item to budget to category
                             </h4>
                             <br>
 
@@ -189,12 +193,14 @@
                                     $('#deleteBudgetedItemModal').modal('show');
                                 });
 
-                                $('#table${category.categoryId} tbody').on('click', '.btnadd', function () {
-                                    var categoryId = ${category.categoryId};
+                                $('#addBudgetItem${category.categoryId}').click(function () {
+                                    var categoryId = '${category.categoryId}';
+                                    var categoryName = '${category.categoryName}';
                                     var mymodal = $('#addBudgetedItemModal');
 
-                                    mymodal.find('.modal-title').text("Add new Budgeted Item");
-                                    mymodal.find('#b_categoryId').val(budgetedId);
+                                    mymodal.find('.modal-title').text("Add new Budgeted Item in the " + categoryName + " Category");
+                                    mymodal.find('#b_categoryId').val(categoryId);
+                                    mymodal.find('#b_categoryName').val(categoryName);
 
                                     $('#addBudgetedItemModal').modal('show');
                                 });
@@ -215,8 +221,39 @@
 
     </c:forEach>
 
+    <br>
+    <br>
 
-</div>
+    <div class="container-fluid">
+        <h4>
+            <button type="button" id="addCategory" class="btncat btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>   Add new Category to Monthly Budget
+        </h4>
+
+        <script type="text/javascript" class="init">
+            $(document).ready(function() {
+
+                $('#addCategory').click(function () {
+                    var budgetId = '${budget.budgetMonthId}';
+                    var budgetMonth = '${budget.budgetMonth}';
+                    var budgetYear = '${budget.budgetYear}';
+                    var mymodal = $('#addCategoryModal');
+
+                    mymodal.find('.modal-title').text("Add new Category to " + budgetMonth + "-" + budgetYear + " Budget");
+                    mymodal.find('#b_budgetId').val(budgetId);
+
+                    $('#addCategoryModal').modal('show');
+                });
+
+            } );
+        </script>
+        <c:import url="addCategoryModal.jsp" />
+    </div>
+
+
+
+
+
+    </div>
 
 <script type="text/javascript" class="init">
     $(document).ready(function() {
