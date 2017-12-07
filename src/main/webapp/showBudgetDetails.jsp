@@ -14,12 +14,15 @@
     $(document).on("submit", "#add_form", function(event) {
         var $form = $(this);
         var id = document.getElementById("b_budgetedId").value;
-        $('#addBudgetedItemModal').modal('hide');
+        $('#updateBudgetedItemModal').modal('hide');
         $.post($form.attr("action"), $form.serialize(), function(response) {
             var btnadd = $('#' + id);
             btnadd.removeClass("btn-success").addClass("btn-default");
-            btnadd.find('span').toggleClass('glyphicon-plus').toggleClass('glyphicon-check');
+            btnadd.find('span').toggleClass('glyphicon-edit').toggleClass('glyphicon-check');
             btnadd.attr('disabled','disabled');
+        });
+        $('#updateBudgetedItemModal').on('hidden.bs.modal', function () {
+            location.reload();
         });
         event.preventDefault();
     });
@@ -69,6 +72,7 @@
                                         <th>Due Date</th>
                                         <th>Envelope Amount</th>
                                         <th>Note</th>
+                                        <th style="display: none">Note2</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -79,10 +83,26 @@
                                             <td>${budgetedItem.budgetedId}</td>
                                             <td>${currencyFormat.formatToCurrency(budgetedItem.budgetedAmount)}</td>
                                             <td>${budgetedItem.dueDate}</td>
-                                            <td>${budgetedItem.envelopeAmount}</td>
-                                            <td>${budgetedItem.note}</td>
+                                            <c:choose>
+                                                <c:when test="${budgetedItem.envelopeAmount != null}">
+                                                    <td>${currencyFormat.formatToCurrency(budgetedItem.envelopeAmount)}</td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>${budgetedItem.envelopeAmount}</td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${budgetedItem.note != null}">
+                                                    <td><a href="#" title="Note" data-toggle="popover" data-trigger="hover" data-content="${budgetedItem.note}">Note</a></td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td></td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <td style="display: none">${budgetedItem.note}</td>
                                             <td>
-                                                <button type="button" id="${budgetedItem.budgetedId}" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                                                <button type="button" id="${budgetedItem.budgetedId}" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-edit"></span></button>
+                                                <button type="button" id="delete${budgetedItem.budgetedId}" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-minus"></span></button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -106,6 +126,7 @@
                                         { "width": "25%" },
                                         { "width": "10%" },
                                         { "width": "10%" },
+                                        { "width": "0%" },
                                         { "width": "5%" },
                                     ],
                                     "aaSorting": [],
@@ -120,17 +141,19 @@
                                     var dueDate = $(this).closest("tr").find("td:eq(3)").text();
                                     var envelopeAmount = $(this).closest("tr").find("td:eq(4)").text();
                                     var note = $(this).closest("tr").find("td:eq(5)").text();
-                                    var mymodal = $('#addBudgetedItemModal');
+                                    var note2 = $(this).closest("tr").find("td:eq(6)").text();
+                                    var mymodal = $('#updateBudgetedItemModal');
 
-                                    mymodal.find('.modal-title').text("Create a new budget item");
+                                    mymodal.find('.modal-title').text("Update Budgeted Item");
                                     mymodal.find('#b_subCategoryName').val(subCategoryName);
                                     mymodal.find('#b_budgetedId').val(budgetedId);
                                     mymodal.find('#b_budgetedAmount').val(budgetedAmount);
                                     mymodal.find('#b_dueDate').val(dueDate);
                                     mymodal.find('#b_envelopeAmount').val(envelopeAmount);
-                                    mymodal.find('#b_note').val(note);
+                                    mymodal.find('#b_note').val(note2);
+                                    mymodal.find('#b_note2').val(note);
 
-                                    $('#addBudgetedItemModal').modal('show');
+                                    $('#updateBudgetedItemModal').modal('show');
                                 });
 
                             } );
@@ -142,7 +165,7 @@
                 </div>
             </div>
         </div>
-        <c:import url="addBudgetedItemModal.jsp" />
+        <c:import url="updateBudgetedItemModal.jsp" />
     </div>
 
 

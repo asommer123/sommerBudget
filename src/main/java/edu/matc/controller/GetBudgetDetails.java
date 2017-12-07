@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
@@ -30,6 +31,12 @@ public class GetBudgetDetails extends HttpServlet {
             throws ServletException, IOException {
 
         String budgetId = request.getParameter("budgetId");
+
+        if (budgetId == null) {
+            HttpSession session = request.getSession();
+            budgetId = session.getAttribute("budgetId").toString();
+        }
+
         log.info("budgetId = " + budgetId);
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
@@ -46,5 +53,8 @@ public class GetBudgetDetails extends HttpServlet {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
+
+        //redirect
+        //response.sendRedirect(url);
     }
 }
