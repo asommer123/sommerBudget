@@ -16,6 +16,7 @@
         var id = document.getElementById("b_budgetedId").value;
         $('#updateBudgetedItemModal').modal('hide');
         $('#deleteBudgetedItemModal').modal('hide');
+        $('#addBudgetedItemModal').modal('hide');
         $.post($form.attr("action"), $form.serialize(), function(response) {
             var btnadd = $('#' + id);
             btnadd.removeClass("btn-success").addClass("btn-default");
@@ -26,6 +27,9 @@
             location.reload();
         });
         $('#deleteBudgetedItemModal').on('hidden.bs.modal', function () {
+            location.reload();
+        });
+        $('#addBudgetedItemModal').on('hidden.bs.modal', function () {
             location.reload();
         });
         event.preventDefault();
@@ -46,6 +50,8 @@
 <div class="container">
     <h2>Budget Details for ${budget.budgetMonth} ${budget.budgetYear} ... maybe put totals here?</h2>
     <p>Click on each Category to open and close it.</p>
+    <br>
+    <br>
 
 
     <c:forEach var="category" items="${budget.categories}">
@@ -65,7 +71,9 @@
 
 
                         <div class="container-fluid">
-                            <h3>Add new item to budget to category</h3>
+                            <h4>
+                                <button type="button" id="addBudgetedItem" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>   Add new item to budget to category
+                            </h4>
                             <br>
 
                             <div class="row">
@@ -108,7 +116,7 @@
                                             </c:choose>
                                             <td style="display: none">${budgetedItem.note}</td>
                                             <td>
-                                                <button type="button" id="${budgetedItem.budgetedId}" class="btnadd btn btn-xs btn-success"><span class="glyphicon glyphicon-edit"></span></button>
+                                                <button type="button" id="${budgetedItem.budgetedId}" class="btnupd btn btn-xs btn-success"><span class="glyphicon glyphicon-edit"></span></button>
                                                 <button type="button" id="delete${budgetedItem.budgetedId}" class="btndel btn btn-xs btn-success"><span class="glyphicon glyphicon-minus"></span></button>
                                             </td>
                                         </tr>
@@ -141,7 +149,7 @@
                                     "searching": true
                                 } );
 
-                                $('#table${category.categoryId} tbody').on('click', '.btnadd', function () {
+                                $('#table${category.categoryId} tbody').on('click', '.btnupd', function () {
                                     var subCategoryName = $(this).closest("tr").find("td:eq(0)").text();
                                     var budgetedId = $(this).closest("tr").find("td:eq(1)").text();
                                     var budgetedAmount = $(this).closest("tr").find("td:eq(2)").text();
@@ -181,6 +189,16 @@
                                     $('#deleteBudgetedItemModal').modal('show');
                                 });
 
+                                $('#table${category.categoryId} tbody').on('click', '.btnadd', function () {
+                                    var categoryId = ${category.categoryId};
+                                    var mymodal = $('#addBudgetedItemModal');
+
+                                    mymodal.find('.modal-title').text("Add new Budgeted Item");
+                                    mymodal.find('#b_categoryId').val(budgetedId);
+
+                                    $('#addBudgetedItemModal').modal('show');
+                                });
+
                             } );
                         </script>
 
@@ -192,6 +210,7 @@
             </div>
             <c:import url="updateBudgetedItemModal.jsp" />
             <c:import url="deleteBudgetedItemModal.jsp" />
+            <c:import url="addBudgetedItemModal.jsp" />
         </div>
 
     </c:forEach>
