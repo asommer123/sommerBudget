@@ -46,6 +46,17 @@ public class Users implements Serializable {
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 
+    public Users() {
+    }
+
+    public Users(String userName, String userPass, String firstName, String lastName, String emailAddress) {
+        this.userName = userName;
+        this.userPass = userPass;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+    }
+
     public int getAccountId() {
         return accountId;
     }

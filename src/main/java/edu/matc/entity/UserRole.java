@@ -22,6 +22,13 @@ public class UserRole {
     @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
     private Users users;
 
+    public UserRole() {
+    }
+
+    public UserRole(String roleName, Users users) {
+        this.roleName = roleName;
+        this.users = users;
+    }
 
     public int getUserRoleId() {
         return userRoleId;
