@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by
@@ -188,6 +189,12 @@ public class AbstractDao<T> {
     @SuppressWarnings("unchecked")
     public List<T> findByProperty(String propertyName, Object value) {
         return getSession().createCriteria(type).add(Restrictions.eq(propertyName, value)).list();
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<T> findByPropertyMap(Map<String, Object> propertyMap) {
+        return getSession().createCriteria(type).add(Restrictions.allEq(propertyMap)).list();
     }
 
     /**

@@ -10,11 +10,11 @@
 </div>
 
 <div class="container">
-    <h2>Calculate How Much You Need to Secure Your Retirement</h2>
+    <h2>Sign Up for a New Account</h2>
     <br>
     <form class="form-horizontal" action="createNewUser" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userName">Current Age:</label>
+            <label class="control-label col-sm-2" for="userName">User Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" style="width:50%" id="userName" name="userName" required>
             </div>

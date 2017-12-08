@@ -42,7 +42,11 @@ public class SearchBudgetMonths extends HttpServlet {
         Users user = usersDao.getUserByUserName(request.getRemoteUser());
         request.setAttribute("user", user);
 
+        log.info("Logged In User: " + user);
+
         Set<BudgetMonth> budgetMonths = user.getBudgetMonths();
+
+        log.info("BudgetMonths: " + budgetMonths);
 
         request.setAttribute("budgetMonths", budgetMonths);
 

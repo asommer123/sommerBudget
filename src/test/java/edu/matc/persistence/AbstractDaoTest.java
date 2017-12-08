@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -109,6 +112,20 @@ public class AbstractDaoTest {
         }
 
     }
+
+    @Test
+    public void findByPropertyMapTest() throws Exception {
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+
+        propertyMap.put("budgetMonth", "November");
+        propertyMap.put("budgetYear", "2017");
+
+        List<BudgetMonth> budgetMonth = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
+
+        log.info("BudgetMonth: " + budgetMonth);
+    }
+
+
 
     @Test
     public void testCalcTotal() throws Exception {

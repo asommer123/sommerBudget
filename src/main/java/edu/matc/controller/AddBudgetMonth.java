@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(
         name = "addBudgetMonth",
@@ -40,14 +42,20 @@ public class AddBudgetMonth extends HttpServlet {
         UsersDao usersDao = new UsersDao();
         Users users = usersDao.getUserByUserName(request.getRemoteUser());
 
+        log.info("Remote User: " + request.getRemoteUser());
+
         users.getBudgetMonths().add(new BudgetMonth(monthSelected, yearSelected, users));
 
         usersDao.updateUser(users);
 
 
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
 
-        AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
-        BudgetMonth budget = dao.get(users.getBudgetMonths().size());
+        propertyMap.put("budgetMonth", monthSelected);
+        propertyMap.put("budgetYear", yearSelected);
+
+        AbstractDao<BudgetMonth> budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
+        BudgetMonth budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap).get(0);
 
         log.info("Budget Month: " + budget);
 
