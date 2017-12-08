@@ -15,9 +15,9 @@ public class AbstractDaoTest {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final Logger log = Logger.getLogger(this.getClass());
-    AbstractDao<Users> usersAbstractDao;
-    AbstractDao<BudgetMonth> budgetMonthAbstractDao;
-    AbstractDao<Category> categoryAbstractDao;
+    private AbstractDao<Users> usersAbstractDao;
+    private AbstractDao<BudgetMonth> budgetMonthAbstractDao;
+    private AbstractDao<Category> categoryAbstractDao;
 
     @Before
     public void setup() {

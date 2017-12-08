@@ -52,9 +52,15 @@
 
 
 <div class="container">
-    <h2>Budget Details for ${budget.budgetMonth} ${budget.budgetYear} ... maybe put totals here?</h2>
-    <p>Click on each Category to open and close it.</p>
-    <br>
+    <h2>Budget Details for ${budget.budgetMonth} ${budget.budgetYear}</h2>
+    <h3>
+        <b>Total Income:</b> ${currencyFormat.formatToCurrency(budget.calculateIncomeTotal())}<br>
+        <b>Total Budgeted:</b> ${currencyFormat.formatToCurrency(budget.calculateBudgetedTotal())}<br>
+        <b>Total Remaining:</b> ${currencyFormat.formatToCurrency(budget.calculateRemaining())}<br>
+    </h3>
+    <c:if test="${budget.categories != null}">
+        <p>Click on each Category to open and close it.</p>
+    </c:if>
     <br>
 
 
@@ -64,7 +70,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse${category.categoryId}"><p style="text-align:left;">${category.categoryId} - ${category.categoryName} <span style="float:right;color:red;"><b>Total:</b> ${currencyFormat.formatToCurrency(category.calculateTotal())}</span></p></a>
+                        <a data-toggle="collapse" href="#collapse${category.categoryId}"><p style="text-align:left;">${category.categoryId} - ${category.categoryName} <span style="float:right;color:red;"><b>Budgeted Sub Total:</b> ${currencyFormat.formatToCurrency(category.calculateTotal())}</span></p></a>
                     </h4>
                 </div>
                 <div id="collapse${category.categoryId}" class="panel-collapse collapse in">
@@ -222,7 +228,6 @@
     </c:forEach>
 
     <br>
-    <br>
 
     <div class="container-fluid">
         <h4>
@@ -249,11 +254,10 @@
         <c:import url="addCategoryModal.jsp" />
     </div>
 
+    <br>
+    <br>
 
-
-
-
-    </div>
+</div>
 
 <script type="text/javascript" class="init">
     $(document).ready(function() {

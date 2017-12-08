@@ -4,6 +4,7 @@ import edu.matc.util.LocalDateAttributeConverter;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
@@ -89,6 +90,30 @@ public class BudgetMonth {
 
     public void setIncomes(Collection<Income> incomes) {
         this.incomes = incomes;
+    }
+
+    public BigDecimal calculateBudgetedTotal() {
+        BigDecimal total = new BigDecimal(0);
+
+        for (Category category : categories) {
+            total = total.add(category.calculateTotal());
+        }
+
+        return total;
+    }
+
+    public BigDecimal calculateIncomeTotal() {
+        BigDecimal total = new BigDecimal(0);
+
+        for (Income income : incomes) {
+            total = total.add(income.getPayAmount());
+        }
+
+        return total;
+    }
+
+    public BigDecimal calculateRemaining() {
+        return calculateIncomeTotal().subtract(calculateBudgetedTotal());
     }
 
     @Override

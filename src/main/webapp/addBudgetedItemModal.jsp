@@ -23,7 +23,7 @@
                     <div class="row">
                         <label class="col-md-2 control-label">Budgeted Amount</label>
                         <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 10px;" style="padding-top: 10px;">
-                            <input id="b_budgetedAmount" name="b_budgetedAmount" class="form-control"  type="number" required>
+                            <input id="b_budgetedAmount" name="b_budgetedAmount" class="form-control"  type="number" step=".01" placeholder="0.00" required>
                         </div>
                     </div>
                     <div class="row">
@@ -35,7 +35,7 @@
                     <div class="row">
                         <label class="col-md-2 control-label">Envelope Amount</label>
                         <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom: 10px;" style="padding-top: 10px;">
-                            <input id="b_envelopeAmount" name="b_envelopeAmount" class="form-control"  type="number">
+                            <input id="b_envelopeAmount" name="b_envelopeAmount" class="form-control"  type="number" step=".01">
                         </div>
                     </div>
                     <div class="row">
