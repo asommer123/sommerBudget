@@ -4,6 +4,7 @@ import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.Users;
 import edu.matc.persistence.AbstractDao;
 import edu.matc.persistence.UsersDao;
+import edu.matc.util.ConvertToCurrencyString;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -52,6 +53,7 @@ public class AddBudgetMonth extends HttpServlet {
 
 
         request.setAttribute("budget", budget);
+        request.setAttribute("currencyFormat", new ConvertToCurrencyString());
 
         // Create the url
         String url = "/showBudgetDetails.jsp";

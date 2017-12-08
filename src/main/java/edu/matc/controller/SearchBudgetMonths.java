@@ -30,7 +30,7 @@ public class SearchBudgetMonths extends HttpServlet {
 
         UsersDao usersDao = new UsersDao();
 
-        String url = "/showBudgetMonths.jsp";
+
         request.setAttribute("title", "My Budgets");
         HttpSession session = request.getSession();
 
@@ -45,6 +45,8 @@ public class SearchBudgetMonths extends HttpServlet {
         Set<BudgetMonth> budgetMonths = user.getBudgetMonths();
 
         request.setAttribute("budgetMonths", budgetMonths);
+
+        String url = "/showBudgetMonths.jsp";
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

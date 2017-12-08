@@ -69,9 +69,9 @@
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse${category.categoryId}"><p style="text-align:left;">${category.categoryId} - ${category.categoryName} <span style="float:right;color:red;"><b>Budgeted Sub Total:</b> ${currencyFormat.formatToCurrency(category.calculateTotal())}</span></p></a>
-                    </h4>
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse${category.categoryId}"><p style="text-align:left;">${category.categoryName} <span style="float:right;color:red;"><b>Budgeted Sub Total:</b> ${currencyFormat.formatToCurrency(category.calculateTotal())}</span></p></a>
+                    </h3>
                 </div>
                 <div id="collapse${category.categoryId}" class="panel-collapse collapse in">
                     <div class="panel-body">
