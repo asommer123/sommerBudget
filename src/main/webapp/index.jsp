@@ -23,17 +23,28 @@
     <br>
 
 
-    <h3>Or excited and want to continue on!</h3>
+    <h3>Or excited and love it!</h3>
     <div class="fill-screen" style="text-align: center">
         <img class="make-it-fit" src="Images/FranklinReading.jpg" style="max-width: 99%; max-height: 99%">
     </div>
 
     <br>
+    <br>
 
-    <ul>
-        <li><a href="searchUsers.jsp">Take me to the Admin Page</a></li>
-        <li><a href="searchBudgetMonths">Login to view Budgets</a></li>
-    </ul>
+    <h3>Either way, budgeting is something everyone should do. So <a href="searchBudgetMonths">Login</a> to manage your budgets or <a href="/sommerBudget/createUser.jsp">Sign-up</a> to start the fun!</h3>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h6>To go directly to admin functions <a href="searchUser">Login Here</a></h6>
+
+    <br>
+    <br>
+    <br>
+    <br>
 
 </div>
 </body>

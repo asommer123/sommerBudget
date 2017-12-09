@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
                     <c:when test="${adminLoggedIn == true}">
-                        <li><a href="/sommerBudget/searchUsers.jsp"><span class="glyphicon glyphicon-scissors"></span> Admin</a></li>
+                        <li><a href="searchUser"><span class="glyphicon glyphicon-scissors"></span> Admin</a></li>
                         <li><a href="searchBudgetMonths"><span class="glyphicon glyphicon-user"></span> Budgets</a></li>
                         <li><a href="userSignOut"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
                     </c:when>
