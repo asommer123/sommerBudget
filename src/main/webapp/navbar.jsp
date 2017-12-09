@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -16,7 +16,12 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
-                    <c:when test="${loggedIn == true}">
+                    <c:when test="${adminLoggedIn == true}">
+                        <li><a href="/sommerBudget/searchUsers.jsp"><span class="glyphicon glyphicon-scissors"></span> Admin</a></li>
+                        <li><a href="searchBudgetMonths"><span class="glyphicon glyphicon-user"></span> Budgets</a></li>
+                        <li><a href="userSignOut"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
+                    </c:when>
+                    <c:when test="${regularLoggedIn == true}">
                         <li><a href="searchBudgetMonths"><span class="glyphicon glyphicon-user"></span> Budgets</a></li>
                         <li><a href="userSignOut"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
                     </c:when>
@@ -28,4 +33,8 @@
             </ul>
         </div>
     </div>
-</nav> 
+</nav>
+
+<br>
+<br>
+<br>

@@ -11,8 +11,8 @@
 
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>searchUsers</web-resource-name>
-      <url-pattern>/searchUsers.jsp</url-pattern>
+      <web-resource-name>searchUser</web-resource-name>
+      <url-pattern>/searchUser</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>administrator</role-name>

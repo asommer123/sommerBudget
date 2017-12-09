@@ -1,6 +1,7 @@
 package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
+import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
 import edu.matc.persistence.UsersDao;
 import org.apache.log4j.Logger;
@@ -28,19 +29,16 @@ public class SearchBudgetMonths extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        UsersDao usersDao = new UsersDao();
-
-
-        request.setAttribute("title", "My Budgets");
         HttpSession session = request.getSession();
 
-        session.setAttribute("loggedIn", true);
-
-
+        UsersDao usersDao = new UsersDao();
         Users user = usersDao.getUserByUserName(request.getRemoteUser());
-        request.setAttribute("user", user);
 
-        log.info("Logged In User: " + user);
+        if (userAdmin(user)) {
+            session.setAttribute("adminLoggedIn", true);
+        } else {
+            session.setAttribute("regularLoggedIn", true);
+        }
 
         Set<BudgetMonth> budgetMonths = user.getBudgetMonths();
 
@@ -54,7 +52,15 @@ public class SearchBudgetMonths extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private boolean userAdmin(Users user) {
+        for (UserRole userRole : user.getUserRole()) {
+            if (userRole.getRoleName().equals("administrator")) {
+                return true;
+            }
+        }
 
+        return false;
+    }
 }
 
 
