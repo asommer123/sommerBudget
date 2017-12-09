@@ -74,14 +74,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="growthOpt">Fixed deposits and existing saving in bank:</label>
+            <label class="control-label col-sm-2" for="growthOpt">Growth Option for cash and deposits:</label>
             <div class="col-sm-10">
                 <select class="form-control" id="growthOpt" name="growthOpt">
-                    <option value="0">Default 0.63% growth</option>
-                    <option value="2">Very Conserative</option>
-                    <option value="3">Conservative</option>
-                    <option value="5">Balanced</option>
-                    <option value="7">Aggressive</option>
+                    <option value="0">Default (0.63%)</option>
+                    <option value="2">Very Conserative (2%)</option>
+                    <option value="3">Conservative (3%)</option>
+                    <option value="5">Balanced (5%)</option>
+                    <option value="7">Aggressive (7%)</option>
                 </select>
             </div>
         </div>

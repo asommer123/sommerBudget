@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
@@ -14,8 +15,16 @@
         </ul>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/sommerBudget/createUser.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="searchBudgetMonths"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <c:choose>
+                    <c:when test="${loggedIn == true}">
+                        <li><a href="searchBudgetMonths"><span class="glyphicon glyphicon-user"></span> Budgets</a></li>
+                        <li><a href="userSignOut"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="/sommerBudget/createUser.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="searchBudgetMonths"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>

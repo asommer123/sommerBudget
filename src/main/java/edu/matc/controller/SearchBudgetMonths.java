@@ -34,8 +34,6 @@ public class SearchBudgetMonths extends HttpServlet {
         request.setAttribute("title", "My Budgets");
         HttpSession session = request.getSession();
 
-        //session.removeAttribute("newUser");
-        //session.removeAttribute("newUserName");
         session.setAttribute("loggedIn", true);
 
 
