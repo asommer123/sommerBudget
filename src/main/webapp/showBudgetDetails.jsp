@@ -98,6 +98,8 @@
                                         <th>Envelope Amount</th>
                                         <th>Note</th>
                                         <th style="display: none">Note2</th>
+                                        <th style="display: none">Budgeted Amount Numeric</th>
+                                        <th style="display: none">Envelope Amount Numeric</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -125,6 +127,8 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td style="display: none">${budgetedItem.note}</td>
+                                            <td style="display: none">${budgetedItem.budgetedAmount}</td>
+                                            <td style="display: none">${budgetedItem.envelopeAmount}</td>
                                             <td>
                                                 <button type="button" id="${budgetedItem.budgetedId}" class="btnupd btn btn-xs btn-success"><span class="glyphicon glyphicon-edit"></span></button>
                                                 <button type="button" id="delete${budgetedItem.budgetedId}" class="btndel btn btn-xs btn-success"><span class="glyphicon glyphicon-minus"></span></button>
@@ -141,7 +145,7 @@
 
                                 $('#table${category.categoryId}').dataTable( {
                                     "aoColumnDefs": [
-                                        { "bSortable": false, "aTargets": [ 1, 5, 6, 7 ] }
+                                        { "bSortable": false, "aTargets": [ 1, 5, 6, 7, 8, 9 ] }
                                     ],
 
                                     "columns": [
@@ -151,6 +155,8 @@
                                         { "width": "15%" },
                                         { "width": "15%" },
                                         { "width": "15%" },
+                                        { "width": "0%" },
+                                        { "width": "0%" },
                                         { "width": "0%" },
                                         { "width": "10%" },
                                     ],
@@ -162,10 +168,10 @@
                                 $('#table${category.categoryId} tbody').on('click', '.btnupd', function () {
                                     var subCategoryName = $(this).closest("tr").find("td:eq(0)").text();
                                     var budgetedId = $(this).closest("tr").find("td:eq(1)").text();
-                                    var budgetedAmount = $(this).closest("tr").find("td:eq(2)").text();
                                     var dueDate = $(this).closest("tr").find("td:eq(3)").text();
-                                    var envelopeAmount = $(this).closest("tr").find("td:eq(4)").text();
                                     var note = $(this).closest("tr").find("td:eq(6)").text();
+                                    var budgetedAmount = $(this).closest("tr").find("td:eq(7)").text();
+                                    var envelopeAmount = $(this).closest("tr").find("td:eq(8)").text();
                                     var mymodal = $('#updateBudgetedItemModal');
 
                                     mymodal.find('.modal-title').text("Update Budgeted Item");

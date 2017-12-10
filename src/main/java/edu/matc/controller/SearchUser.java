@@ -1,6 +1,7 @@
 package edu.matc.controller;
 
-import edu.matc.persistence.UsersDao;
+import edu.matc.entity.Users;
+import edu.matc.persistence.AbstractDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,12 +17,12 @@ import java.io.IOException;
 )
 public class SearchUser extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        AbstractDao<Users> usersAbstractDao = new AbstractDao<>(Users.class);
 
-        UsersDao usersDao = new UsersDao();
-
-        request.setAttribute("users", usersDao.getAllUsers());
+        request.setAttribute("users", usersAbstractDao.getAll());
         request.setAttribute("message", request.getSession().getAttribute("message"));
         request.getSession().removeAttribute("message");
 

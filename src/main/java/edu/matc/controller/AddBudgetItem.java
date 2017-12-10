@@ -3,6 +3,7 @@ package edu.matc.controller;
 import edu.matc.entity.BudgetedItem;
 import edu.matc.entity.Category;
 import edu.matc.persistence.AbstractDao;
+import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(
         name = "addBudgetedItem",
@@ -21,10 +24,10 @@ import java.math.BigDecimal;
 public class AddBudgetItem extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
 
         String categoryId = request.getParameter("b_categoryId");
         String subCategory = request.getParameter("b_subCategoryName");
@@ -40,9 +43,6 @@ public class AddBudgetItem extends HttpServlet {
         log.info("dueDate = " + dueDate);
         log.info("envelopeAmount = " + envelopeAmount);
 
-        if (note.isEmpty()) {
-            note = null;
-        }
         String budgetIdString = request.getParameter("b_budgetId");
         log.info("budgetIdString: " + budgetIdString);
 
@@ -54,16 +54,31 @@ public class AddBudgetItem extends HttpServlet {
             budgetId = category.getBudgetMonth().getBudgetMonthId();
             log.info("budgetId: " + budgetId);
 
-            BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
-            log.info("budgetedAmountBigDecimal: " + budgetedAmountBigDecimal);
-
             BudgetedItem budgetedItem = new BudgetedItem();
-            //BudgetedItem budgetedItem = new BudgetedItem(subCategory, budgetedAmountBigDecimal, dueDate, note, categoryId);
+
+            LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
 
             budgetedItem.setCategory(category);
             budgetedItem.setSubCategoryName(subCategory);
-            budgetedItem.setBudgetedAmount(budgetedAmountBigDecimal);
-            budgetedItem.setNote(note);
+            budgetedItem.setBudgetedAmount(new BigDecimal(budgetedAmount));
+
+            if (envelopeAmount == null || envelopeAmount.isEmpty()) {
+                budgetedItem.setEnvelopeAmount(null);
+            } else {
+                budgetedItem.setEnvelopeAmount(new BigDecimal(envelopeAmount));
+            }
+
+            if (dueDate == null || dueDate.isEmpty()) {
+                budgetedItem.setDueDate(null);
+            } else {
+                budgetedItem.setDueDate(converter.convertToDatabaseColumn(LocalDate.parse(dueDate, DATE_TIME_FORMATTER)));
+            }
+
+            if (note.isEmpty()) {
+                budgetedItem.setNote(null);
+            } else {
+                budgetedItem.setNote(note);
+            }
 
             category.getBudgetedItems().add(budgetedItem);
 

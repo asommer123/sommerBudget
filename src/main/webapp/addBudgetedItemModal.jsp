@@ -49,3 +49,18 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input#b_budgetedAmount').blur(function(){
+            var num = parseFloat($(this).val());
+            var cleanNum = num.toFixed(2);
+            $(this).val(cleanNum);
+        });
+        $('input#b_envelopeAmount').blur(function(){
+            var num = parseFloat($(this).val());
+            var cleanNum = num.toFixed(2);
+            $(this).val(cleanNum);
+        });
+    });
+</script>

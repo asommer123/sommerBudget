@@ -3,6 +3,7 @@ package edu.matc.controller;
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.BudgetedItem;
 import edu.matc.persistence.AbstractDao;
+import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(
         name = "updateBudgetedItem",
@@ -22,55 +26,57 @@ import java.math.BigDecimal;
 public class UpdateBudgetedItem extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-        String categoryId = request.getParameter("categoryId");
-        String subCategory = request.getParameter("subCategory");
-        String budgetedId = request.getParameter("budgetedId");
-        String budgetedAmount = request.getParameter("budgetedAmount");
-        String dueDate = request.getParameter("dueDate");
-        String envelopeAmount = request.getParameter("envelopeAmount");
-        String note = request.getParameter("note");
-        String dayOfMonthDue = request.getParameter("dayOfMonthDue");
-
-
-        String b_note = request.getParameter("b_note");
+        String b_categoryId = request.getParameter("b_categoryId");
+        String b_subCategoryName = request.getParameter("b_subCategoryName");
         String b_budgetedId = request.getParameter("b_budgetedId");
+        String b_budgetedAmount = request.getParameter("b_budgetedAmount");
+        String b_dueDate = request.getParameter("b_dueDate");
+        String b_envelopeAmount = request.getParameter("b_envelopeAmount");
+        String b_note = request.getParameter("b_note");
 
-        log.info("categoryId = " + categoryId);
-        log.info("subCategory = " + subCategory);
-        log.info("budgetedId = " + budgetedId);
+
+        log.info("b_categoryId = " + b_categoryId);
+        log.info("b_subCategoryName = " + b_subCategoryName);
         log.info("b_budgetedId = " + b_budgetedId);
-        log.info("budgetedAmount = " + budgetedAmount);
-        log.info("dueDate = " + dueDate);
-        log.info("envelopeAmount = " + envelopeAmount);
-        log.info("note = " + note);
+        log.info("b_budgetedAmount = " + b_budgetedAmount);
+        log.info("b_dueDate = " + b_dueDate);
+        log.info("b_envelopeAmount = " + b_envelopeAmount);
         log.info("b_note = " + b_note);
-        log.info("dayOfMonthDue = " + dayOfMonthDue);
-
-
-        if (b_note.isEmpty()) {
-            b_note = null;
-        }
-
-
-
-
 
         int budgetId = 0;
-
 
         try {
             AbstractDao<BudgetedItem> budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
             BudgetedItem budgetedItem = budgetedItemAbstractDao.get(Integer.valueOf(b_budgetedId));
 
-            //BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
-            //log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
-            //budgetedItem.setBudgetedAmount(new BigDecimal(budgetedAmount));
-            budgetedItem.setNote(b_note);
+            LocalDateAttributeConverter converter = new LocalDateAttributeConverter();
+
+            budgetedItem.setSubCategoryName(b_subCategoryName);
+            budgetedItem.setBudgetedAmount(new BigDecimal(b_budgetedAmount));
+
+            if (b_envelopeAmount == null || b_envelopeAmount.isEmpty()) {
+                budgetedItem.setEnvelopeAmount(null);
+            } else {
+                budgetedItem.setEnvelopeAmount(new BigDecimal(b_envelopeAmount));
+            }
+
+            if (b_dueDate == null || b_dueDate.isEmpty()) {
+                budgetedItem.setDueDate(null);
+            } else {
+                budgetedItem.setDueDate(converter.convertToDatabaseColumn(LocalDate.parse(b_dueDate, DATE_TIME_FORMATTER)));
+            }
+
+            if (b_note.isEmpty()) {
+                budgetedItem.setNote(null);
+            } else {
+                budgetedItem.setNote(b_note);
+            }
+
 
             budgetedItemAbstractDao.update(budgetedItem);
             budgetId = budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId();
@@ -90,15 +96,11 @@ public class UpdateBudgetedItem extends HttpServlet {
 
 
         request.setAttribute("budget", budget);
-        //request.setAttribute("budgetId", budgetId);
 
         HttpSession session = request.getSession();
-
         session.setAttribute("budgetId", budgetId);
-        // Create the url
-        String url = "getBudgetDetails";
 
-        //redirect
+        String url = "getBudgetDetails";
         response.sendRedirect(url);
     }
 }

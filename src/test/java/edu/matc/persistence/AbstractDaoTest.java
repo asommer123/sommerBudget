@@ -22,12 +22,14 @@ public class AbstractDaoTest {
     private AbstractDao<Users> usersAbstractDao;
     private AbstractDao<BudgetMonth> budgetMonthAbstractDao;
     private AbstractDao<Category> categoryAbstractDao;
+    private AbstractDao<BudgetedItem> budgetedItemAbstractDao;
 
     @Before
     public void setup() {
         usersAbstractDao = new AbstractDao(Users.class);
         budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
         categoryAbstractDao = new AbstractDao<>(Category.class);
+        budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
     }
 
     @Test
@@ -189,5 +191,28 @@ public class AbstractDaoTest {
         List<BudgetMonth> budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
 
         log.info("Budget Month: " + budget);
+    }
+
+
+    @Test
+    public void updateTestBudgetedItem() throws Exception {
+
+        String number = null;
+
+        BigDecimal amount = new BigDecimal("1234.56");
+        log.info("Amount: " + amount);
+
+        BigDecimal amount2 = new BigDecimal(number);
+        log.info("Amount2: " + amount2);
+
+
+        BudgetedItem budgetedItem = budgetedItemAbstractDao.get(1);
+
+        budgetedItem.setBudgetedAmount(new BigDecimal("1234.56"));
+
+        budgetedItemAbstractDao.update(budgetedItem);
+
+        BudgetedItem updatedBudgetedItem = budgetedItemAbstractDao.get(1);
+
     }
 }

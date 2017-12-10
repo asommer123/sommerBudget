@@ -35,10 +35,8 @@ public class GetBudgetDetails extends HttpServlet {
 
 
         if (budgetId == null) {
-            log.info(" --- session ---");
             HttpSession session = request.getSession();
             budgetId = session.getAttribute("budgetId").toString();
-            //session.removeAttribute("budgetId");
         }
 
         log.info("budgetId = " + budgetId);
@@ -49,13 +47,11 @@ public class GetBudgetDetails extends HttpServlet {
         log.info("Budget Month: " + budget);
 
         if (DELETEBUDGET.equals(request.getParameter("submit"))) {
-            log.info(" -- delete budget --");
             dao.delete(budget);
 
             String url = "searchBudgetMonths";
             response.sendRedirect(url);
         } else {
-            log.info("    ---- show budget details ----");
             request.setAttribute("budget", budget);
             request.setAttribute("currencyFormat", new ConvertToCurrencyString());
 
