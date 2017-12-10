@@ -16,13 +16,16 @@ import java.io.IOException;
 )
 public class SearchUser extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
         UsersDao usersDao = new UsersDao();
 
-        req.setAttribute("users", usersDao.getAllUsers());
+        request.setAttribute("users", usersDao.getAllUsers());
+        request.setAttribute("message", request.getSession().getAttribute("message"));
+        request.getSession().removeAttribute("message");
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/userResults.jsp");
-        dispatcher.forward(req, resp);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/userResults.jsp");
+        dispatcher.forward(request, response);
     }
 }
