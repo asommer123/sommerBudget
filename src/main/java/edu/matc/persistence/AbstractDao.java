@@ -188,13 +188,42 @@ public class AbstractDao<T> {
      */
     @SuppressWarnings("unchecked")
     public List<T> findByProperty(String propertyName, Object value) {
-        return getSession().createCriteria(type).add(Restrictions.eq(propertyName, value)).list();
+        //return getSession().createCriteria(type).add(Restrictions.eq(propertyName, value)).list();
+        Session session = null;
+        ArrayList<T> list = null;
+
+        try {
+            session = getSession();
+            list = (ArrayList<T>)session.createCriteria(type).add(Restrictions.eq(propertyName, value)).list();
+        } catch (HibernateException e) {
+            log.error("Error getting list of " + type + " for " + propertyName + value, e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return list;
     }
 
 
     @SuppressWarnings("unchecked")
     public List<T> findByPropertyMap(Map<String, Object> propertyMap) {
-        return getSession().createCriteria(type).add(Restrictions.allEq(propertyMap)).list();
+
+        //List<T> list = getSession().createCriteria(type).add(Restrictions.allEq(propertyMap)).list();
+        Session session = null;
+        ArrayList<T> list = null;
+
+        try {
+            session = getSession();
+            list = (ArrayList<T>)session.createCriteria(type).add(Restrictions.allEq(propertyMap)).list();
+        } catch (HibernateException e) {
+            log.error("Error getting list of " + type + " for properyMap " + propertyMap, e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return list;
     }
 
     /**

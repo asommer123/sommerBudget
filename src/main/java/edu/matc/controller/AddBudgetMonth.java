@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(
@@ -24,7 +24,6 @@ import java.util.Map;
 )
 public class AddBudgetMonth extends HttpServlet {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final Logger log = Logger.getLogger(this.getClass());
 
 
@@ -37,30 +36,39 @@ public class AddBudgetMonth extends HttpServlet {
         String yearSelected = request.getParameter("yearSelected");
         log.info("yearSelected = " + yearSelected);
 
-
-
-        UsersDao usersDao = new UsersDao();
-        Users users = usersDao.getUserByUserName(request.getRemoteUser());
+        AbstractDao<Users> usersAbstractDao = new AbstractDao<>(Users.class);
+        //UsersDao usersDao = new UsersDao();
+        //Users users = usersDao.getUserByUserName(request.getRemoteUser());
+        //List<Users> usersList = usersAbstractDao.findByProperty("userName", request.getRemoteUser());
+        Users users = usersAbstractDao.findByProperty("userName", request.getRemoteUser()).get(0);
 
         log.info("Remote User: " + request.getRemoteUser());
+        //log.info("UsersList: " + usersList);
+        log.info("User: " + users);
 
-        users.getBudgetMonths().add(new BudgetMonth(monthSelected, yearSelected, users));
+        BudgetMonth budgetMonth = new BudgetMonth(monthSelected, yearSelected, users);
+        log.info("New BudgetMonth: " + budgetMonth);
 
-        usersDao.updateUser(users);
+        users.getBudgetMonths().add(budgetMonth);
+
+        //usersDao.updateUser(users);
+        usersAbstractDao.update(users);
 
 
         Map<String, Object> propertyMap = new HashMap<String, Object>();
 
         propertyMap.put("budgetMonth", monthSelected);
         propertyMap.put("budgetYear", yearSelected);
+        propertyMap.put("users", users);
 
         AbstractDao<BudgetMonth> budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
-        BudgetMonth budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap).get(0);
+        //BudgetMonth budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap).get(0);
+        List<BudgetMonth> budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
 
         log.info("Budget Month: " + budget);
 
 
-        request.setAttribute("budget", budget);
+        request.setAttribute("budget", budget.get(0));
         request.setAttribute("currencyFormat", new ConvertToCurrencyString());
 
         // Create the url

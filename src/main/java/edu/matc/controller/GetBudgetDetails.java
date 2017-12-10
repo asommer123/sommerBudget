@@ -25,6 +25,7 @@ import java.util.Set;
 public class GetBudgetDetails extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
+    private final static String DELETEBUDGET = "deleteBudget";
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,10 +33,12 @@ public class GetBudgetDetails extends HttpServlet {
 
         String budgetId = request.getParameter("budgetId");
 
+
         if (budgetId == null) {
+            log.info(" --- session ---");
             HttpSession session = request.getSession();
             budgetId = session.getAttribute("budgetId").toString();
-            session.removeAttribute("budgetId");
+            //session.removeAttribute("budgetId");
         }
 
         log.info("budgetId = " + budgetId);
@@ -45,17 +48,21 @@ public class GetBudgetDetails extends HttpServlet {
 
         log.info("Budget Month: " + budget);
 
+        if (DELETEBUDGET.equals(request.getParameter("submit"))) {
+            log.info(" -- delete budget --");
+            dao.delete(budget);
 
-        request.setAttribute("budget", budget);
-        request.setAttribute("currencyFormat", new ConvertToCurrencyString());
+            String url = "searchBudgetMonths";
+            response.sendRedirect(url);
+        } else {
+            log.info("    ---- show budget details ----");
+            request.setAttribute("budget", budget);
+            request.setAttribute("currencyFormat", new ConvertToCurrencyString());
 
-        // Create the url
-        String url = "/showBudgetDetails.jsp";
+            String url = "/showBudgetDetails.jsp";
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
-
-        //redirect
-        //response.sendRedirect(url);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+        }
     }
 }

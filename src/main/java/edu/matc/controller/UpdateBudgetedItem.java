@@ -95,15 +95,8 @@ public class UpdateBudgetedItem extends HttpServlet {
         HttpSession session = request.getSession();
 
         session.setAttribute("budgetId", budgetId);
-
-
-
         // Create the url
         String url = "getBudgetDetails";
-
-        //forward
-        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        //dispatcher.forward(request, response);
 
         //redirect
         response.sendRedirect(url);

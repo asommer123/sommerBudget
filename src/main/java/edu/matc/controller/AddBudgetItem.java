@@ -43,15 +43,19 @@ public class AddBudgetItem extends HttpServlet {
         if (note.isEmpty()) {
             note = null;
         }
+        String budgetIdString = request.getParameter("b_budgetId");
+        log.info("budgetIdString: " + budgetIdString);
 
         int budgetId = 0;
 
         try {
             AbstractDao<Category> categoryAbstractDao = new AbstractDao<>(Category.class);
             Category category = categoryAbstractDao.get(Integer.valueOf(categoryId));
+            budgetId = category.getBudgetMonth().getBudgetMonthId();
+            log.info("budgetId: " + budgetId);
 
             BigDecimal budgetedAmountBigDecimal = new BigDecimal(budgetedAmount);
-            log.info("budgetedAmountBigDecimal" + budgetedAmountBigDecimal);
+            log.info("budgetedAmountBigDecimal: " + budgetedAmountBigDecimal);
 
             BudgetedItem budgetedItem = new BudgetedItem();
             //BudgetedItem budgetedItem = new BudgetedItem(subCategory, budgetedAmountBigDecimal, dueDate, note, categoryId);

@@ -201,12 +201,22 @@
 
                                 $('#addBudgetItem${category.categoryId}').click(function () {
                                     var categoryId = '${category.categoryId}';
+                                    var subCategoryName = '';
+                                    var note = '';
+                                    var budgetedAmount = '';
+                                    var dueDate = '';
+                                    var envelopeAmount = '';
                                     var categoryName = '${category.categoryName}';
                                     var mymodal = $('#addBudgetedItemModal');
 
                                     mymodal.find('.modal-title').text("Add new Budgeted Item in the " + categoryName + " Category");
                                     mymodal.find('#b_categoryId').val(categoryId);
                                     mymodal.find('#b_categoryName').val(categoryName);
+                                    mymodal.find('#b_subCategoryName').val(subCategoryName);
+                                    mymodal.find('#b_note').val(note);
+                                    mymodal.find('#b_budgetedAmount').val(budgetedAmount);
+                                    mymodal.find('#b_dueDate').val(dueDate);
+                                    mymodal.find('#b_envelopeAmount').val(envelopeAmount);
 
                                     $('#addBudgetedItemModal').modal('show');
                                 });

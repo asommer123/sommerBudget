@@ -2,6 +2,7 @@ package edu.matc.persistence;
 
 import edu.matc.entity.*;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.MatchMode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -114,15 +115,30 @@ public class AbstractDaoTest {
     }
 
     @Test
+    public void findByPropertyTest() throws Exception {
+        List<Users> usersList = usersAbstractDao.findByProperty("userName", "testAccount");
+        log.info("Users: " + usersList);
+    }
+
+    @Test
+    public void findByPropertyMatchTest() throws Exception {
+        List<Users> usersList = usersAbstractDao.findByProperty("userName", "testAccount", MatchMode.EXACT);
+        log.info("Users: " + usersList);
+    }
+
+    @Test
     public void findByPropertyMapTest() throws Exception {
         Map<String, Object> propertyMap = new HashMap<String, Object>();
+        Users users = usersAbstractDao.get(1);
 
         propertyMap.put("budgetMonth", "November");
         propertyMap.put("budgetYear", "2017");
+        propertyMap.put("users", users);
 
         List<BudgetMonth> budgetMonth = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
 
         log.info("BudgetMonth: " + budgetMonth);
+
     }
 
 
@@ -142,4 +158,36 @@ public class AbstractDaoTest {
     public void deleteTest() throws Exception {
     }
 
+
+
+    @Test
+    public void addNewBudgetMonthTest() throws Exception {
+
+        String monthSelected = "January";
+        String yearSelected = "1234";
+
+        AbstractDao<Users> usersAbstractDao1 = new AbstractDao<>(Users.class);
+        Users users = usersAbstractDao1.findByProperty("userName", "testAccount").get(0);
+
+        log.info("User: " + users);
+
+        BudgetMonth budgetMonth = new BudgetMonth(monthSelected, yearSelected, users);
+        log.info("New BudgetMonth: " + budgetMonth);
+
+        users.getBudgetMonths().add(budgetMonth);
+
+        usersAbstractDao1.update(users);
+
+
+        Map<String, Object> propertyMap = new HashMap<String, Object>();
+
+        propertyMap.put("budgetMonth", monthSelected);
+        propertyMap.put("budgetYear", yearSelected);
+        propertyMap.put("users", users);
+
+        AbstractDao<BudgetMonth> budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
+        List<BudgetMonth> budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
+
+        log.info("Budget Month: " + budget);
+    }
 }

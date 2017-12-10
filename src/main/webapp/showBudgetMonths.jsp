@@ -55,7 +55,8 @@
                     <label><input type="radio" name="budgetId" value="${budget.budgetMonthId}">${budget.budgetMonth}-${budget.budgetYear}</label>
                 </div>
             </c:forEach>
-            <input type="submit" value="Edit/View Budget">
+            <button type="submit" name="submit" value="getBudget">Edit/View Budget</button>
+            <button type="submit" name="submit" value="deleteBudget">Delete Budget</button>
         </form>
     </div>
 </div>
@@ -63,22 +64,6 @@
 <br>
 <br>
 <br>
-
-
-<div class="container">
-    <h2>Select an Existing Budget to Edit/View Details</h2>
-    <div class="selectBudget">
-        <form action="getBudgetDetails" method="GET">
-            <c:forEach var="budget" items="${user.budgetMonths}">
-                <div class="radio">
-                    <label><input type="radio" name="budgetId" value="${budget.budgetMonthId}">${budget.budgetMonth}-${budget.budgetYear}</label>
-                </div>
-            </c:forEach>
-            <input type="submit" value="Edit/View Budget">
-        </form>
-    </div>
-</div>
-
 
 </body>
 </html>
