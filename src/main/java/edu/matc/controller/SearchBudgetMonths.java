@@ -3,7 +3,7 @@ package edu.matc.controller;
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.UserRole;
 import edu.matc.entity.Users;
-import edu.matc.persistence.UsersDao;
+import edu.matc.persistence.AbstractDao;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -31,8 +31,8 @@ public class SearchBudgetMonths extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        UsersDao usersDao = new UsersDao();
-        Users user = usersDao.getUserByUserName(request.getRemoteUser());
+        AbstractDao<Users> usersAbstractDao = new AbstractDao<>(Users.class);
+        Users user = usersAbstractDao.findByProperty("userName", request.getRemoteUser()).get(0);
 
         if (userAdmin(user)) {
             session.setAttribute("adminLoggedIn", true);

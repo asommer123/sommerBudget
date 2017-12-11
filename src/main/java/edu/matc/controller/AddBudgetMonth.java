@@ -3,7 +3,6 @@ package edu.matc.controller;
 import edu.matc.entity.BudgetMonth;
 import edu.matc.entity.Users;
 import edu.matc.persistence.AbstractDao;
-import edu.matc.persistence.UsersDao;
 import edu.matc.util.ConvertToCurrencyString;
 import org.apache.log4j.Logger;
 
@@ -30,20 +29,15 @@ public class AddBudgetMonth extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         String monthSelected = request.getParameter("monthSelected");
         log.info("monthSelected = " + monthSelected);
         String yearSelected = request.getParameter("yearSelected");
         log.info("yearSelected = " + yearSelected);
 
         AbstractDao<Users> usersAbstractDao = new AbstractDao<>(Users.class);
-        //UsersDao usersDao = new UsersDao();
-        //Users users = usersDao.getUserByUserName(request.getRemoteUser());
-        //List<Users> usersList = usersAbstractDao.findByProperty("userName", request.getRemoteUser());
         Users users = usersAbstractDao.findByProperty("userName", request.getRemoteUser()).get(0);
 
         log.info("Remote User: " + request.getRemoteUser());
-        //log.info("UsersList: " + usersList);
         log.info("User: " + users);
 
         BudgetMonth budgetMonth = new BudgetMonth(monthSelected, yearSelected, users);
@@ -51,9 +45,7 @@ public class AddBudgetMonth extends HttpServlet {
 
         users.getBudgetMonths().add(budgetMonth);
 
-        //usersDao.updateUser(users);
         usersAbstractDao.update(users);
-
 
         Map<String, Object> propertyMap = new HashMap<String, Object>();
 
@@ -62,7 +54,6 @@ public class AddBudgetMonth extends HttpServlet {
         propertyMap.put("users", users);
 
         AbstractDao<BudgetMonth> budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
-        //BudgetMonth budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap).get(0);
         List<BudgetMonth> budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
 
         log.info("Budget Month: " + budget);

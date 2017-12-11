@@ -1,11 +1,8 @@
 package edu.matc.controller;
 
 import edu.matc.entity.BudgetMonth;
-import edu.matc.entity.Users;
 import edu.matc.persistence.AbstractDao;
-import edu.matc.persistence.UsersDao;
 import edu.matc.util.ConvertToCurrencyString;
-import edu.matc.util.LocalDateAttributeConverter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Set;
 
 @WebServlet(
         name = "getBudgetDetails",
