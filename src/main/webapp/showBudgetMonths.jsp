@@ -9,6 +9,26 @@
     <c:import url="navbar.jsp" />
 </div>
 
+
+<script type="text/javascript">
+    $(document).on("submit", "#add_form", function(event) {
+        var $form = $(this);
+        var id = document.getElementById("b_budgetedId").value;
+        $('#deleteBudgetMonthModal').modal('hide');
+        $.post($form.attr("action"), $form.serialize(), function(response) {
+            var btnadd = $('#' + id);
+            btnadd.removeClass("btn-success").addClass("btn-default");
+            btnadd.find('span').toggleClass('glyphicon-edit').toggleClass('glyphicon-check');
+            btnadd.attr('disabled','disabled');
+        });
+        $('#deleteBudgetMonthModal').on('hidden.bs.modal', function () {
+            location.reload();
+        });
+        event.preventDefault();
+    });
+</script>
+
+
 <div class="container">
     <h2>Create a New Budget</h2>
     <p>Select the Month and Year</p>
@@ -54,12 +74,40 @@
                 <div class="radio">
                     <label><input type="radio" name="budgetId" value="${budget.budgetMonthId}">${budget.budgetMonth}-${budget.budgetYear}</label>
                 </div>
+
+                <script type="text/javascript" class="init">
+                    $(document).ready(function() {
+
+                        $('#deleteBudgetMonth').click(function () {
+                            var budgetId = '${budget.budgetMonthId}';
+                            var budgetMonth = '${budget.budgetMonth}';
+                            var budgetYear = '${budget.budgetYear}';
+                            var mymodal = $('#deleteBudgetMonthModal');
+
+                            mymodal.find('.modal-title').text("Confirm Delete of " + budgetMonth + "-" + budgetYear + " Budget");
+                            mymodal.find('#b_budgetId').val(budgetId);
+                            mymodal.find('#b_budgetMonth').val(budgetMonth);
+                            mymodal.find('#b_budgetYear').val(budgetYear);
+
+                            $('#deleteBudgetMonthModal').modal('show');
+                        });
+
+                    } );
+                </script>
             </c:forEach>
             <button type="submit" name="submit" value="getBudget">Edit/View Budget</button>
-            <button type="submit" name="submit" value="deleteBudget">Delete Budget</button>
+            <button type="submit" name="submit" value="deleteBudget" id="deleteBudgetMonth">Delete Budget</button>
+
+
+            <c:import url="deleteBudgetMonthModal.jsp" />
         </form>
     </div>
 </div>
+
+
+
+</div>
+
 
 <br>
 <br>
