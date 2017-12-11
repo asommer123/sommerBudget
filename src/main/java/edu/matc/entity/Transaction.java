@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * The type Transaction. Contains all of the key information for a single transaction for a budgeted item.
+ */
 @Entity
 @Table(name = "transaction")
 public class Transaction {
@@ -27,42 +30,92 @@ public class Transaction {
     @JoinColumn(name = "budgeted_id", referencedColumnName = "budgeted_id", nullable = false)
     private BudgetedItem budgetedItem;
 
+    /**
+     * Gets transaction id.
+     *
+     * @return the transaction id
+     */
     public int getTransactionId() {
         return transactionId;
     }
 
+    /**
+     * Sets transaction id.
+     *
+     * @param transactionId the transaction id
+     */
     public void setTransactionId(int transactionId) {
         this.transactionId = transactionId;
     }
 
+    /**
+     * Gets transaction amount.
+     *
+     * @return the transaction amount
+     */
     public BigDecimal getTransactionAmount() {
         return transactionAmount;
     }
 
+    /**
+     * Sets transaction amount.
+     *
+     * @param transactionAmount the transaction amount
+     */
     public void setTransactionAmount(BigDecimal transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 
+    /**
+     * Gets transaction date.
+     *
+     * @return the transaction date
+     */
     public Date getTransactionDate() {
         return transactionDate;
     }
 
+    /**
+     * Sets transaction date.
+     *
+     * @param transactionDate the transaction date
+     */
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
     }
 
+    /**
+     * Gets note.
+     *
+     * @return the note
+     */
     public String getNote() {
         return note;
     }
 
+    /**
+     * Sets note.
+     *
+     * @param note the note
+     */
     public void setNote(String note) {
         this.note = note;
     }
 
+    /**
+     * Gets budgeted item.
+     *
+     * @return the budgeted item
+     */
     public BudgetedItem getBudgetedItem() {
         return budgetedItem;
     }
 
+    /**
+     * Sets budgeted item.
+     *
+     * @param budgetedItem the budgeted item
+     */
     public void setBudgetedItem(BudgetedItem budgetedItem) {
         this.budgetedItem = budgetedItem;
     }

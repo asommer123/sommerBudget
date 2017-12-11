@@ -23,28 +23,52 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Users dao test.
+ */
 public class UsersDaoTest {
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * The Dao.
+     */
     UsersDao dao;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         dao = new UsersDao();
     }
 
+    /**
+     * Gets all users.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getAllUsers() throws Exception {
         List<Users> users = dao.getAllUsers();
         assertTrue(users.size() > 0);
     }
 
+    /**
+     * Gets user.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getUser() throws Exception {
         Users user = dao.getUser(1);
         assertTrue(user.getAccountId() == 1);
     }
 
+    /**
+     * Gets user by user name test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getUserByUserNameTest() throws Exception {
         Users users = dao.getUserByUserName("testAccount");
@@ -52,6 +76,11 @@ public class UsersDaoTest {
         assertTrue(users.getUserName().equals("testAccount"));
     }
 
+    /**
+     * Add user.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void addUser() throws Exception {
         Users user = new Users();
@@ -72,6 +101,11 @@ public class UsersDaoTest {
         assertTrue(dao.getUser(userId).equals(user));
     }
 
+    /**
+     * Delete user.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteUser() throws Exception {
         Users user = dao.getUser(3);
@@ -82,6 +116,11 @@ public class UsersDaoTest {
         assertTrue(user2 == null);
     }
 
+    /**
+     * Update user.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void updateUser() throws Exception {
         Users users = dao.getUser(1);
@@ -93,6 +132,11 @@ public class UsersDaoTest {
         assertTrue(users.equals(users1));
     }
 
+    /**
+     * Api test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apiTest() throws Exception {
 

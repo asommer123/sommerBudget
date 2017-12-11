@@ -17,6 +17,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Creates a new BudgetedItem based on the information passed in the request parameters.
+ */
 @WebServlet(
         name = "addBudgetedItem",
         urlPatterns = {"/addBudgetedItem"}
@@ -26,6 +29,14 @@ public class AddBudgetItem extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Creates a new BudgetedItem based on the information passed in the request parameters.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

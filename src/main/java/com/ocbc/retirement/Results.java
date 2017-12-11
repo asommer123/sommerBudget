@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 import java.util.Currency;
 
+/**
+ * The Results from the OCBC retirement api. Contains the 'result' information for what was passed.
+ */
 @Generated("com.robohorse.robopojogenerator")
 public class Results{
 
@@ -37,83 +40,183 @@ public class Results{
 	@JsonProperty("cashDepositSetAside")
 	private double cashDepositSetAside;
 
-	public void setFutureLsInvestment(double futureLsInvestment){
+    /**
+     * Set future ls investment.
+     *
+     * @param futureLsInvestment the future ls investment
+     */
+    public void setFutureLsInvestment(double futureLsInvestment){
 		this.futureLsInvestment = futureLsInvestment;
 	}
 
-	public double getFutureLsInvestment(){
+    /**
+     * Get future ls investment double.
+     *
+     * @return the double
+     */
+    public double getFutureLsInvestment(){
 		return futureLsInvestment;
 	}
 
-	public void setAfterInvesting(double afterInvesting){
+    /**
+     * Set after investing.
+     *
+     * @param afterInvesting the after investing
+     */
+    public void setAfterInvesting(double afterInvesting){
 		this.afterInvesting = afterInvesting;
 	}
 
-	public double getAfterInvesting(){
+    /**
+     * Get after investing double.
+     *
+     * @return the double
+     */
+    public double getAfterInvesting(){
 		return afterInvesting;
 	}
 
-	public void setFinalCost(double finalCost){
+    /**
+     * Set final cost.
+     *
+     * @param finalCost the final cost
+     */
+    public void setFinalCost(double finalCost){
 		this.finalCost = finalCost;
 	}
 
-	public double getFinalCost(){
+    /**
+     * Get final cost double.
+     *
+     * @return the double
+     */
+    public double getFinalCost(){
 		return finalCost;
 	}
 
-	public void setTotalSetAside(double totalSetAside){
+    /**
+     * Set total set aside.
+     *
+     * @param totalSetAside the total set aside
+     */
+    public void setTotalSetAside(double totalSetAside){
 		this.totalSetAside = totalSetAside;
 	}
 
-	public double getTotalSetAside(){
+    /**
+     * Get total set aside double.
+     *
+     * @return the double
+     */
+    public double getTotalSetAside(){
 		return totalSetAside;
 	}
 
-	public void setLumpSumSetAside(double lumpSumSetAside){
+    /**
+     * Set lump sum set aside.
+     *
+     * @param lumpSumSetAside the lump sum set aside
+     */
+    public void setLumpSumSetAside(double lumpSumSetAside){
 		this.lumpSumSetAside = lumpSumSetAside;
 	}
 
-	public double getLumpSumSetAside(){
+    /**
+     * Get lump sum set aside double.
+     *
+     * @return the double
+     */
+    public double getLumpSumSetAside(){
 		return lumpSumSetAside;
 	}
 
-	public void setBeforeInvesting(double beforeInvesting){
+    /**
+     * Set before investing.
+     *
+     * @param beforeInvesting the before investing
+     */
+    public void setBeforeInvesting(double beforeInvesting){
 		this.beforeInvesting = beforeInvesting;
 	}
 
-	public double getBeforeInvesting(){
+    /**
+     * Get before investing double.
+     *
+     * @return the double
+     */
+    public double getBeforeInvesting(){
 		return beforeInvesting;
 	}
 
-	public void setSrsSetAside(double srsSetAside){
+    /**
+     * Set srs set aside.
+     *
+     * @param srsSetAside the srs set aside
+     */
+    public void setSrsSetAside(double srsSetAside){
 		this.srsSetAside = srsSetAside;
 	}
 
-	public double getSrsSetAside(){
+    /**
+     * Get srs set aside double.
+     *
+     * @return the double
+     */
+    public double getSrsSetAside(){
 		return srsSetAside;
 	}
 
-	public void setRegularSetAside(double regularSetAside){
+    /**
+     * Set regular set aside.
+     *
+     * @param regularSetAside the regular set aside
+     */
+    public void setRegularSetAside(double regularSetAside){
 		this.regularSetAside = regularSetAside;
 	}
 
-	public double getRegularSetAside(){
+    /**
+     * Get regular set aside double.
+     *
+     * @return the double
+     */
+    public double getRegularSetAside(){
 		return regularSetAside;
 	}
 
-	public void setFinalSurplus(double finalSurplus){
+    /**
+     * Set final surplus.
+     *
+     * @param finalSurplus the final surplus
+     */
+    public void setFinalSurplus(double finalSurplus){
 		this.finalSurplus = finalSurplus;
 	}
 
-	public double getFinalSurplus(){
+    /**
+     * Get final surplus double.
+     *
+     * @return the double
+     */
+    public double getFinalSurplus(){
 		return finalSurplus;
 	}
 
-	public void setCashDepositSetAside(double cashDepositSetAside){
+    /**
+     * Set cash deposit set aside.
+     *
+     * @param cashDepositSetAside the cash deposit set aside
+     */
+    public void setCashDepositSetAside(double cashDepositSetAside){
 		this.cashDepositSetAside = cashDepositSetAside;
 	}
 
-	public double getCashDepositSetAside(){
+    /**
+     * Get cash deposit set aside double.
+     *
+     * @return the double
+     */
+    public double getCashDepositSetAside(){
 		return cashDepositSetAside;
 	}
 

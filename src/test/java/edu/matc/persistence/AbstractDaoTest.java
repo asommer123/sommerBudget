@@ -15,6 +15,9 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Abstract dao test.
+ */
 public class AbstractDaoTest {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -24,6 +27,9 @@ public class AbstractDaoTest {
     private AbstractDao<Category> categoryAbstractDao;
     private AbstractDao<BudgetedItem> budgetedItemAbstractDao;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         usersAbstractDao = new AbstractDao(Users.class);
@@ -32,6 +38,11 @@ public class AbstractDaoTest {
         budgetedItemAbstractDao = new AbstractDao<>(BudgetedItem.class);
     }
 
+    /**
+     * Create test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void createTest() throws Exception {
         Users user = new Users();
@@ -59,6 +70,11 @@ public class AbstractDaoTest {
         assertTrue(usersAbstractDao.get(userId).equals(user));
     }
 
+    /**
+     * Create test budget month.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void createTestBudgetMonth() throws Exception {
         Users user = usersAbstractDao.get(2);
@@ -73,8 +89,11 @@ public class AbstractDaoTest {
     }
 
 
-
-
+    /**
+     * Gets test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getTest() throws Exception {
         Users user = usersAbstractDao.get(1);
@@ -91,10 +110,20 @@ public class AbstractDaoTest {
 
     }
 
+    /**
+     * Gets all test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getAllTest() throws Exception {
     }
 
+    /**
+     * Update test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void updateTest() throws Exception {
         Users user = usersAbstractDao.get(1);
@@ -116,18 +145,33 @@ public class AbstractDaoTest {
 
     }
 
+    /**
+     * Find by property test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void findByPropertyTest() throws Exception {
         List<Users> usersList = usersAbstractDao.findByProperty("userName", "testAccount");
         log.info("Users: " + usersList);
     }
 
+    /**
+     * Find by property match test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void findByPropertyMatchTest() throws Exception {
         List<Users> usersList = usersAbstractDao.findByProperty("userName", "testAccount", MatchMode.EXACT);
         log.info("Users: " + usersList);
     }
 
+    /**
+     * Find by property map test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void findByPropertyMapTest() throws Exception {
         Map<String, Object> propertyMap = new HashMap<String, Object>();
@@ -144,7 +188,11 @@ public class AbstractDaoTest {
     }
 
 
-
+    /**
+     * Test calc total.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testCalcTotal() throws Exception {
         Category category = categoryAbstractDao.get(2);
@@ -156,12 +204,21 @@ public class AbstractDaoTest {
         }
     }
 
+    /**
+     * Delete test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteTest() throws Exception {
     }
 
 
-
+    /**
+     * Add new budget month test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void addNewBudgetMonthTest() throws Exception {
 
@@ -194,6 +251,11 @@ public class AbstractDaoTest {
     }
 
 
+    /**
+     * Update test budgeted item.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void updateTestBudgetedItem() throws Exception {
 

@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * Retrieves all of the budget months for the logged in user.
+ */
 @WebServlet(
         name = "searchBudgetMonths",
         urlPatterns = {"/searchBudgetMonths"}
@@ -25,6 +28,14 @@ public class SearchBudgetMonths extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Retrieves all of the budget months for the logged in user.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,6 +63,12 @@ public class SearchBudgetMonths extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Checks if the user has an admin user role.
+     *
+     * @param user the user to check
+     * @return true if user had admin user role; false otherwise
+     */
     private boolean userAdmin(Users user) {
         for (UserRole userRole : user.getUserRole()) {
             if (userRole.getRoleName().equals("administrator")) {

@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * The type Income. Contains all of the key information for an income for a budget month.
+ */
 @Entity
 @Table(name = "income")
 public class Income {
@@ -23,34 +26,74 @@ public class Income {
     @JoinColumn(name = "budget_month_id", referencedColumnName = "budget_month_id", nullable = false)
     private BudgetMonth budgetMonth;
 
+    /**
+     * Gets income id.
+     *
+     * @return the income id
+     */
     public int getIncomeId() {
         return incomeId;
     }
 
+    /**
+     * Sets income id.
+     *
+     * @param incomeId the income id
+     */
     public void setIncomeId(int incomeId) {
         this.incomeId = incomeId;
     }
 
+    /**
+     * Gets pay date.
+     *
+     * @return the pay date
+     */
     public Date getPayDate() {
         return payDate;
     }
 
+    /**
+     * Sets pay date.
+     *
+     * @param payDate the pay date
+     */
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
     }
 
+    /**
+     * Gets pay amount.
+     *
+     * @return the pay amount
+     */
     public BigDecimal getPayAmount() {
         return payAmount;
     }
 
+    /**
+     * Sets pay amount.
+     *
+     * @param payAmount the pay amount
+     */
     public void setPayAmount(BigDecimal payAmount) {
         this.payAmount = payAmount;
     }
 
+    /**
+     * Gets budget month.
+     *
+     * @return the budget month
+     */
     public BudgetMonth getBudgetMonth() {
         return budgetMonth;
     }
 
+    /**
+     * Sets budget month.
+     *
+     * @param budgetMonth the budget month
+     */
     public void setBudgetMonth(BudgetMonth budgetMonth) {
         this.budgetMonth = budgetMonth;
     }

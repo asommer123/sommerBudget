@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Retrieves the of the budget details for the budget month pass in the request parameters.
+ */
 @WebServlet(
         name = "getBudgetDetails",
         urlPatterns = {"/getBudgetDetails"}
@@ -23,7 +26,14 @@ public class GetBudgetDetails extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private final static String DELETEBUDGET = "deleteBudget";
 
-
+    /**
+     * Retrieves the of the budget details for the budget month pass in the request parameters.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

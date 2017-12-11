@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type Users. Contains all of the key information about a specific user.
+ */
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
@@ -46,9 +49,21 @@ public class Users implements Serializable {
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 
+    /**
+     * Instantiates a new Users.
+     */
     public Users() {
     }
 
+    /**
+     * Instantiates a new Users.
+     *
+     * @param userName     the user name
+     * @param userPass     the user pass
+     * @param firstName    the first name
+     * @param lastName     the last name
+     * @param emailAddress the email address
+     */
     public Users(String userName, String userPass, String firstName, String lastName, String emailAddress) {
         this.userName = userName;
         this.userPass = userPass;
@@ -57,66 +72,146 @@ public class Users implements Serializable {
         this.emailAddress = emailAddress;
     }
 
+    /**
+     * Gets account id.
+     *
+     * @return the account id
+     */
     public int getAccountId() {
         return accountId;
     }
 
+    /**
+     * Sets account id.
+     *
+     * @param accountId the account id
+     */
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 
+    /**
+     * Gets user name.
+     *
+     * @return the user name
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * Sets user name.
+     *
+     * @param userName the user name
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * Gets user pass.
+     *
+     * @return the user pass
+     */
     public String getUserPass() {
         return userPass;
     }
 
+    /**
+     * Sets user pass.
+     *
+     * @param userPass the user pass
+     */
     public void setUserPass(String userPass) {
         this.userPass = userPass;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets last name.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets email address.
+     *
+     * @return the email address
+     */
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    /**
+     * Sets email address.
+     *
+     * @param emailAddress the email address
+     */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
+    /**
+     * Gets budget months.
+     *
+     * @return the budget months
+     */
     public Set<BudgetMonth> getBudgetMonths() {
         return budgetMonths;
     }
 
+    /**
+     * Sets budget months.
+     *
+     * @param budgetMonths the budget months
+     */
     public void setBudgetMonths(Set<BudgetMonth> budgetMonths) {
         this.budgetMonths = budgetMonths;
     }
 
+    /**
+     * Gets user role.
+     *
+     * @return the user role
+     */
     public Set<UserRole> getUserRole() {
         return userRoles;
     }
 
+    /**
+     * Sets user role.
+     *
+     * @param userRoles the user roles
+     */
     public void setUserRole(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }

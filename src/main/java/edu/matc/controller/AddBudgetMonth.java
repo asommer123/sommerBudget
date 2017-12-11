@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Creates a new BudgetMonth based on the information passed in the request parameters.
+ */
 @WebServlet(
         name = "addBudgetMonth",
         urlPatterns = {"/addBudgetMonth"}
@@ -25,7 +28,14 @@ public class AddBudgetMonth extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
-
+    /**
+     * Creates a new BudgetMonth based on the information passed in the request parameters.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

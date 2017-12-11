@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Creates a new Category based on the information passed in the request parameters.
+ */
 @WebServlet(
         name = "addCategory",
         urlPatterns = {"/addCategory"}
@@ -21,6 +24,14 @@ public class AddCategory extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Creates a new Category based on the information passed in the request parameters.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

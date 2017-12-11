@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+/**
+ * The type Budget month. Contains key information to identify a single monthly budget.
+ */
 @Entity
 @Table(name = "budgetMonth")
 public class BudgetMonth {
@@ -35,63 +38,138 @@ public class BudgetMonth {
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<Income> incomes;
 
+    /**
+     * Instantiates a new Budget month.
+     */
     public BudgetMonth() {
     }
 
+    /**
+     * Instantiates a new Budget month.
+     *
+     * @param budgetMonth the budget month
+     * @param budgetYear  the budget year
+     * @param users       the users
+     */
     public BudgetMonth(String budgetMonth, String budgetYear, Users users) {
         this.budgetMonth = budgetMonth;
         this.budgetYear = budgetYear;
         this.users = users;
     }
 
+    /**
+     * Gets budget month id.
+     *
+     * @return the budget month id
+     */
     public int getBudgetMonthId() {
         return budgetMonthId;
     }
 
+    /**
+     * Sets budget month id.
+     *
+     * @param budgetMonthId the budget month id
+     */
     public void setBudgetMonthId(int budgetMonthId) {
         this.budgetMonthId = budgetMonthId;
     }
 
+    /**
+     * Gets budget month.
+     *
+     * @return the budget month
+     */
     public String getBudgetMonth() {
         return budgetMonth;
     }
 
+    /**
+     * Sets budget month.
+     *
+     * @param budgetMonth the budget month
+     */
     public void setBudgetMonth(String budgetMonth) {
         this.budgetMonth = budgetMonth;
     }
 
+    /**
+     * Gets budget year.
+     *
+     * @return the budget year
+     */
     public String getBudgetYear() {
         return budgetYear;
     }
 
+    /**
+     * Sets budget year.
+     *
+     * @param budgetYear the budget year
+     */
     public void setBudgetYear(String budgetYear) {
         this.budgetYear = budgetYear;
     }
 
+    /**
+     * Gets users.
+     *
+     * @return the users
+     */
     public Users getUsers() {
         return users;
     }
 
+    /**
+     * Sets users.
+     *
+     * @param usersByAccountId the users by account id
+     */
     public void setUsers(Users usersByAccountId) {
         this.users = usersByAccountId;
     }
 
+    /**
+     * Gets categories.
+     *
+     * @return the categories
+     */
     public Collection<Category> getCategories() {
         return categories;
     }
 
+    /**
+     * Sets categories.
+     *
+     * @param categories the categories
+     */
     public void setCategories(Collection<Category> categories) {
         this.categories = categories;
     }
 
+    /**
+     * Gets incomes.
+     *
+     * @return the incomes
+     */
     public Collection<Income> getIncomes() {
         return incomes;
     }
 
+    /**
+     * Sets incomes.
+     *
+     * @param incomes the incomes
+     */
     public void setIncomes(Collection<Income> incomes) {
         this.incomes = incomes;
     }
 
+    /**
+     * Calculates the total for all items being budgeted.
+     *
+     * @return the total as big decimal
+     */
     public BigDecimal calculateBudgetedTotal() {
         BigDecimal total = new BigDecimal(0);
 
@@ -102,6 +180,11 @@ public class BudgetMonth {
         return total;
     }
 
+    /**
+     * Calculates the total for all income for budget month.
+     *
+     * @return the total as big decimal
+     */
     public BigDecimal calculateIncomeTotal() {
         BigDecimal total = new BigDecimal(0);
 
@@ -112,6 +195,11 @@ public class BudgetMonth {
         return total;
     }
 
+    /**
+     * Calculate remaining amount to be budgeted (income - budgeted).
+     *
+     * @return the big decimal
+     */
     public BigDecimal calculateRemaining() {
         return calculateIncomeTotal().subtract(calculateBudgetedTotal());
     }

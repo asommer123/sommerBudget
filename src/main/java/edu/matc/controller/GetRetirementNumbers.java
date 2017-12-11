@@ -18,6 +18,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Calls the OCBC retirement api with the information passed in the request parameters.
+ */
 @WebServlet(
         name = "getRetirementNumbers",
         urlPatterns = {"/getRetirementNumbers"}
@@ -26,6 +29,14 @@ public class GetRetirementNumbers extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Calls the OCBC retirement api with the information passed in the request parameters.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -57,7 +68,23 @@ public class GetRetirementNumbers extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-
+    /**
+     * Call the OCBC retirement api and returns the Response json.
+     *
+     * @param currentAge the current age
+     * @param retirementAge the retirement age
+     * @param yearsAfterRetirement the years after retirement
+     * @param supplementaryAllowance the supplementary allowance
+     * @param monthlySpending the monthly spending
+     * @param srsValue the srs value
+     * @param propertySaleValue the property sale value
+     * @param regularInvestments the regular investments
+     * @param lumpSumInvestments the lump sum investments
+     * @param cashAndDeposits the cash and deposits
+     * @param growthOpt the growth option
+     * @return the Response on the api call
+     * @throws Exception
+     */
     private Response calculateRetirement(String currentAge, String retirementAge, String yearsAfterRetirement,
                                          String supplementaryAllowance, String monthlySpending, String srsValue,
                                          String propertySaleValue, String regularInvestments, String lumpSumInvestments,

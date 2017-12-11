@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 import java.text.NumberFormat;
 
+/**
+ * The Response from the OCBC retirement api. Contains Results and disclaimer.
+ */
 @Generated("com.robohorse.robopojogenerator")
 public class Response{
 
@@ -13,19 +16,39 @@ public class Response{
 	@JsonProperty("disclaimer")
 	private String disclaimer;
 
-	public void setResults(Results results){
+    /**
+     * Set results.
+     *
+     * @param results the results
+     */
+    public void setResults(Results results){
 		this.results = results;
 	}
 
-	public Results getResults(){
+    /**
+     * Get results results.
+     *
+     * @return the results
+     */
+    public Results getResults(){
 		return results;
 	}
 
-	public void setDisclaimer(String disclaimer){
+    /**
+     * Set disclaimer.
+     *
+     * @param disclaimer the disclaimer
+     */
+    public void setDisclaimer(String disclaimer){
 		this.disclaimer = disclaimer;
 	}
 
-	public String getDisclaimer(){
+    /**
+     * Get disclaimer string.
+     *
+     * @return the string
+     */
+    public String getDisclaimer(){
 		return disclaimer;
 	}
 

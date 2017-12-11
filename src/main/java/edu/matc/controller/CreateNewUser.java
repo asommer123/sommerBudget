@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Creates a new User based on the information passed in the request parameters.
+ */
 @WebServlet(
         name = "createNewUser",
         urlPatterns = {"/createNewUser"}
@@ -21,6 +24,14 @@ public class CreateNewUser extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Creates a new User based on the information passed in the request parameters.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

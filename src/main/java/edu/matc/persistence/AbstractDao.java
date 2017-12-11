@@ -1,7 +1,5 @@
 package edu.matc.persistence;
 
-
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -16,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by
- * Modeled after: https://rodrigouchoa.wordpress.com/2014/09/26/generic-dao-example/
- * and https://github.com/MadJavaEntFall2017/FatBikeTrailReports/blob/master/src/main/java/com/paulawaite/fbtr/persistence/AbstractDao.java
+ * Abstract dao that can perform full CRUD on tables.
+ * Modeled after: https://github.com/MadJavaEntFall2017/FatBikeTrailReports/blob/master/src/main/java/com/paulawaite/fbtr/persistence/AbstractDao.java
  *
+ * @param <T> the type parameter
  */
 public class AbstractDao<T> {
 
@@ -126,9 +124,6 @@ public class AbstractDao<T> {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            // merge resolved this issue:
-            // https://blog.tallan.com/2008/09/18/hibernate-merge-vs-saveorupdate/
-            //session.merge(object);
             session.saveOrUpdate(object);
             transaction.commit();
             log.debug("Updated " + object.getClass().getName() + ": " + object);
@@ -188,7 +183,6 @@ public class AbstractDao<T> {
      */
     @SuppressWarnings("unchecked")
     public List<T> findByProperty(String propertyName, Object value) {
-        //return getSession().createCriteria(type).add(Restrictions.eq(propertyName, value)).list();
         Session session = null;
         ArrayList<T> list = null;
 
@@ -206,10 +200,14 @@ public class AbstractDao<T> {
     }
 
 
+    /**
+     * Finds entities by a map of its properties.
+     *
+     * @param propertyMap the property map
+     * @return the list of entities
+     */
     @SuppressWarnings("unchecked")
     public List<T> findByPropertyMap(Map<String, Object> propertyMap) {
-
-        //List<T> list = getSession().createCriteria(type).add(Restrictions.allEq(propertyMap)).list();
         Session session = null;
         ArrayList<T> list = null;
 
@@ -249,7 +247,7 @@ public class AbstractDao<T> {
      *
      * @param order           the order: ASC or DESC.
      * @param propertiesOrder the properties on which to apply the ordering.
-     * @return list
+     * @return list list
      */
     @SuppressWarnings("unchecked")
     public List<T> findAll(String order, String... propertiesOrder) {

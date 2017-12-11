@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Deletes the User for the id passed in the request parameters.
+ */
 @WebServlet(
         name = "deleteUser",
         urlPatterns = {"/deleteUser"}
@@ -20,6 +23,14 @@ public class DeleteUser extends HttpServlet {
 
     private final Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Deletes the User for the id passed in the request parameters.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

@@ -19,6 +19,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Updates the budgeted item for the information passed in the request parameters.
+ */
 @WebServlet(
         name = "updateBudgetedItem",
         urlPatterns = {"/updateBudgetedItem"}
@@ -28,6 +31,14 @@ public class UpdateBudgetedItem extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Updates the budgeted item for the information passed in the request parameters.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -38,7 +49,6 @@ public class UpdateBudgetedItem extends HttpServlet {
         String b_dueDate = request.getParameter("b_dueDate");
         String b_envelopeAmount = request.getParameter("b_envelopeAmount");
         String b_note = request.getParameter("b_note");
-
 
         log.info("b_categoryId = " + b_categoryId);
         log.info("b_subCategoryName = " + b_subCategoryName);
@@ -77,16 +87,12 @@ public class UpdateBudgetedItem extends HttpServlet {
                 budgetedItem.setNote(b_note);
             }
 
-
             budgetedItemAbstractDao.update(budgetedItem);
             budgetId = budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId();
             log.info("Budget Month Id" + budgetedItem.getCategory().getBudgetMonth().getBudgetMonthId());
         } catch (Exception e) {
             log.error("Error occurred updating budgeted item", e);
         }
-
-
-
 
         AbstractDao<BudgetMonth> dao = new AbstractDao<>(BudgetMonth.class);
         BudgetMonth budget = dao.get(budgetId);

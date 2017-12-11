@@ -11,10 +11,14 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Users dao.
+ */
 public class UsersDao {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    /** Return a list of all users
+    /**
+     * Return a list of all users
      *
      * @return All users
      */
@@ -40,7 +44,7 @@ public class UsersDao {
      * retrieve a user given their id
      *
      * @param id the user's id
-     * @return user
+     * @return user user
      */
     public Users getUser(int id) {
         Users user = null;
@@ -91,7 +95,7 @@ public class UsersDao {
     /**
      * add a user
      *
-     * @param user
+     * @param user the user
      * @return the id of the inserted record
      */
     public int addUser(Users user) {
@@ -128,6 +132,7 @@ public class UsersDao {
 
     /**
      * delete a user by id
+     *
      * @param id the user's id
      */
     public void deleteUser(int id) {
@@ -158,7 +163,8 @@ public class UsersDao {
 
     /**
      * Update the user
-     * @param user
+     *
+     * @param user the user
      */
     public void updateUser(Users user) {
         Transaction transaction = null;

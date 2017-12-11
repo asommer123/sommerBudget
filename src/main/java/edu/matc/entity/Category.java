@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+/**
+ * The type Category. Contains all the key information for a group of like budgeted items for a budget month.
+ */
 @Entity
 @Table(name = "category")
 public class Category {
@@ -27,46 +30,100 @@ public class Category {
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Collection<BudgetedItem> budgetedItems;
 
+    /**
+     * Instantiates a new Category.
+     */
     public Category() {
     }
 
+    /**
+     * Instantiates a new Category.
+     *
+     * @param categoryName the category name
+     * @param budgetMonth  the budget month
+     */
     public Category(String categoryName, BudgetMonth budgetMonth) {
         this.categoryName = categoryName;
         this.budgetMonth = budgetMonth;
     }
 
+    /**
+     * Gets category id.
+     *
+     * @return the category id
+     */
     public int getCategoryId() {
         return categoryId;
     }
 
+    /**
+     * Sets category id.
+     *
+     * @param categoryId the category id
+     */
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
+    /**
+     * Gets category name.
+     *
+     * @return the category name
+     */
     public String getCategoryName() {
         return categoryName;
     }
 
+    /**
+     * Sets category name.
+     *
+     * @param categoryName the category name
+     */
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
+    /**
+     * Gets budget month.
+     *
+     * @return the budget month
+     */
     public BudgetMonth getBudgetMonth() {
         return budgetMonth;
     }
 
+    /**
+     * Sets budget month.
+     *
+     * @param budgetMonth the budget month
+     */
     public void setBudgetMonth(BudgetMonth budgetMonth) {
         this.budgetMonth = budgetMonth;
     }
 
+    /**
+     * Gets budgeted items.
+     *
+     * @return the budgeted items
+     */
     public Collection<BudgetedItem> getBudgetedItems() {
         return budgetedItems;
     }
 
+    /**
+     * Sets budgeted items.
+     *
+     * @param budgetedItems the budgeted items
+     */
     public void setBudgetedItems(Collection<BudgetedItem> budgetedItems) {
         this.budgetedItems = budgetedItems;
     }
 
+    /**
+     * Calculates the total budgeted items in category as big decimal.
+     *
+     * @return the total as big decimal
+     */
     public BigDecimal calculateTotal() {
         BigDecimal total = new BigDecimal(0);
 
