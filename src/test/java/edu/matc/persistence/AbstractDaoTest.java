@@ -71,25 +71,6 @@ public class AbstractDaoTest {
     }
 
     /**
-     * Create test budget month.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void createTestBudgetMonth() throws Exception {
-        Users user = usersAbstractDao.get(2);
-
-        BudgetMonth budgetMonth = new BudgetMonth("August", "2017", user);
-
-        int budgetId = budgetMonthAbstractDao.create(budgetMonth);
-
-        log.info("budgetId: " + budgetId);
-
-        assertTrue(budgetMonthAbstractDao.get(budgetId).equals(budgetMonth));
-    }
-
-
-    /**
      * Gets test.
      *
      * @throws Exception the exception
@@ -105,9 +86,6 @@ public class AbstractDaoTest {
         }
 
         assertTrue(user.getAccountId() == 1);
-
-
-
     }
 
     /**
