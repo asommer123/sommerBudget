@@ -18,7 +18,7 @@ public class BudgetMonthTest {
     private AbstractDao<BudgetMonth> budgetMonthAbstractDao;
 
     /**
-     * Sets .
+     * Creates budget month abstract dao.
      */
     @Before
     public void setup() {
@@ -31,13 +31,28 @@ public class BudgetMonthTest {
      * @throws Exception the exception
      */
     @Test
-    public void calculateBudgetedTotalZero() throws Exception {
+    public void calculateBudgetedTotalZeroTest() throws Exception {
         BudgetMonth budgetMonth = budgetMonthAbstractDao.get(2);
 
         BigDecimal total = budgetMonth.calculateBudgetedTotal();
 
-        log.info("Total: " + total);
+        assertTrue(total.equals(BigDecimal.valueOf(0)));
+    }
 
+    /**
+     * Calculate budgeted total non-zero.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    public void calculateBudgetedTotalNonZeroTest() throws Exception {
+        BudgetMonth budgetMonth = budgetMonthAbstractDao.get(1);
+
+        BigDecimal total = budgetMonth.calculateBudgetedTotal();
+
+        log.info("total: " + total);
+
+        assertTrue(total.compareTo(BigDecimal.valueOf(1158.94)) == 0);
     }
 
     /**
@@ -47,6 +62,11 @@ public class BudgetMonthTest {
      */
     @Test
     public void calculateIncomeTotal() throws Exception {
+        BudgetMonth budgetMonth = budgetMonthAbstractDao.get(1);
+
+        BigDecimal total = budgetMonth.calculateIncomeTotal();
+
+        assertTrue(total.compareTo(BigDecimal.valueOf(2527.88)) == 0);
     }
 
     /**
@@ -56,6 +76,13 @@ public class BudgetMonthTest {
      */
     @Test
     public void calculateRemaining() throws Exception {
+        BudgetMonth budgetMonth = budgetMonthAbstractDao.get(1);
+
+        BigDecimal total = budgetMonth.calculateRemaining();
+
+        log.info("total: " + total);
+
+        assertTrue(total.compareTo(BigDecimal.valueOf(1368.94)) == 0);
     }
 
 }
