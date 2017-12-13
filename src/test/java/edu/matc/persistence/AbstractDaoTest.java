@@ -2,12 +2,9 @@ package edu.matc.persistence;
 
 import edu.matc.entity.*;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.MatchMode;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +17,8 @@ import static org.junit.Assert.*;
  */
 public class AbstractDaoTest {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final Logger log = Logger.getLogger(this.getClass());
+
     private AbstractDao<Users> usersAbstractDao;
     private AbstractDao<BudgetMonth> budgetMonthAbstractDao;
     private AbstractDao<Category> categoryAbstractDao;
@@ -95,6 +92,8 @@ public class AbstractDaoTest {
      */
     @Test
     public void getAllTest() throws Exception {
+        List<Users> users = usersAbstractDao.getAll();
+        assertTrue(users.size() > 0);
     }
 
     /**
@@ -106,7 +105,7 @@ public class AbstractDaoTest {
     public void updateTest() throws Exception {
         Users user = usersAbstractDao.get(1);
 
-        BudgetMonth budgetMonth = new BudgetMonth("November", "2017", user);
+        BudgetMonth budgetMonth = new BudgetMonth("December", "2017", user);
 
         user.getBudgetMonths().add(budgetMonth);
 
@@ -115,12 +114,7 @@ public class AbstractDaoTest {
 
         Users updatedUser = usersAbstractDao.get(1);
 
-        Set<BudgetMonth> budgetMonthes = updatedUser.getBudgetMonths();
-
-        for (BudgetMonth budgetMonthUpdated: budgetMonthes) {
-            log.info("BudgetMonth: " + budgetMonthUpdated);
-        }
-
+        assertTrue(user.getBudgetMonths().size() == updatedUser.getBudgetMonths().size());
     }
 
     /**
@@ -132,17 +126,8 @@ public class AbstractDaoTest {
     public void findByPropertyTest() throws Exception {
         List<Users> usersList = usersAbstractDao.findByProperty("userName", "testAccount");
         log.info("Users: " + usersList);
-    }
 
-    /**
-     * Find by property match test.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void findByPropertyMatchTest() throws Exception {
-        List<Users> usersList = usersAbstractDao.findByProperty("userName", "testAccount", MatchMode.EXACT);
-        log.info("Users: " + usersList);
+        assertTrue("testAccount".equals(usersList.get(0).getUserName()));
     }
 
     /**
@@ -163,24 +148,11 @@ public class AbstractDaoTest {
 
         log.info("BudgetMonth: " + budgetMonth);
 
+        assertTrue(budgetMonth.size() > 0);
+        assertTrue(budgetMonth.get(0).getBudgetMonth().equals("November"));
+        assertTrue(budgetMonth.get(0).getBudgetYear().equals("2017"));
     }
 
-
-    /**
-     * Test calc total.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void testCalcTotal() throws Exception {
-        Category category = categoryAbstractDao.get(2);
-        BigDecimal total = new BigDecimal(0);
-        for (BudgetedItem budgetedItem : category.getBudgetedItems()) {
-            total = total.add(budgetedItem.getBudgetedAmount());
-            log.info("       Total: " + total);
-            log.info("Budgeted Amt: " + budgetedItem.getBudgetedAmount());
-        }
-    }
 
     /**
      * Delete test.
@@ -189,70 +161,12 @@ public class AbstractDaoTest {
      */
     @Test
     public void deleteTest() throws Exception {
+        Users user = usersAbstractDao.get(3);
+        usersAbstractDao.delete(user);
+
+        Users user2 = usersAbstractDao.get(3);
+
+        assertTrue(user2 == null);
     }
 
-
-    /**
-     * Add new budget month test.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void addNewBudgetMonthTest() throws Exception {
-
-        String monthSelected = "January";
-        String yearSelected = "1234";
-
-        AbstractDao<Users> usersAbstractDao1 = new AbstractDao<>(Users.class);
-        Users users = usersAbstractDao1.findByProperty("userName", "testAccount").get(0);
-
-        log.info("User: " + users);
-
-        BudgetMonth budgetMonth = new BudgetMonth(monthSelected, yearSelected, users);
-        log.info("New BudgetMonth: " + budgetMonth);
-
-        users.getBudgetMonths().add(budgetMonth);
-
-        usersAbstractDao1.update(users);
-
-
-        Map<String, Object> propertyMap = new HashMap<String, Object>();
-
-        propertyMap.put("budgetMonth", monthSelected);
-        propertyMap.put("budgetYear", yearSelected);
-        propertyMap.put("users", users);
-
-        AbstractDao<BudgetMonth> budgetMonthAbstractDao = new AbstractDao<>(BudgetMonth.class);
-        List<BudgetMonth> budget = budgetMonthAbstractDao.findByPropertyMap(propertyMap);
-
-        log.info("Budget Month: " + budget);
-    }
-
-
-    /**
-     * Update test budgeted item.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void updateTestBudgetedItem() throws Exception {
-
-        String number = null;
-
-        BigDecimal amount = new BigDecimal("1234.56");
-        log.info("Amount: " + amount);
-
-        BigDecimal amount2 = new BigDecimal(number);
-        log.info("Amount2: " + amount2);
-
-
-        BudgetedItem budgetedItem = budgetedItemAbstractDao.get(1);
-
-        budgetedItem.setBudgetedAmount(new BigDecimal("1234.56"));
-
-        budgetedItemAbstractDao.update(budgetedItem);
-
-        BudgetedItem updatedBudgetedItem = budgetedItemAbstractDao.get(1);
-
-    }
 }

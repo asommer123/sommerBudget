@@ -224,45 +224,6 @@ public class AbstractDao<T> {
         return list;
     }
 
-    /**
-     * Finds entities by a String property specifying a MatchMode. This search
-     * is case insensitive.
-     *
-     * @param propertyName the property name.
-     * @param value        the value to check against.
-     * @param matchMode    the match mode: EXACT, START, END, ANYWHERE.
-     * @return list of entities matching the criteria
-     */
-    @SuppressWarnings("unchecked")
-    public List<T> findByProperty(String propertyName, String value, MatchMode matchMode){
-        if (matchMode != null){
-            return getSession().createCriteria(type).add(Restrictions.ilike(propertyName, value, matchMode)).list();
-        }else{
-            return getSession().createCriteria(type).add(Restrictions.ilike(propertyName, value, MatchMode.EXACT)).list();
-        }
-    }
-
-    /**
-     * Finds all objects of a class by the specified order.
-     *
-     * @param order           the order: ASC or DESC.
-     * @param propertiesOrder the properties on which to apply the ordering.
-     * @return list list
-     */
-    @SuppressWarnings("unchecked")
-    public List<T> findAll(String order, String... propertiesOrder) {
-        Criteria criteria = getSession().createCriteria(type);
-
-        for (String propertyOrder : propertiesOrder) {
-            if (propertyOrder.equals("ASC")) {// TODO should create enum for ASC, DESC
-                criteria.addOrder(org.hibernate.criterion.Order.asc(propertyOrder));
-            } else {
-                criteria.addOrder(org.hibernate.criterion.Order.desc(propertyOrder));
-            }
-        }
-
-        return criteria.list();
-    }
 
     /**
      * Returnes an open session from the SessionFactory
