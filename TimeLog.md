@@ -33,9 +33,7 @@
 | 12/10/17 | Ability to update and add all fields for budget item, improve delete of budget month, and some javadoc'ing |  | |
 | 12/11/17 | Working on junits, adding and cleaning up old ones |  | |
 | 12/12/17 | More clean-up of unit tests |  | |
-| //17 | |  | |
-| //17 | |  | |
-| //17 | |  | |
-| //17 | |  | |
+| 12/12/17 | Finish unit tests, code coverage, and create video. |  | |
+
 
 

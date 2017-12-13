@@ -19,3 +19,5 @@ A web-based solution (SommerBudget) would solve the problems of not having to us
   * Configurable logging using Log4J.
 * Site and database hosted on AWS
 * JUnit Testing
+
+[Video link](https://youtu.be/07Bj8JIRitI)
